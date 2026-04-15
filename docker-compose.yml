@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: betmaster_db
+    restart: always
+    environment:
+      POSTGRES_USER: betmaster_user
+      POSTGRES_PASSWORD: betmaster_pass
+      POSTGRES_DB: betmaster
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./:/project
+
+volumes:
+  postgres_data:
