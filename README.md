@@ -10,25 +10,6 @@
 ## Selected Unit
 **Football Betting Management**
 
-## Table of Contents
-- [Introduction](#introduction)
-- [System Description and Main Functionality](#system-description-and-main-functionality)
-- [Google AI Studio Application Link](#google-ai-studio-application-link)
-- [Screen Description](#screen-description)
-- [ERD and DSD Diagrams](#erd-and-dsd-diagrams)
-- [Entity Description](#entity-description)
-- [Relationships Between Entities](#relationships-between-entities)
-- [Schema Normalization up to 3NF](#schema-normalization-up-to-3nf)
-- [Design Decisions](#design-decisions)
-- [Technical Database Implementation](#technical-database-implementation)
-- [Data Insertion Methods](#data-insertion-methods)
-- [Record Counts](#record-counts)
-- [Backup and Restore](#backup-and-restore)
-- [Screenshots](#screenshots)
-- [Conclusion](#conclusion)
-
----
-
 ## Introduction
 The system developed is a football betting management system.  
 It allows users to view available matches for betting, choose a desired result, place bets according to the odds, and manage their personal account.  
