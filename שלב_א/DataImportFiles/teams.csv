@@ -1,601 +1,601 @@
 team_id,team_name,country
-1,Dustinchester City,Netherlands
-2,West Saramouth FC,Israel
-3,Gregoryhaven Rovers,Switzerland
-4,North Samanthastad Hapoel,Spain
-5,Bishopview Wanderers,Netherlands
-6,Josephville Dynamo,Morocco
-7,Destinyfurt Maccabi,Japan
-8,Mejiabury City,South Korea
-9,New Matthew Dynamo,Portugal
-10,West Amy Athletic,Spain
-11,Port Carloschester Wanderers,France
-12,New Daltonmouth Eagles,United States
-13,Jeffreyport Lions,Portugal
-14,Jamestown Eagles,France
-15,North Sheenaborough FC,Uruguay
-16,Lake Susanland Rovers,Switzerland
-17,South Diana Lions,Germany
-18,North Heather City,Denmark
-19,Kennethland Lions,Croatia
-20,Livingstonview Sporting,South Korea
-21,Schwartzmouth Wanderers,Argentina
-22,Fernandoland Sporting,Spain
-23,Kimberlyfurt City,England
-24,Cookton Dynamo,Uruguay
-25,Stephanieview Athletic,Israel
-26,South Chad Rovers,Croatia
-27,New Philip Athletic,United States
-28,Rodriguezside Rovers,Uruguay
-29,Robinsonville Rovers,Switzerland
-30,Baldwinville Eagles,Switzerland
-31,North Chadview FC,Portugal
-32,Smithfort Lions,Belgium
-33,Lake Danielle Eagles,Italy
-34,Lake Peterberg FC,Spain
-35,Rebeccashire Dynamo,Netherlands
-36,New Jasminefort City,Croatia
-37,Grahamland Lions,South Korea
-38,North Patrick Eagles,Netherlands
-39,Martinezside Eagles,Spain
-40,Mathewport Lions,Netherlands
-41,Brownland Wanderers,Denmark
-42,Amandamouth Athletic,Italy
-43,Port Steveport City,Japan
-44,East Angela City,United States
-45,Guerreroport Eagles,Denmark
-46,Mosleystad Wanderers,Mexico
-47,Millermouth Eagles,Morocco
-48,East Austin Dynamo,Morocco
-49,Lake Wendybury Lions,Germany
-50,Priceside Athletic,Denmark
-51,Victormouth United,South Korea
-52,North Matthewmouth Dynamo,South Korea
-53,South Davidhaven Eagles,Belgium
-54,Bentleyside United,Switzerland
-55,Lake Beth United,Brazil
-56,North Jillfort Maccabi,South Korea
-57,South Rebeccaton Athletic,Switzerland
-58,Lake Deborah Maccabi,England
-59,East Cynthiaport City,Uruguay
-60,South Cherylshire Maccabi,United States
-61,Port Lisaville United,Germany
-62,Larsonbury Eagles,Switzerland
-63,Port Jamesmouth Dynamo,Argentina
-64,Nguyenshire Maccabi,United States
-65,West Mary FC,United States
-66,Port Brandon City,South Korea
-67,West Bryan Sporting,United States
-68,Donaldchester Hapoel,Brazil
-69,Lake Mitchell Maccabi,United States
-70,South John Lions,Netherlands
-71,East Craigfurt Eagles,Israel
-72,North Nichole Sporting,Portugal
-73,North Adrianland FC,Germany
-74,Robertfort Hapoel,Argentina
-75,East Douglas FC,Mexico
-76,Alexandrachester Wanderers,Argentina
-77,East Cheryl Maccabi,Brazil
-78,New Hectorfort United,Japan
-79,Lake Margaretport FC,Netherlands
-80,Robertside Sporting,France
-81,East David City,Mexico
-82,New Michaelside Wanderers,Croatia
-83,South Kaylee Dynamo,Croatia
-84,West Brian Sporting,Argentina
-85,Port Edwardfort Lions,Morocco
-86,Thompsonton City,Belgium
-87,Lake Michaelborough United,France
-88,Kingmouth Maccabi,Croatia
-89,North Joyside Maccabi,England
-90,East Kristen Eagles,Italy
-91,Robertsonland FC,Israel
-92,Lake Sean Rovers,United States
-93,Robertmouth Lions,Morocco
-94,Port Daniel Sporting,Morocco
-95,North Joel Sporting,Italy
-96,Kanefurt Athletic,United States
-97,North Thomas Wanderers,England
-98,Brownchester Rovers,Germany
-99,East Sarah Eagles,Spain
-100,Thompsonstad FC,Mexico
-101,South Jennifer Hapoel,Israel
-102,Theresaborough Athletic,Germany
-103,Davidshire United,Spain
-104,West Derekmouth Hapoel,Brazil
-105,Barnesmouth Dynamo,Denmark
-106,West Cassandra Lions,Brazil
-107,New Tara Athletic,Brazil
-108,North Robert Sporting,United States
-109,Atkinsborough Athletic,Morocco
-110,Hoodview Athletic,Brazil
-111,Lake Ronniebury City,South Korea
-112,West Ryan Rovers,Italy
-113,New Sophia Eagles,Switzerland
-114,South Tinaton Wanderers,Switzerland
-115,Quinnhaven Hapoel,Uruguay
-116,South Amandafort Athletic,Netherlands
-117,South Tylerland City,South Korea
-118,Lake Jessicaborough Athletic,Mexico
-119,West Kenneth Rovers,Portugal
-120,North Timothyport FC,Morocco
-121,Lake Stephen Hapoel,France
-122,South Stevenberg Lions,Mexico
-123,Lopezstad Maccabi,Japan
-124,Padillatown FC,Belgium
-125,South Patriciamouth Lions,Croatia
-126,West Ronaldview Maccabi,Uruguay
-127,Port Gail Eagles,Mexico
-128,Jillton Sporting,England
-129,Pamelaville Rovers,Croatia
-130,Diazton City,Morocco
-131,Michaelside Dynamo,Italy
-132,New Jennaborough Athletic,Netherlands
-133,West John Eagles,England
-134,Lake Timothyshire Dynamo,Brazil
-135,Port Julie Maccabi,Mexico
-136,West Michael Sporting,Morocco
-137,Wesleychester Maccabi,England
-138,Brianstad Sporting,Italy
-139,Shaunhaven Rovers,Germany
-140,South Jenniferside Wanderers,Argentina
-141,Shannonstad Dynamo,Belgium
-142,East Patriciamouth United,Morocco
-143,North Peterburgh Eagles,Germany
-144,Susanland FC,Portugal
-145,East Joshuaberg Sporting,Denmark
-146,Hernandezborough Hapoel,Brazil
-147,West Robertside United,Germany
-148,South Michael Hapoel,Morocco
-149,Rojastown Athletic,Japan
-150,Jaimetown Athletic,Uruguay
-151,Port Stacey Rovers,Israel
-152,Robertmouth Athletic,Germany
-153,Toddhaven Eagles,Spain
-154,Ellisshire Eagles,Japan
-155,Port Kirk Athletic,Denmark
-156,Jeremystad Eagles,Germany
-157,Kaylaton Sporting,Italy
-158,West Justin Maccabi,Uruguay
-159,New Sandra Rovers,Croatia
-160,Ianburgh Dynamo,Morocco
-161,East John Lions,Belgium
-162,West Autumnmouth Rovers,Portugal
-163,Mikeborough Wanderers,South Korea
-164,Lake Loganstad Dynamo,United States
-165,West Shane United,Japan
-166,New Kevin Wanderers,Germany
-167,South Sarahberg Wanderers,Uruguay
-168,Reillyberg Sporting,Brazil
-169,Lake Amyhaven Hapoel,Italy
-170,Deborahport Eagles,England
-171,Kempshire FC,Portugal
-172,Port Annette Maccabi,Switzerland
-173,Morganville Hapoel,Mexico
-174,Mcculloughberg Rovers,England
-175,West Angelbury Athletic,Uruguay
-176,Howardmouth Athletic,Croatia
-177,New Danielleshire Hapoel,Italy
-178,Port Shari Dynamo,Morocco
-179,Jamesland Lions,Uruguay
-180,Rhodesland Rovers,Japan
-181,Leemouth Eagles,Japan
-182,Lake Michaelberg Dynamo,France
-183,Woodstad Eagles,Belgium
-184,West Michaelport City,England
-185,Sawyerland Eagles,Morocco
-186,Lake Pamela Dynamo,France
-187,Laraport Maccabi,Brazil
-188,Port Jessica Maccabi,Brazil
-189,Chandlerchester United,Brazil
-190,Port Brenda FC,Mexico
-191,East Jaredfort City,Italy
-192,Carlshire United,England
-193,Davischester FC,Germany
-194,Robertside Maccabi,United States
-195,Pageberg Wanderers,Brazil
-196,East Marisa Hapoel,Denmark
-197,Angelaton Dynamo,Japan
-198,Maryport FC,Israel
-199,Hansenmouth Maccabi,Morocco
-200,North Kylie Sporting,Israel
-201,West Kevin FC,South Korea
-202,Martinezport Eagles,Portugal
-203,Whitebury Maccabi,Netherlands
-204,North Kathyfort FC,South Korea
-205,New Julieshire Eagles,Mexico
-206,Cunninghamview City,Spain
-207,Mccannville United,South Korea
-208,Williamshire City,Italy
-209,Port Jordanshire Athletic,Denmark
-210,East Luisberg Maccabi,Portugal
-211,Frankview Wanderers,Portugal
-212,Robertstad Sporting,Argentina
-213,West Kellyland Wanderers,Croatia
-214,Port Courtney Dynamo,Switzerland
-215,New Karenside Athletic,Italy
-216,Moniqueport Rovers,Argentina
-217,Ginastad Lions,Brazil
-218,New Bettyberg United,Croatia
-219,East Aprilstad Sporting,Croatia
-220,Jenkinsburgh Maccabi,Japan
-221,East Ericbury FC,Israel
-222,Port Penny Eagles,France
-223,South Stevenland United,Japan
-224,Port Davidtown Sporting,Uruguay
-225,Baileystad Hapoel,Spain
-226,Port Scott Maccabi,Brazil
-227,Geraldport Athletic,Germany
-228,Lake Lisabury Eagles,Switzerland
-229,Port Heather Dynamo,Portugal
-230,West David FC,Argentina
-231,North Roger Lions,Portugal
-232,North Andrewfort Maccabi,Switzerland
-233,Williamsville Lions,Brazil
-234,Port Donnashire City,Uruguay
-235,South Davidview FC,Germany
-236,North Kevintown Hapoel,England
-237,Port Davidborough Eagles,Croatia
-238,East Ellen United,Netherlands
-239,North Dustinview City,Switzerland
-240,Michaelhaven Athletic,Switzerland
-241,New Ashley Sporting,Morocco
-242,Port Belindatown Wanderers,Croatia
-243,Lake James Eagles,England
-244,Georgeside Eagles,Argentina
-245,Lake Coreyborough Maccabi,Belgium
-246,Richardsonshire FC,Spain
-247,South Emily Sporting,Italy
-248,East Maryfurt United,Uruguay
-249,Lewisbury Hapoel,Denmark
-250,Rodriguezmouth Hapoel,Croatia
-251,South Danielberg Wanderers,Israel
-252,Farmerport Lions,Portugal
-253,North Markville Dynamo,Japan
-254,Campbellport Athletic,Belgium
-255,Perezchester Maccabi,Croatia
-256,Tracichester Sporting,France
-257,Port Chad Lions,Switzerland
-258,Crosbystad Lions,Croatia
-259,North Yolanda United,Denmark
-260,Powersfurt Rovers,Italy
-261,Millsland Eagles,Argentina
-262,East Ralphshire United,Portugal
-263,Lake Saraburgh City,Croatia
-264,West Theresamouth Eagles,England
-265,New Megan Eagles,Croatia
-266,Martinezchester Wanderers,Belgium
-267,Ramirezshire United,Argentina
-268,Katelynfurt FC,Netherlands
-269,Thomasfurt Dynamo,Belgium
-270,Dixonberg Rovers,Spain
-271,Rodriguezview City,Argentina
-272,Crawfordberg City,Mexico
-273,North Joanland Dynamo,Morocco
-274,Gregoryburgh Maccabi,South Korea
-275,Jacobsmouth Sporting,Spain
-276,West Christy FC,Argentina
-277,Port Charleshaven Wanderers,Morocco
-278,Sparksborough United,Denmark
-279,Ebonyfort Hapoel,Uruguay
-280,Amyside Sporting,Israel
-281,Port Anthonychester Rovers,Mexico
-282,South Shannonfurt Sporting,Argentina
-283,Stevenston Eagles,Morocco
-284,New Donna Athletic,Switzerland
-285,Nicoleburgh Maccabi,France
-286,Jordanport Lions,Croatia
-287,Freemanville City,England
-288,Kellerside Rovers,Netherlands
-289,Alvarezburgh Rovers,Japan
-290,South Joseshire City,Argentina
-291,Jensenstad City,Mexico
-292,Luketown Rovers,Mexico
-293,East Marystad Rovers,Japan
-294,Port Patriciamouth United,Belgium
-295,Davisstad Rovers,Italy
-296,Robertton Eagles,Japan
-297,East Jimmy Hapoel,Denmark
-298,Brittanyland Athletic,United States
-299,Dannyburgh United,England
-300,New Markmouth Rovers,Israel
-301,Bradleychester Sporting,Uruguay
-302,Andrewfort Hapoel,Croatia
-303,West Nicholasfurt Wanderers,United States
-304,Ashleyfort Wanderers,Mexico
-305,Lake Emilymouth Lions,Denmark
-306,Shawmouth City,Netherlands
-307,Harrisland Hapoel,Germany
-308,West Joseph Dynamo,Uruguay
-309,Wendyfurt City,Croatia
-310,New Julia Wanderers,Netherlands
-311,Lake Meganville Eagles,Japan
-312,Joshuashire Hapoel,Italy
-313,Simmonsstad Wanderers,Croatia
-314,Lake Madisonhaven Rovers,Croatia
-315,Ryanside Wanderers,Spain
-316,Jamesfurt Hapoel,Germany
-317,Colleenmouth Hapoel,Morocco
-318,North Courtney City,Morocco
-319,New Victor FC,United States
-320,Adamsside Eagles,Germany
-321,Michaelton Dynamo,Netherlands
-322,West Steven Eagles,Argentina
-323,East Julie Sporting,Japan
-324,Meganchester City,Netherlands
-325,Michelleland Athletic,Portugal
-326,Port Robert Lions,England
-327,Debbieview Eagles,Mexico
-328,South John Sporting,Argentina
-329,East Anthony Dynamo,Denmark
-330,Stevenside Dynamo,Switzerland
-331,Hendersonton Sporting,Morocco
-332,East Joseph Maccabi,Mexico
-333,West Kristineview Maccabi,Brazil
-334,Lake Melissa Wanderers,Morocco
-335,Caseyton Hapoel,Argentina
-336,West Carolynland United,Italy
-337,Mosleyland Lions,Belgium
-338,Hahnberg City,Denmark
-339,North Ashley FC,Switzerland
-340,New Elizabethshire Lions,Croatia
-341,Tylerland Wanderers,Mexico
-342,New David United,Israel
-343,Markshire United,Portugal
-344,Shafferbury Athletic,South Korea
-345,Robinsonville Eagles,South Korea
-346,East Tara Maccabi,Switzerland
-347,Ortizshire Eagles,Switzerland
-348,South Amandaville Athletic,United States
-349,Amyfort Wanderers,Croatia
-350,West Natasha Dynamo,Switzerland
-351,West Thomas Eagles,South Korea
-352,Loritown City,Belgium
-353,Port Joditon FC,Japan
-354,West Angela United,Netherlands
-355,Daniellestad Sporting,Argentina
-356,New Michellemouth United,England
-357,Smithfurt Wanderers,Netherlands
-358,Kevinbury Wanderers,United States
-359,Jasonburgh Athletic,South Korea
-360,Welchchester Dynamo,Belgium
-361,West Michellefort Dynamo,Spain
-362,Mclaughlinmouth Dynamo,United States
-363,Mcdowellville Wanderers,Argentina
-364,Lake Jose Rovers,Brazil
-365,West Robertside Eagles,Spain
-366,Shawntown FC,Uruguay
-367,Lake Darlenemouth Lions,Spain
-368,North Richard Lions,France
-369,Leeland Eagles,Italy
-370,East Johnberg Maccabi,France
-371,Sparksmouth Maccabi,France
-372,Mendozaberg Wanderers,Morocco
-373,Glennshire Sporting,United States
-374,Laurenborough Athletic,Croatia
-375,South Michaelfurt Lions,France
-376,Duffyshire City,Mexico
-377,North Stacy Sporting,Israel
-378,North Terri Eagles,Denmark
-379,West Jacqueline Athletic,United States
-380,North Richard Hapoel,Mexico
-381,Burkeberg Sporting,Israel
-382,West Georgeshire Eagles,Germany
-383,North Jenniferchester Athletic,Portugal
-384,Wilcoxfort Eagles,Argentina
-385,East Jenniferborough Hapoel,Spain
-386,Keithfort Maccabi,France
-387,Andersonborough Wanderers,Uruguay
-388,Port Justin Athletic,United States
-389,South Henry United,Portugal
-390,North Kelly Lions,Japan
-391,Joemouth Maccabi,Uruguay
-392,West Brandi Hapoel,Croatia
-393,Millerfort Hapoel,Croatia
-394,Port Marcus Hapoel,Spain
-395,Mcdanielfurt Wanderers,Belgium
-396,Fitzgeraldview Dynamo,Denmark
-397,North Angelaton City,Netherlands
-398,Sarahfort Hapoel,Switzerland
-399,Wendyton United,England
-400,West Williamfurt Wanderers,Spain
-401,Tiffanystad Athletic,Netherlands
-402,New Blake United,France
-403,West Geoffrey Wanderers,England
-404,Conradmouth Maccabi,Croatia
-405,North Logan Sporting,Denmark
-406,Thomasville City,Switzerland
-407,Bradleyberg Sporting,Mexico
-408,Savageview City,Japan
-409,Saraport Lions,Morocco
-410,Chloeview Eagles,France
-411,Ryanburgh Maccabi,France
-412,Jillianfort Dynamo,Netherlands
-413,New Melissa City,France
-414,Brownberg Wanderers,United States
-415,East Isaacfort Hapoel,Brazil
-416,Frankmouth Wanderers,Israel
-417,Wilsonfort Dynamo,England
-418,South Michaelside Athletic,Croatia
-419,Ellisville Maccabi,South Korea
-420,North Michael Lions,Japan
-421,Port Justin Sporting,Japan
-422,Lake William Sporting,United States
-423,Annashire Dynamo,France
-424,New Whitney United,Switzerland
-425,New Katieburgh FC,Italy
-426,Knappbury Rovers,Brazil
-427,Rhodesmouth Rovers,Italy
-428,West Erinville Maccabi,Netherlands
-429,Brooksville City,United States
-430,Ericland Hapoel,Japan
-431,Rivasfort Maccabi,South Korea
-432,Fullerview United,Switzerland
-433,West Taramouth United,Portugal
-434,Staceyshire Maccabi,Belgium
-435,East Michelle Maccabi,Brazil
-436,Marcuston Eagles,United States
-437,New Stephaniefurt Maccabi,Germany
-438,South Jonathanbury Sporting,Spain
-439,Davisborough Eagles,Italy
-440,South Kimberly Rovers,Brazil
-441,Deborahberg Dynamo,Portugal
-442,West Travischester Wanderers,Argentina
-443,Rebeccaberg Dynamo,Spain
-444,Elizabethstad Athletic,Germany
-445,South Sean Eagles,Switzerland
-446,Alvarezshire Eagles,Belgium
-447,Davischester Eagles,Denmark
-448,Christinachester Lions,Mexico
-449,Davishaven City,Denmark
-450,Teresabury City,Germany
-451,South Alison Athletic,Brazil
-452,West Taylorland Hapoel,Belgium
-453,Evansberg Maccabi,Portugal
-454,Mckenziehaven Hapoel,Morocco
-455,Phillipston City,Uruguay
-456,North Williamhaven Eagles,Netherlands
-457,Gutierrezmouth Rovers,Switzerland
-458,Michaelshire Rovers,South Korea
-459,Port Wesleyville Lions,Spain
-460,Whiteburgh City,Mexico
-461,Williamschester FC,Portugal
-462,Leemouth Lions,England
-463,Hansonview Eagles,England
-464,Tammyburgh Athletic,England
-465,East Christian Eagles,Uruguay
-466,Monicaville Athletic,Croatia
-467,Fergusontown Dynamo,England
-468,Wilsonburgh Hapoel,Portugal
-469,Stevensfurt Lions,Mexico
-470,Turnerstad Sporting,United States
-471,Ballardland United,Argentina
-472,East Alexander Sporting,South Korea
-473,Port Allenborough Eagles,Portugal
-474,East Timothyberg Eagles,Belgium
-475,South Megan Dynamo,Japan
-476,North Kevin Wanderers,Switzerland
-477,Hernandezchester FC,Argentina
-478,North Gabrielberg Eagles,United States
-479,Maynardfort Lions,Belgium
-480,Port Shannonbury United,Morocco
-481,West Ashley Sporting,Germany
-482,Williamstown Sporting,Germany
-483,Lake Melaniechester Dynamo,Portugal
-484,Allisonshire Wanderers,Netherlands
-485,Benjaminfurt Wanderers,Morocco
-486,Palmerfort Hapoel,England
-487,Lake Bruce Hapoel,Japan
-488,South Barbaraside Wanderers,Brazil
-489,West Patriciachester FC,Spain
-490,Wilsonstad Lions,United States
-491,Terrytown FC,Spain
-492,West Jessica City,United States
-493,Cooperbury Dynamo,Israel
-494,New Regina Sporting,Germany
-495,Sandramouth Eagles,England
-496,West Jennifer Lions,Netherlands
-497,Moyerstad City,Portugal
-498,Marshburgh United,Belgium
-499,West Hannah Rovers,Argentina
-500,Lake Timothyburgh Wanderers,France
-501,East Catherine FC,Croatia
-502,Port Robertfort Lions,Netherlands
-503,Jimmyside Eagles,Italy
-504,North Michaelview Sporting,Argentina
-505,Ericaburgh Eagles,Spain
-506,Port Brycechester FC,Germany
-507,New Jeremyside Dynamo,Argentina
-508,South Jonathan City,Switzerland
-509,Kristenton Athletic,South Korea
-510,Paulahaven Lions,United States
-511,Lake Brentmouth FC,Israel
-512,Estesville Eagles,Uruguay
-513,Port Cherylville United,Mexico
-514,New Danielville Eagles,England
-515,West Eric Dynamo,Argentina
-516,Jeanhaven Athletic,Croatia
-517,Oconnorville United,Spain
-518,Lake Michael United,Uruguay
-519,North Melinda Wanderers,Netherlands
-520,Montestown City,Croatia
-521,Port Lisa City,England
-522,Justinburgh United,South Korea
-523,West Nathanchester Hapoel,Israel
-524,Crystalbury Hapoel,France
-525,Port Karen Dynamo,Belgium
-526,Cobbberg Eagles,Germany
-527,Gutierrezchester Lions,England
-528,Cranehaven Sporting,Denmark
-529,Sherrymouth Lions,United States
-530,Port Alejandro Athletic,Argentina
-531,North Matthewfurt United,England
-532,South Bryan United,Switzerland
-533,Lake Sandraberg Eagles,Croatia
-534,Lake Tinahaven Wanderers,Mexico
-535,Robertside Wanderers,England
-536,Jennifermouth Athletic,Portugal
-537,Alanview Lions,Argentina
-538,Lake Richard Athletic,Morocco
-539,New Claudia Hapoel,Denmark
-540,Terryfurt Eagles,Denmark
-541,West Christopher Rovers,Israel
-542,Peterberg Lions,Netherlands
-543,Jasonhaven Athletic,South Korea
-544,Adrienneburgh Hapoel,South Korea
-545,North Pamelaside Athletic,Croatia
-546,Johnport Rovers,Brazil
-547,Benitezville Athletic,Japan
-548,Port Nathanhaven Sporting,Spain
-549,Davidville Athletic,Japan
-550,Evanstown Lions,Denmark
-551,Morganbury United,South Korea
-552,Lake Nicholas Wanderers,Uruguay
-553,North Mark City,Croatia
-554,Port Kimberly Hapoel,Mexico
-555,Garciachester Wanderers,Morocco
-556,Millerton Lions,France
-557,Beasleyfort Dynamo,Argentina
-558,South Christian FC,Switzerland
-559,Chapmanhaven United,Israel
-560,Wigginsshire Rovers,Germany
-561,Fieldsmouth FC,Brazil
-562,Dennischester Sporting,South Korea
-563,East William Rovers,South Korea
-564,Dawsonberg Sporting,Mexico
-565,Lake Jasonfort Eagles,Croatia
-566,Lake Ericside United,Morocco
-567,Sandraville Maccabi,Denmark
-568,Rodriguezstad City,Portugal
-569,Billyberg United,Netherlands
-570,West Kevinstad United,South Korea
-571,Kellytown Athletic,England
-572,East Kristen Maccabi,Uruguay
-573,Williamsport Sporting,Switzerland
-574,Jasonfort Lions,Argentina
-575,North Amyland Rovers,Mexico
-576,South Timothyport Eagles,Italy
-577,Mcculloughfurt FC,Italy
-578,Davenportberg United,Mexico
-579,New Dana United,United States
-580,Contrerasberg Hapoel,Denmark
-581,Christopherchester FC,Netherlands
-582,Hallfurt Lions,France
-583,Ambermouth United,Israel
-584,Debbieburgh Eagles,England
-585,New Crystalport Eagles,Israel
-586,Lake Anitaborough City,Japan
-587,New Aimeefort Wanderers,South Korea
-588,North Dominiqueside Maccabi,Portugal
-589,North Joshua City,Belgium
-590,East Maria City,Portugal
-591,Millerside Eagles,Spain
-592,Richardton FC,Uruguay
-593,Atkinstown Sporting,Portugal
-594,Samuelchester Maccabi,Argentina
-595,Port Allisonfurt Rovers,Switzerland
-596,Christopherville Lions,Argentina
-597,West Douglas Dynamo,United States
-598,Kaylaberg Maccabi,Belgium
-599,Stephanieburgh FC,Japan
-600,New Susanburgh Hapoel,France
+1,Santa Fe Lions,Argentina
+2,Antwerp Maccabi,Belgium
+3,Fes Rovers,Morocco
+4,Marseille Wanderers,France
+5,Daegu United,South Korea
+6,Dortmund Athletic,Germany
+7,Tokyo Wanderers,Japan
+8,Agadir Dynamo,Morocco
+9,Marrakesh Hapoel,Morocco
+10,Rosario Rovers,Argentina
+11,Sibenik Maccabi,Croatia
+12,Toluca Hapoel,Mexico
+13,Cordoba Wanderers,Argentina
+14,Mar del Plata Dynamo,Argentina
+15,Ulsan City,South Korea
+16,Marrakesh City,Morocco
+17,Mexico City United,Mexico
+18,Incheon Rovers,South Korea
+19,Lille Wanderers,France
+20,Daejeon United,South Korea
+21,Coimbra Lions,Portugal
+22,Fes City,Morocco
+23,Rotterdam Maccabi,Netherlands
+24,Marseille City,France
+25,Randers Hapoel,Denmark
+26,Sao Paulo United,Brazil
+27,Porto Alegre Lions,Brazil
+28,Frankfurt Hapoel,Germany
+29,Petah Tikva Lions,Israel
+30,Fes Lions,Morocco
+31,Breda Athletic,Netherlands
+32,Zadar Dynamo,Croatia
+33,Buenos Aires City,Argentina
+34,Atlanta Dynamo,United States
+35,Miami Wanderers,United States
+36,Odense Wanderers,Denmark
+37,Colonia Sporting,Uruguay
+38,Newcastle Maccabi,England
+39,Rabat Wanderers,Morocco
+40,Verona United,Italy
+41,Setubal Athletic,Portugal
+42,Manchester FC,England
+43,Tilburg Hapoel,Netherlands
+44,Puebla City,Mexico
+45,Colonia Athletic,Uruguay
+46,Bordeaux Maccabi,France
+47,Orlando Rovers,United States
+48,Tokyo United,Japan
+49,Sibenik Athletic,Croatia
+50,Cologne FC,Germany
+51,Porto Alegre Dynamo,Brazil
+52,Horsens Rovers,Denmark
+53,Casablanca United,Morocco
+54,Monterrey Rovers,Mexico
+55,Mechelen Wanderers,Belgium
+56,Recife FC,Brazil
+57,Bern Wanderers,Switzerland
+58,Fes United,Morocco
+59,Zadar Hapoel,Croatia
+60,Aarhus City,Denmark
+61,Villarreal Wanderers,Spain
+62,Colonia City,Uruguay
+63,Frankfurt Maccabi,Germany
+64,Sao Paulo FC,Brazil
+65,Newcastle Dynamo,England
+66,Gwangju City,South Korea
+67,Randers City,Denmark
+68,Pula Maccabi,Croatia
+69,Gwangju Eagles,South Korea
+70,Lausanne Dynamo,Switzerland
+71,Ashdod Wanderers,Israel
+72,Villarreal Hapoel,Spain
+73,Amsterdam Hapoel,Netherlands
+74,Kobe Lions,Japan
+75,Bern Eagles,Switzerland
+76,Fortaleza City,Brazil
+77,Suwon City,South Korea
+78,Rome Hapoel,Italy
+79,Seville FC,Spain
+80,Seattle Sporting,United States
+81,Brighton Eagles,England
+82,Stuttgart Eagles,Germany
+83,Salvador Maccabi,Brazil
+84,Cologne Lions,Germany
+85,Nagoya Wanderers,Japan
+86,Nantes Maccabi,France
+87,Liege Hapoel,Belgium
+88,Yokohama Athletic,Japan
+89,Faro Athletic,Portugal
+90,Arnhem Eagles,Netherlands
+91,Stuttgart Wanderers,Germany
+92,Sapporo Maccabi,Japan
+93,Faro United,Portugal
+94,Lucerne Sporting,Switzerland
+95,Bruges Rovers,Belgium
+96,Porto Alegre Eagles,Brazil
+97,Santa Fe Dynamo,Argentina
+98,Coimbra Maccabi,Portugal
+99,Faro City,Portugal
+100,Seville Athletic,Spain
+101,Curitiba Lions,Brazil
+102,Rome United,Italy
+103,Leon Eagles,Mexico
+104,Osaka Lions,Japan
+105,London Maccabi,England
+106,Toulouse Lions,France
+107,Hiroshima Lions,Japan
+108,Leipzig Wanderers,Germany
+109,Amsterdam United,Netherlands
+110,Bern Maccabi,Switzerland
+111,Salvador Sporting,Brazil
+112,Paris Sporting,France
+113,Kyoto Eagles,Japan
+114,Amsterdam FC,Netherlands
+115,Rotterdam Wanderers,Netherlands
+116,Breda Lions,Netherlands
+117,Tetouan City,Morocco
+118,Gwangju Rovers,South Korea
+119,Munich Wanderers,Germany
+120,Bordeaux Lions,France
+121,Braga FC,Portugal
+122,Rivera Hapoel,Uruguay
+123,Dortmund Hapoel,Germany
+124,Varazdin Maccabi,Croatia
+125,Salto Sporting,Uruguay
+126,Valencia City,Spain
+127,Sapporo Athletic,Japan
+128,Netanya Sporting,Israel
+129,Verona Rovers,Italy
+130,Montevideo Rovers,Uruguay
+131,Ghent FC,Belgium
+132,Zaragoza Rovers,Spain
+133,Nice Eagles,France
+134,Bilbao Wanderers,Spain
+135,Aalborg Athletic,Denmark
+136,Nottingham City,England
+137,Orlando Maccabi,United States
+138,Hamburg Lions,Germany
+139,Aarhus Maccabi,Denmark
+140,Seattle United,United States
+141,Basel FC,Switzerland
+142,Tangier Hapoel,Morocco
+143,Agadir Maccabi,Morocco
+144,Los Angeles Lions,United States
+145,Stuttgart United,Germany
+146,Gwangju FC,South Korea
+147,Chicago Maccabi,United States
+148,Queretaro Hapoel,Mexico
+149,Fortaleza Lions,Brazil
+150,Amsterdam Sporting,Netherlands
+151,Lisbon Eagles,Portugal
+152,Munich FC,Germany
+153,Guadalajara Maccabi,Mexico
+154,Rio de Janeiro Dynamo,Brazil
+155,Porto Alegre Sporting,Brazil
+156,Marseille Lions,France
+157,Leon Sporting,Mexico
+158,Atlanta Sporting,United States
+159,Cordoba Lions,Argentina
+160,Antwerp City,Belgium
+161,Oujda Maccabi,Morocco
+162,Leeds FC,England
+163,Netanya Dynamo,Israel
+164,Oujda Athletic,Morocco
+165,Verona Wanderers,Italy
+166,Birmingham Athletic,England
+167,Madrid Lions,Spain
+168,Mexico City Athletic,Mexico
+169,Munich United,Germany
+170,Copenhagen Dynamo,Denmark
+171,Copenhagen Athletic,Denmark
+172,Recife Dynamo,Brazil
+173,Naples FC,Italy
+174,Newcastle Hapoel,England
+175,Randers Athletic,Denmark
+176,Eindhoven Lions,Netherlands
+177,Daegu Sporting,South Korea
+178,Arnhem FC,Netherlands
+179,Marrakesh Lions,Morocco
+180,Queretaro FC,Mexico
+181,Mechelen Maccabi,Belgium
+182,Durazno Sporting,Uruguay
+183,Birmingham Sporting,England
+184,Bordeaux Athletic,France
+185,Florence Eagles,Italy
+186,Nottingham FC,England
+187,Oujda Sporting,Morocco
+188,Marrakesh Sporting,Morocco
+189,Florence Athletic,Italy
+190,Salto Dynamo,Uruguay
+191,Liege Sporting,Belgium
+192,Copenhagen United,Denmark
+193,Hamburg Dynamo,Germany
+194,Cologne Rovers,Germany
+195,Beer Sheva Athletic,Israel
+196,Zaragoza Athletic,Spain
+197,Aalborg Sporting,Denmark
+198,Genoa Rovers,Italy
+199,Pula Rovers,Croatia
+200,Guimaraes Maccabi,Portugal
+201,Hiroshima United,Japan
+202,Sapporo Wanderers,Japan
+203,Mexico City Hapoel,Mexico
+204,Turin FC,Italy
+205,Aveiro Rovers,Portugal
+206,Leeds Wanderers,England
+207,Bologna Hapoel,Italy
+208,Verona Maccabi,Italy
+209,Rivera Dynamo,Uruguay
+210,Hiroshima City,Japan
+211,Bruges City,Belgium
+212,Casablanca Maccabi,Morocco
+213,Rio de Janeiro Lions,Brazil
+214,Sao Paulo Sporting,Brazil
+215,Leeds United,England
+216,London Athletic,England
+217,Gwangju Wanderers,South Korea
+218,Fortaleza FC,Brazil
+219,Rishon LeZion FC,Israel
+220,Netanya Maccabi,Israel
+221,Amsterdam Maccabi,Netherlands
+222,Monterrey United,Mexico
+223,Valencia Athletic,Spain
+224,Leipzig Sporting,Germany
+225,Santa Fe Sporting,Argentina
+226,Miami Eagles,United States
+227,Florence Lions,Italy
+228,Buenos Aires United,Argentina
+229,Varazdin Sporting,Croatia
+230,Tetouan FC,Morocco
+231,Haifa United,Israel
+232,Nagoya Lions,Japan
+233,Salto Maccabi,Uruguay
+234,Curitiba Athletic,Brazil
+235,St. Gallen Rovers,Switzerland
+236,Porto Alegre Maccabi,Brazil
+237,Zurich City,Switzerland
+238,Montevideo Athletic,Uruguay
+239,Geneva Eagles,Switzerland
+240,Split Rovers,Croatia
+241,Lille Hapoel,France
+242,Pula Sporting,Croatia
+243,Manchester Maccabi,England
+244,Brussels United,Belgium
+245,Puebla United,Mexico
+246,Durazno Wanderers,Uruguay
+247,Petah Tikva Athletic,Israel
+248,Mechelen Sporting,Belgium
+249,Toulouse United,France
+250,Esbjerg Athletic,Denmark
+251,Cordoba Sporting,Argentina
+252,Brighton Wanderers,England
+253,Antwerp United,Belgium
+254,Ashdod Rovers,Israel
+255,Valencia United,Spain
+256,Toulouse Dynamo,France
+257,Oujda United,Morocco
+258,Jerusalem Wanderers,Israel
+259,Rabat Hapoel,Morocco
+260,Randers Sporting,Denmark
+261,Rishon LeZion United,Israel
+262,Oujda City,Morocco
+263,Birmingham Rovers,England
+264,Setubal City,Portugal
+265,Mendoza Sporting,Argentina
+266,Breda United,Netherlands
+267,Liege Athletic,Belgium
+268,Yokohama Dynamo,Japan
+269,Valencia Rovers,Spain
+270,Rishon LeZion Wanderers,Israel
+271,Vejle Wanderers,Denmark
+272,Chicago Rovers,United States
+273,Maldonado Dynamo,Uruguay
+274,Paysandu Sporting,Uruguay
+275,Rivera Eagles,Uruguay
+276,Yokohama Wanderers,Japan
+277,Zadar Sporting,Croatia
+278,Antwerp Hapoel,Belgium
+279,Dortmund Lions,Germany
+280,Casablanca Eagles,Morocco
+281,Miami Dynamo,United States
+282,Rotterdam Sporting,Netherlands
+283,Kyoto Lions,Japan
+284,Utrecht Rovers,Netherlands
+285,Brighton Sporting,England
+286,Mar del Plata Hapoel,Argentina
+287,Nagoya Maccabi,Japan
+288,Suwon Maccabi,South Korea
+289,Belo Horizonte Eagles,Brazil
+290,Rabat United,Morocco
+291,Genoa City,Italy
+292,Copenhagen Hapoel,Denmark
+293,Split FC,Croatia
+294,Bilbao Athletic,Spain
+295,Daegu Dynamo,South Korea
+296,Mechelen Dynamo,Belgium
+297,Geneva Wanderers,Switzerland
+298,Petah Tikva United,Israel
+299,Tilburg United,Netherlands
+300,Valencia Wanderers,Spain
+301,Groningen Dynamo,Netherlands
+302,Munich Rovers,Germany
+303,Rio de Janeiro FC,Brazil
+304,Salto Lions,Uruguay
+305,Lille Maccabi,France
+306,Lille Sporting,France
+307,Toulouse Sporting,France
+308,Beer Sheva Dynamo,Israel
+309,Zurich Eagles,Switzerland
+310,Hamburg Rovers,Germany
+311,Rosario Maccabi,Argentina
+312,Nantes Wanderers,France
+313,Leipzig Lions,Germany
+314,Sapporo Hapoel,Japan
+315,Varazdin Hapoel,Croatia
+316,Malaga Wanderers,Spain
+317,Chicago Lions,United States
+318,Rotterdam Lions,Netherlands
+319,Newcastle United,England
+320,Florence United,Italy
+321,Nantes Eagles,France
+322,Liverpool Hapoel,England
+323,Varazdin City,Croatia
+324,Kyoto Maccabi,Japan
+325,Bordeaux Rovers,France
+326,Liverpool Wanderers,England
+327,New York Wanderers,United States
+328,Petah Tikva City,Israel
+329,Stuttgart Sporting,Germany
+330,Nagoya Eagles,Japan
+331,Orlando City,United States
+332,Buenos Aires Athletic,Argentina
+333,Amsterdam Rovers,Netherlands
+334,Florence City,Italy
+335,Los Angeles Hapoel,United States
+336,Bilbao Maccabi,Spain
+337,Brussels Eagles,Belgium
+338,Miami Sporting,United States
+339,Seville Rovers,Spain
+340,Fortaleza Rovers,Brazil
+341,Antwerp Dynamo,Belgium
+342,Malaga Eagles,Spain
+343,Vejle City,Denmark
+344,Odense Athletic,Denmark
+345,Berlin Hapoel,Germany
+346,Bruges Wanderers,Belgium
+347,Arnhem Hapoel,Netherlands
+348,Porto City,Portugal
+349,Mexico City Rovers,Mexico
+350,Liverpool Athletic,England
+351,Newcastle Athletic,England
+352,Sibenik City,Croatia
+353,Lausanne Lions,Switzerland
+354,Toluca Dynamo,Mexico
+355,Rosario Sporting,Argentina
+356,Daejeon Eagles,South Korea
+357,Charleroi Dynamo,Belgium
+358,Montevideo Eagles,Uruguay
+359,Mar del Plata Lions,Argentina
+360,Mechelen Athletic,Belgium
+361,Puebla Dynamo,Mexico
+362,Guimaraes Rovers,Portugal
+363,Paysandu Hapoel,Uruguay
+364,Sapporo Lions,Japan
+365,Rio de Janeiro City,Brazil
+366,Orlando FC,United States
+367,Puebla Eagles,Mexico
+368,Birmingham City,England
+369,Porto Lions,Portugal
+370,Liege United,Belgium
+371,Bruges FC,Belgium
+372,Zadar Eagles,Croatia
+373,Bologna Lions,Italy
+374,Rosario FC,Argentina
+375,Hamburg Maccabi,Germany
+376,New York FC,United States
+377,Paysandu Dynamo,Uruguay
+378,La Plata Sporting,Argentina
+379,Rosario United,Argentina
+380,Colonia Rovers,Uruguay
+381,Brighton City,England
+382,London Hapoel,England
+383,Bordeaux Wanderers,France
+384,Dortmund Sporting,Germany
+385,Horsens Athletic,Denmark
+386,Rosario City,Argentina
+387,Bilbao Lions,Spain
+388,La Plata Maccabi,Argentina
+389,Esbjerg Eagles,Denmark
+390,Netanya Athletic,Israel
+391,Daegu Eagles,South Korea
+392,Zadar Lions,Croatia
+393,Curitiba Dynamo,Brazil
+394,Split Athletic,Croatia
+395,Osaka Maccabi,Japan
+396,Haifa Sporting,Israel
+397,Lucerne Wanderers,Switzerland
+398,Marrakesh Dynamo,Morocco
+399,Buenos Aires Hapoel,Argentina
+400,Buenos Aires Rovers,Argentina
+401,Berlin FC,Germany
+402,Varazdin United,Croatia
+403,Marrakesh Rovers,Morocco
+404,Mendoza United,Argentina
+405,Daegu City,South Korea
+406,Agadir Sporting,Morocco
+407,Basel Rovers,Switzerland
+408,Puebla FC,Mexico
+409,Milan Sporting,Italy
+410,Zaragoza Hapoel,Spain
+411,Copenhagen Rovers,Denmark
+412,Lyon FC,France
+413,London City,England
+414,Kobe City,Japan
+415,Bruges Eagles,Belgium
+416,Porto FC,Portugal
+417,Durazno Rovers,Uruguay
+418,Busan Rovers,South Korea
+419,Basel Dynamo,Switzerland
+420,Seattle FC,United States
+421,Kyoto Wanderers,Japan
+422,Nice United,France
+423,Basel Athletic,Switzerland
+424,Seoul FC,South Korea
+425,Beer Sheva FC,Israel
+426,Sapporo Sporting,Japan
+427,Liverpool FC,England
+428,Agadir Athletic,Morocco
+429,Leon Rovers,Mexico
+430,Santa Fe United,Argentina
+431,Seoul City,South Korea
+432,Rome Sporting,Italy
+433,Mar del Plata Rovers,Argentina
+434,Groningen United,Netherlands
+435,Fes Hapoel,Morocco
+436,Utrecht Dynamo,Netherlands
+437,Charleroi Athletic,Belgium
+438,Tangier City,Morocco
+439,Beer Sheva Maccabi,Israel
+440,Brussels Wanderers,Belgium
+441,Rishon LeZion Eagles,Israel
+442,Rotterdam Athletic,Netherlands
+443,Incheon Eagles,South Korea
+444,Aveiro Eagles,Portugal
+445,Charleroi Eagles,Belgium
+446,Tucuman United,Argentina
+447,Zurich Sporting,Switzerland
+448,Leeds Rovers,England
+449,Guimaraes Sporting,Portugal
+450,Colonia Dynamo,Uruguay
+451,Coimbra United,Portugal
+452,Munich City,Germany
+453,Valencia Dynamo,Spain
+454,Los Angeles Maccabi,United States
+455,Ghent Dynamo,Belgium
+456,Breda Rovers,Netherlands
+457,Barcelona City,Spain
+458,Amsterdam Athletic,Netherlands
+459,Paysandu United,Uruguay
+460,Genoa Sporting,Italy
+461,Seoul Lions,South Korea
+462,Arnhem City,Netherlands
+463,Rishon LeZion Dynamo,Israel
+464,Tangier United,Morocco
+465,Los Angeles City,United States
+466,Madrid FC,Spain
+467,Turin Athletic,Italy
+468,Pula Lions,Croatia
+469,La Plata Lions,Argentina
+470,Chicago United,United States
+471,Salto FC,Uruguay
+472,New York City,United States
+473,Lucerne Eagles,Switzerland
+474,Sibenik FC,Croatia
+475,Pula Athletic,Croatia
+476,Nice Rovers,France
+477,Chicago FC,United States
+478,Aalborg Lions,Denmark
+479,Breda Sporting,Netherlands
+480,Rabat Rovers,Morocco
+481,Rijeka Sporting,Croatia
+482,Berlin Sporting,Germany
+483,Charleroi Maccabi,Belgium
+484,Yokohama FC,Japan
+485,Lisbon Dynamo,Portugal
+486,Ulsan Hapoel,South Korea
+487,Turin United,Italy
+488,Naples Rovers,Italy
+489,Casablanca Athletic,Morocco
+490,Geneva City,Switzerland
+491,Genoa Eagles,Italy
+492,Genk Hapoel,Belgium
+493,Geneva Hapoel,Switzerland
+494,Stuttgart Maccabi,Germany
+495,Eindhoven Dynamo,Netherlands
+496,Curitiba Hapoel,Brazil
+497,Rome Maccabi,Italy
+498,Yokohama City,Japan
+499,Paysandu Wanderers,Uruguay
+500,Sao Paulo City,Brazil
+501,Geneva United,Switzerland
+502,Ulsan United,South Korea
+503,Mechelen Hapoel,Belgium
+504,Malaga Rovers,Spain
+505,Paysandu City,Uruguay
+506,Queretaro Lions,Mexico
+507,Paysandu Eagles,Uruguay
+508,Fes Eagles,Morocco
+509,Eindhoven City,Netherlands
+510,Rishon LeZion Hapoel,Israel
+511,Salvador Hapoel,Brazil
+512,Maldonado Lions,Uruguay
+513,Lugano Wanderers,Switzerland
+514,Lyon Eagles,France
+515,Florida FC,Uruguay
+516,Coimbra Athletic,Portugal
+517,Santa Fe Rovers,Argentina
+518,Villarreal Dynamo,Spain
+519,Monterrey Sporting,Mexico
+520,Nagoya United,Japan
+521,Tokyo Rovers,Japan
+522,Jerusalem United,Israel
+523,Salto Wanderers,Uruguay
+524,Horsens Eagles,Denmark
+525,Rishon LeZion Lions,Israel
+526,Toulouse City,France
+527,Rio de Janeiro Wanderers,Brazil
+528,Hamburg Sporting,Germany
+529,Casablanca Sporting,Morocco
+530,St. Gallen City,Switzerland
+531,Belo Horizonte FC,Brazil
+532,Guadalajara Rovers,Mexico
+533,Aarhus FC,Denmark
+534,Leipzig United,Germany
+535,Osaka Rovers,Japan
+536,Sibenik Dynamo,Croatia
+537,Aveiro City,Portugal
+538,Bruges Dynamo,Belgium
+539,Curitiba Rovers,Brazil
+540,Basel United,Switzerland
+541,Ghent Maccabi,Belgium
+542,Recife Maccabi,Brazil
+543,Tijuana United,Mexico
+544,Zagreb Maccabi,Croatia
+545,Geneva Athletic,Switzerland
+546,Dortmund FC,Germany
+547,Guadalajara Lions,Mexico
+548,Puebla Lions,Mexico
+549,Birmingham Wanderers,England
+550,Tucuman Maccabi,Argentina
+551,Rivera Maccabi,Uruguay
+552,New York Eagles,United States
+553,Vejle United,Denmark
+554,Monterrey City,Mexico
+555,Lugano Sporting,Switzerland
+556,Aveiro Lions,Portugal
+557,Hiroshima FC,Japan
+558,Nice Sporting,France
+559,Brighton FC,England
+560,Pula Eagles,Croatia
+561,Rome Eagles,Italy
+562,Kobe Wanderers,Japan
+563,Netanya Rovers,Israel
+564,Osaka Athletic,Japan
+565,Birmingham Eagles,England
+566,Seattle Rovers,United States
+567,Guadalajara Athletic,Mexico
+568,Dallas Eagles,United States
+569,Daegu Athletic,South Korea
+570,Curitiba FC,Brazil
+571,Miami Rovers,United States
+572,Mechelen Lions,Belgium
+573,Madrid Athletic,Spain
+574,Charleroi Hapoel,Belgium
+575,Chicago Dynamo,United States
+576,Geneva Rovers,Switzerland
+577,Mendoza FC,Argentina
+578,Zagreb City,Croatia
+579,Bern Athletic,Switzerland
+580,Bologna Maccabi,Italy
+581,Tel Aviv Dynamo,Israel
+582,Birmingham Hapoel,England
+583,Arnhem Sporting,Netherlands
+584,Pula Dynamo,Croatia
+585,Coimbra Dynamo,Portugal
+586,Rotterdam FC,Netherlands
+587,Ulsan Maccabi,South Korea
+588,Esbjerg Rovers,Denmark
+589,Zaragoza United,Spain
+590,Rivera Lions,Uruguay
+591,Rivera Rovers,Uruguay
+592,Utrecht City,Netherlands
+593,Daegu FC,South Korea
+594,Vejle Lions,Denmark
+595,Montevideo Lions,Uruguay
+596,Kobe Rovers,Japan
+597,Toluca Sporting,Mexico
+598,Curitiba Wanderers,Brazil
+599,Verona Lions,Italy
+600,Liege City,Belgium
