@@ -10,117 +10,238 @@
 ## Selected Unit
 **Football Betting Management**
 
+---
+
 ## Introduction
-The system developed is a football betting management system.  
-It allows users to view available matches for betting, choose a desired result, place bets according to the odds, and manage their personal account.  
-In addition, the system allows users to track their betting history and their financial transactions, such as deposits and withdrawals.  
-The goal of the system is to provide a convenient, clear, and organized platform for managing football bets, while maintaining a proper separation between the different data entities.
+
+BetMaster is a football betting management system.
+
+The system allows users to view available football matches, check the odds for each possible result, place bets, manage their personal account balance, and view their betting and transaction history.
+
+The goal of the system is to provide a clear, organized, and realistic database model for a football betting platform while maintaining correct relationships between the different entities and preserving database normalization.
+
+---
 
 ## System Description and Main Functionality
-The system includes several main functions:
-- Viewing matches available for betting
-- Displaying odds for each possible result
+
+The system supports the following main actions:
+
+- Viewing available football matches
+- Viewing betting odds for each match
 - Placing a bet on a selected result
-- Managing the user account
+- Managing user account details
 - Depositing and withdrawing funds
 - Viewing betting history
 - Viewing transaction history
+- Tracking match results and bet statuses
+
+---
 
 ## Google AI Studio Application Link
+
 **Application Link:** [BetMaster App](https://aistudio.google.com/apps/6016d178-4c68-4631-b42c-c4ed68553f7f)
 
 ---
 
-## Screen Description
+# Screens
 
-### Screen 1 – User Account
-This screen presents the user’s personal account details, including name, user ID, account status, and current balance.  
+## Screen 1 – User Account
+
+This screen presents the user’s personal account details, including the user name, user ID, account status, and current balance.
+
 It also allows the user to perform financial actions such as deposits and withdrawals.
 
 **Relevant entities:** `USERS`, `TRANSACTIONS`
 
-![Screen 1](שלב_א/Screens/screen1.png)
+![Screen 1](Screens/screen1.png)
 
-[Open image](שלב_א/Screens/screen1.png)
+[Open Screen 1](Screens/screen1.png)
 
-### Screen 2 – Matches
-This screen presents the list of football matches available for betting.  
-For each match, the participating teams, match date, and the odds for each possible result are displayed.
+---
+
+## Screen 2 – Matches
+
+This screen presents the list of football matches available for betting.
+
+For each match, the system displays the participating teams, match date, match status, and the odds for each possible result.
 
 **Relevant entities:** `MATCHES`, `TEAMS`, `ODDS`
 
-![Screen 2](שלב_א/Screens/screen2.png)
+![Screen 2](Screens/screen2.png)
 
-[Open image](שלב_א/Screens/screen2.png)
+[Open Screen 2](Screens/screen2.png)
 
-### Screen 3 – Place Bet
-This screen allows the user to choose a desired result for a specific match and enter the betting amount.  
-The system calculates the bet according to the selected odds and allows the user to confirm the action.
+---
+
+## Screen 3 – Place Bet
+
+This screen allows the user to choose a specific match, select a predicted result, enter a betting amount, and confirm the bet.
+
+The bet is connected to the selected user and match.
 
 **Relevant entities:** `BETS`, `USERS`, `MATCHES`, `ODDS`, `TRANSACTIONS`
 
-![Screen 3](שלב_א/Screens/screen3.png)
+![Screen 3](Screens/screen3.png)
 
-[Open image](שלב_א/Screens/screen3.png)
+[Open Screen 3](Screens/screen3.png)
 
-### Screen 4 – History
-This screen presents the history of bets placed by the user, including bet results, profits, and losses.  
-It also displays the history of financial transactions performed in the account.
+---
+
+## Screen 4 – History
+
+This screen presents the user’s betting history and financial transaction history.
+
+The user can see previous bets, bet results, profits, losses, deposits, withdrawals, and other account actions.
 
 **Relevant entities:** `BETS`, `TRANSACTIONS`, `MATCHES`
 
-![Screen 4](שלב_א/Screens/screen4.png)
+![Screen 4](Screens/screen4.png)
 
-[Open image](שלב_א/Screens/screen4.png)
-
----
-
-## ERD and DSD Diagrams
-
-### ERD
-![ERD](שלב_א/Diagrams/ERD.png)
-
-[Open ERD image](שלב_א/Diagrams/ERD.png)
-
-### DSD
-![DSD](שלב_א/Diagrams/DSD.png)
-
-[Open DSD image](שלב_א/Diagrams/DSD.png)
+[Open Screen 4](Screens/screen4.png)
 
 ---
 
-## Entity Description
-The system is based on 6 main entities:
+# ERD and DSD Diagrams
 
-### USERS
-Contains information about users in the system, such as full name, email, balance, registration date, and account status.
+## ERD
 
-### TEAMS
-Contains information about football teams, such as team name and country.
+The ERD describes the conceptual structure of the system, including the main entities, their attributes, and the relationships between them.
 
-### MATCHES
-Contains information about matches, such as match date, match status, final result, and the participating teams.
+![ERD](Diagrams/ERD.png)
 
-### ODDS
-Contains the odds for each match, including home win, draw, and away win.
-
-### BETS
-Contains the bets placed by users, including predicted result, bet amount, bet date, and bet status.
-
-### TRANSACTIONS
-Contains all financial actions performed by the user, such as deposits, withdrawals, bet placements, and winnings.
+[Open ERD](Diagrams/ERD.png)
 
 ---
 
-## Relationships Between Entities
+## DSD
+
+The DSD describes the relational database structure, including tables, primary keys, foreign keys, and the connections between the tables.
+
+![DSD](Diagrams/DSD.png)
+
+[Open DSD](Diagrams/DSD.png)
+
+---
+
+# Entity Description
+
+The system is based on 6 main entities.
+
+## USERS
+
+Stores information about the users of the system.
+
+Main attributes:
+
+- `user_id`
+- `full_name`
+- `email`
+- `balance`
+- `registration_date`
+- `account_status`
+
+---
+
+## TEAMS
+
+Stores information about football teams.
+
+Main attributes:
+
+- `team_id`
+- `team_name`
+- `country`
+
+---
+
+## MATCHES
+
+Stores information about football matches.
+
+Main attributes:
+
+- `match_id`
+- `match_date`
+- `status`
+- `final_result`
+- `home_team_id`
+- `away_team_id`
+
+Each match has a home team and an away team.
+
+---
+
+## ODDS
+
+Stores the betting odds for each match.
+
+Main attributes:
+
+- `odd_id`
+- `home_win_odd`
+- `draw_odd`
+- `away_win_odd`
+- `update_date`
+- `match_id`
+
+Each match has one related odds record.
+
+---
+
+## BETS
+
+Stores the bets placed by users.
+
+Main attributes:
+
+- `bet_id`
+- `predicted_result`
+- `bet_amount`
+- `bet_date`
+- `bet_status`
+- `user_id`
+- `match_id`
+
+Each bet belongs to one user and one match.
+
+---
+
+## TRANSACTIONS
+
+Stores the financial transactions performed by users.
+
+Main attributes:
+
+- `transaction_id`
+- `amount`
+- `transaction_type`
+- `transaction_date`
+- `user_id`
+
+Examples of transaction types:
+
+- Deposit
+- Withdrawal
+- Bet Placement
+- Winnings
+
+---
+
+# Relationships Between Entities
+
 The main relationships in the system are:
 
 - One user can place many bets.
 - One user can perform many transactions.
-- One match can be associated with many bets.
-- Each match has two teams: a home team and an away team.
-- Each match has one related odds record.
-- Each bet belongs to one user and one match.
+- One match can have many bets.
+- Each match has one home team.
+- Each match has one away team.
+- Each match has one odds record.
+- Each bet belongs to one user.
+- Each bet belongs to one match.
+- Each transaction belongs to one user.
+
+## Foreign Key Relationships
 
 The foreign key relationships are:
 
@@ -133,13 +254,14 @@ The foreign key relationships are:
 
 ---
 
-## Schema Normalization up to 3NF
-The schema was checked and found to be normalized at least up to the Third Normal Form (3NF).
+# Schema Normalization up to 3NF
 
-Each table in the system represents a single entity, and all non-key attributes depend fully on the primary key of that table.  
-In addition, a proper separation was maintained between users, teams, matches, odds, bets, and transactions, which prevents unnecessary data duplication and preserves a correct logical structure.
+The schema was checked and found to be normalized at least up to the Third Normal Form.
+
+Each table represents one clear entity, and all non-key attributes depend on the primary key of that table.
 
 Examples:
+
 - User details are stored only in the `USERS` table.
 - Team details are stored only in the `TEAMS` table.
 - Match details are stored only in the `MATCHES` table.
@@ -147,16 +269,24 @@ Examples:
 - Bets are stored only in the `BETS` table.
 - Transactions are stored only in the `TRANSACTIONS` table.
 
-Therefore, the model satisfies the requirements of 3NF at the level required for this project.
+This separation prevents unnecessary duplication and keeps the database structure organized and maintainable.
 
 ---
 
-## Design Decisions
-During the design of the system, it was decided to separate the main entities in order to maintain order, clarity, and proper normalization of the data.
+# Design Decisions
 
-The data of users, matches, teams, odds, bets, and transactions were stored in separate tables in order to avoid duplication and improve database maintainability.
+The database was designed with a clear separation between the main entities.
 
-In addition, the system was designed to be intuitive, so that each screen represents a clear and central action for the user:
+The purpose of this separation is to:
+
+- Avoid duplicated data
+- Preserve normalization
+- Make the database easier to maintain
+- Keep the relationships between tables clear
+- Support future expansion of the system
+
+The system screens were also designed according to the main user actions:
+
 - Account management
 - Viewing matches
 - Placing bets
@@ -164,91 +294,189 @@ In addition, the system was designed to be intuitive, so that each screen repres
 
 ---
 
-## Technical Database Implementation
-The database implementation was carried out using **VS Code**, **Docker**, and **PostgreSQL**.
+# Technical Database Implementation
 
-A PostgreSQL container was created and configured using `docker-compose.yml`, and the database named `betmaster` was successfully launched and managed through Docker.
+The database implementation was carried out using:
 
-The following SQL scripts were prepared as required:
-- `createTables.sql`
-- `dropTables.sql`
-- `insertTables.sql`
-- `selectAll.sql`
+- PostgreSQL
+- Docker
+- Docker Compose
+- VS Code
+- Python
 
-### Main SQL Files
-- [createTables.sql](שלב_א/createTables.sql)
-- [dropTables.sql](שלב_א/dropTables.sql)
-- [insertTables.sql](שלב_א/insertTables.sql)
-- [selectAll.sql](שלב_א/selectAll.sql)
+A PostgreSQL container was created and configured using `docker-compose.yml`.
+
+The main database is named:
+
+```text
+betmaster
+```
+
+The main Docker container is named:
+
+```text
+betmaster_db
+```
 
 ---
 
-## Data Insertion Methods
-The project includes three different methods of data insertion, as required.
+# SQL Files
 
-### Method 1 – Manual SQL INSERT Statements
-A manual insertion method was implemented using SQL commands inside:
+The following SQL files were prepared for the project:
 
-- [insertTables.sql](שלב_א/insertTables.sql)
+- [createTables.sql](createTables.sql)
+- [dropTables.sql](dropTables.sql)
+- [insertTables.sql](insertTables.sql)
+- [selectAll.sql](selectAll.sql)
 
-This file demonstrates direct insertion of sample records into the database tables.
+## File Purposes
 
-### Method 2 – Data Generation Using Python
-A Python script was written in order to generate large volumes of data automatically.
+### createTables.sql
+
+Creates the database tables, primary keys, foreign keys, and constraints.
+
+### dropTables.sql
+
+Drops the existing tables in the correct order so the database can be recreated.
+
+### insertTables.sql
+
+Contains manual SQL insert examples.
+
+### selectAll.sql
+
+Displays records from the database tables.
+
+---
+
+# Data Insertion Methods
+
+The project includes three different data insertion methods.
+
+---
+
+## Method 1 – Manual SQL INSERT Statements
+
+Manual insertion was implemented using SQL commands inside:
+
+- [insertTables.sql](insertTables.sql)
+
+This file demonstrates how records can be inserted directly into the database tables using SQL.
+
+---
+
+## Method 2 – Data Generation Using Python
+
+A Python script was written to generate a large amount of realistic data automatically.
 
 File:
-- [generate_data.py](שלב_א/Programing/generate_data.py)
 
-The script uses the `Faker` library in order to generate realistic names, emails, team names, and other textual data.  
-This prevents the generated data from looking artificial, such as `User 1`, `Team 1`, or numeric country names.
+- [generate_data.py](Programing/generate_data.py)
 
-The script also respects all foreign key relationships by generating parent tables first and then using only existing IDs when generating child tables.
+The script uses the `Faker` library to generate realistic data such as:
 
-For example:
-- Users are generated before bets and transactions.
-- Teams are generated before matches.
-- Matches are generated before odds and bets.
+- User names
+- Emails
+- Team names
+- Countries
+- Dates
+- Financial values
+
+This was done in order to avoid artificial values such as:
+
+```text
+User 1
+Team 1
+Country 1
+```
+
+Instead, the generated data contains realistic names and readable textual values.
+
+---
+
+## Foreign Key Handling in Python
+
+The Python script was also designed to respect all foreign key relationships.
+
+The logic is based on generating parent tables first and then using only existing IDs when generating child tables.
+
+Generation order:
+
+1. `USERS`
+2. `TEAMS`
+3. `MATCHES`
+4. `ODDS`
+5. `BETS`
+6. `TRANSACTIONS`
+
+This ensures that every foreign key points to an existing primary key.
+
+Examples:
+
 - `BETS.user_id` is selected only from existing `USERS.user_id` values.
 - `BETS.match_id` is selected only from existing `MATCHES.match_id` values.
 - `TRANSACTIONS.user_id` is selected only from existing `USERS.user_id` values.
-- `MATCHES.home_team_id` and `MATCHES.away_team_id` are selected only from existing `TEAMS.team_id` values.
+- `MATCHES.home_team_id` is selected only from existing `TEAMS.team_id` values.
+- `MATCHES.away_team_id` is selected only from existing `TEAMS.team_id` values.
 - `ODDS.match_id` is selected only from existing `MATCHES.match_id` values.
 
-### Method 3 – Importing Data from CSV Files
-The generated CSV files were imported into PostgreSQL using CSV-based data import.
-
-Files:
-- [users.csv](שלב_א/DataImportFiles/users.csv)
-- [teams.csv](שלב_א/DataImportFiles/teams.csv)
-- [matches.csv](שלב_א/DataImportFiles/matches.csv)
-- [odds.csv](שלב_א/DataImportFiles/odds.csv)
-- [bets.csv](שלב_א/DataImportFiles/bets.csv)
-- [transactions.csv](שלב_א/DataImportFiles/transactions.csv)
+The script also prevents a match from having the same team as both home team and away team.
 
 ---
 
-## Record Counts
-According to the project requirements, the database contains more than 500 records in the main tables, and two of the tables contain at least 20,000 records.
+## Method 3 – Importing Data from CSV Files
+
+The generated CSV files were imported into PostgreSQL.
+
+CSV files:
+
+- [users.csv](DataImportFiles/users.csv)
+- [teams.csv](DataImportFiles/teams.csv)
+- [matches.csv](DataImportFiles/matches.csv)
+- [odds.csv](DataImportFiles/odds.csv)
+- [bets.csv](DataImportFiles/bets.csv)
+- [transactions.csv](DataImportFiles/transactions.csv)
+
+The import order follows the foreign key dependency order:
+
+1. `USERS`
+2. `TEAMS`
+3. `MATCHES`
+4. `ODDS`
+5. `BETS`
+6. `TRANSACTIONS`
+
+This order ensures that all parent records exist before child records are imported.
+
+---
+
+# Record Counts
+
+According to the project requirements, the database contains more than 500 records in the main tables, and two tables contain at least 20,000 records.
 
 Final number of records:
 
-- `USERS` – 800
-- `TEAMS` – 600
-- `MATCHES` – 1,200
-- `ODDS` – 1,200
-- `BETS` – 20,000
-- `TRANSACTIONS` – 20,000
+| Table | Number of Records |
+|---|---:|
+| `USERS` | 800 |
+| `TEAMS` | 600 |
+| `MATCHES` | 1,200 |
+| `ODDS` | 1,200 |
+| `BETS` | 20,000 |
+| `TRANSACTIONS` | 20,000 |
 
-![Record Counts](שלב_א/Screenshots/record_counts.png)
+![Record Counts](Screenshots/record_counts.png)
 
-[Open image](שלב_א/Screenshots/record_counts.png)
+[Open Record Counts Screenshot](Screenshots/record_counts.png)
 
 ---
 
-## Foreign Key Validation
-After importing the generated CSV files into PostgreSQL, the foreign key relationships were validated.
+# Foreign Key Validation
 
-The validation checks confirmed that:
+After importing the CSV files into PostgreSQL, the foreign key relationships were validated.
+
+The validation checked that:
+
 - Every bet references an existing user.
 - Every bet references an existing match.
 - Every transaction references an existing user.
@@ -256,78 +484,188 @@ The validation checks confirmed that:
 - Every match references existing teams.
 - No match contains the same team as both home team and away team.
 
-All validation checks returned `0` invalid records.
+All validation checks returned:
 
-![Foreign Key Validation](שלב_א/Screenshots/fk_validation.png)
+```text
+0 invalid records
+```
 
-[Open image](שלב_א/Screenshots/fk_validation.png)
+This confirms that the generated data respects the database relationships and foreign key constraints.
+
+![Foreign Key Validation](Screenshots/fk_validation.png)
+
+[Open Foreign Key Validation Screenshot](Screenshots/fk_validation.png)
 
 ---
 
-## Backup and Restore
-Two different backup methods were implemented, as required.
+# Backup and Restore
 
-### Backup Method 1 – Logical Backup
+Two backup methods were implemented.
+
+---
+
+## Backup Method 1 – Logical SQL Backup
+
 A logical SQL backup of the database was created using `pg_dump`.
 
 File:
-- [backup_2026-05-01.sql](שלב_א/backup_2026-05-01.sql)
 
-This backup contains the database structure and data in SQL format and can be restored into another database.
+- [backup_2026-05-01.sql](backup_2026-05-01.sql)
 
-### Backup Method 2 – Physical Docker Volume Backup
+This backup contains the database structure and data in SQL format.
+
+It can be restored into another PostgreSQL database.
+
+---
+
+## Backup Method 2 – Physical Docker Volume Backup
+
 A second backup was created by backing up the PostgreSQL Docker volume itself.
 
 File:
-- [backup_volume_2026-05-01.tar.gz](שלב_א/backup_volume_2026-05-01.tar.gz)
 
-This backup preserves the physical contents of the database storage volume in compressed format.
+- [backup_volume_2026-05-01.tar.gz](backup_volume_2026-05-01.tar.gz)
 
-### Restore Test
-The backup was tested by restoring the database into a separate database named `betmaster_restore`.  
-After the restore process, the data was verified successfully, and the table counts matched the original database.
-
-![Restore Counts](שלב_א/Screenshots/restore_counts.png)
-
-[Open image](שלב_א/Screenshots/restore_counts.png)
+This backup preserves the physical contents of the PostgreSQL database storage volume in compressed format.
 
 ---
 
-## Screenshots
+## Restore Test
 
-### Tables Created
-![Tables Created](שלב_א/Screenshots/tables_created.png)
+The logical backup was tested by restoring the database into a separate database named:
 
-[Open image](שלב_א/Screenshots/tables_created.png)
+```text
+betmaster_restore
+```
 
-### Record Counts
-![Record Counts](שלב_א/Screenshots/record_counts.png)
+After the restore process, the data was verified successfully.
 
-[Open image](שלב_א/Screenshots/record_counts.png)
+The restored database contained the same record counts as the original database:
 
-### Foreign Key Validation
-![Foreign Key Validation](שלב_א/Screenshots/fk_validation.png)
+| Table | Number of Records |
+|---|---:|
+| `USERS` | 800 |
+| `TEAMS` | 600 |
+| `MATCHES` | 1,200 |
+| `ODDS` | 1,200 |
+| `BETS` | 20,000 |
+| `TRANSACTIONS` | 20,000 |
 
-[Open image](שלב_א/Screenshots/fk_validation.png)
+![Restore Counts](Screenshots/restore_counts.png)
 
-### Backup Files
-![Backup Files](שלב_א/Screenshots/backup_files.png)
-
-[Open image](שלב_א/Screenshots/backup_files.png)
-
-### Restore Verification
-![Restore Verification](שלב_א/Screenshots/restore_counts.png)
-
-[Open image](שלב_א/Screenshots/restore_counts.png)
+[Open Restore Counts Screenshot](Screenshots/restore_counts.png)
 
 ---
 
-## Conclusion
-The designed system provides an organized and clear foundation for managing football betting.
+# Screenshots
 
-Through the four defined system screens, the six central entities, and the relationships between them, an initial model was built in accordance with the project requirements.  
-The system supports the management of users, matches, teams, odds, bets, and transactions while maintaining a valid and normalized database structure.
+## Tables Created
 
-In addition, the database was implemented in practice, populated with data using three different methods, backed up in two different ways, and successfully restored and verified.
+This screenshot shows that the six required database tables were created successfully.
 
-The generated data was also improved to use realistic names and to fully respect all foreign key constraints between the database tables.
+![Tables Created](Screenshots/tables_created.png)
+
+[Open Tables Created Screenshot](Screenshots/tables_created.png)
+
+---
+
+## Record Counts
+
+This screenshot shows the final number of records in each table.
+
+![Record Counts](Screenshots/record_counts.png)
+
+[Open Record Counts Screenshot](Screenshots/record_counts.png)
+
+---
+
+## Foreign Key Validation
+
+This screenshot shows that all foreign key validation checks returned zero invalid records.
+
+![Foreign Key Validation](Screenshots/fk_validation.png)
+
+[Open Foreign Key Validation Screenshot](Screenshots/fk_validation.png)
+
+---
+
+## Backup Files
+
+This screenshot shows the updated backup files:
+
+- `backup_2026-05-01.sql`
+- `backup_volume_2026-05-01.tar.gz`
+
+![Backup Files](Screenshots/backup_files.png)
+
+[Open Backup Files Screenshot](Screenshots/backup_files.png)
+
+---
+
+## Restore Verification
+
+This screenshot shows that the backup was restored successfully into `betmaster_restore`.
+
+![Restore Verification](Screenshots/restore_counts.png)
+
+[Open Restore Verification Screenshot](Screenshots/restore_counts.png)
+
+---
+
+# Project Files Structure
+
+The main files of Stage A are organized as follows:
+
+```text
+שלב_א
+│
+├── DataImportFiles
+│   ├── users.csv
+│   ├── teams.csv
+│   ├── matches.csv
+│   ├── odds.csv
+│   ├── bets.csv
+│   └── transactions.csv
+│
+├── Diagrams
+│   ├── ERD.png
+│   └── DSD.png
+│
+├── Programing
+│   └── generate_data.py
+│
+├── Screens
+│   ├── screen1.png
+│   ├── screen2.png
+│   ├── screen3.png
+│   └── screen4.png
+│
+├── Screenshots
+│   ├── tables_created.png
+│   ├── record_counts.png
+│   ├── fk_validation.png
+│   ├── backup_files.png
+│   └── restore_counts.png
+│
+├── createTables.sql
+├── dropTables.sql
+├── insertTables.sql
+├── selectAll.sql
+├── backup_2026-05-01.sql
+├── backup_volume_2026-05-01.tar.gz
+└── README.md
+```
+
+---
+
+# Conclusion
+
+The designed system provides an organized and clear foundation for managing a football betting database.
+
+The project includes four system screens, six main database entities, ERD and DSD diagrams, SQL implementation files, generated data, CSV imports, backup files, and restore verification.
+
+The data generation process was improved to use realistic names and values using the `Faker` library.
+
+In addition, the generated data was validated to ensure that all foreign key relationships are respected.
+
+The database was successfully populated, backed up using two different methods, restored into a separate database, and verified using record count checks.
