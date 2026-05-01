@@ -371,7 +371,7 @@ A Python script was written to generate a large amount of realistic data automat
 
 File:
 
-- [generate_data.py](Programing/generate_data.py)
+- [generate_data.py](Programming/generate_data.py)
 
 The script uses the `Faker` library to generate realistic data such as:
 
@@ -631,7 +631,7 @@ The main files of Stage A are organized as follows:
 │   ├── ERD.png
 │   └── DSD.png
 │
-├── Programing
+├── Programming
 │   └── generate_data.py
 │
 ├── Screens
