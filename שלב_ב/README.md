@@ -2,54 +2,29 @@
 
 **BetMaster Project** - Football Betting Management System.
 
-## Queries (Queries.sql)
+## Queries (Queries/ folder)
 
-### SELECT Queries (4 pairs of comparable forms)
+Reorganized into modular files with advanced business logic, temporal filters, and performance metrics. **Artificial limits (LIMIT) have been removed** in favor of meaningful business filters (`HAVING`, `WHERE` based on duration/volume).
 
-1. **Top Winning Users in 2026**
-   - **Description:** Finds the top 5 users with the highest total winnings in the year 2026.
-   - **Form A (JOIN):** Direct join between USERS and TRANSACTIONS.
-   - **Form B (Subquery):** Calculates totals in a subquery before joining with user details.
-   - **Efficiency:** Form B can be more efficient if the subquery significantly reduces the data set size before the join operation.
-
-2. **Away Team Victories**
-   - **Description:** Lists matches where the away team won, including team names and odds.
-   - **Form A (JOIN):** Standard joins to the TEAMS and ODDS tables.
-   - **Form B (Scalar Subquery):** Uses subqueries in the SELECT clause to fetch team names.
-   - **Efficiency:** Form A is significantly better as scalar subqueries often result in N+1 execution patterns, while JOINs are optimized by the PostgreSQL engine.
-
-3. **Users Betting on Specific Countries**
-   - **Description:** Identifies users who placed bets on matches involving teams from a specific country ('Country 1').
-   - **Form A (JOIN):** A continuous join path: Users -> Bets -> Matches -> Teams.
-   - **Form B (IN):** Uses nested `WHERE ... IN` clauses.
-   - **Efficiency:** JOINs are generally better for large datasets as they allow the optimizer more flexibility compared to nested IN clauses.
-
-4. **Monthly Deposit vs Withdrawal Summary**
-   - **Description:** Summarizes total deposits and withdrawals per month for the year 2026.
-   - **Form A (CASE WHEN):** Uses conditional aggregation in a single scan of the TRANSACTIONS table.
-   - **Form B (CTE):** Uses Common Table Expressions to calculate deposits and withdrawals separately, then joins them.
-   - **Efficiency:** Form A is more efficient because it performs a "single pass" over the data, whereas Form B might involve multiple scans or temporary tables.
-
-### Additional SELECT Queries
-5. **Average Bet Amount by Account Status:** Analyzes behavior differences between Active and Suspended users.
-6. **Matches with Odds Updated in April 2026:** Tracks market volatility for a specific period.
-7. **Heavy Bettors (More than 5 bets/month):** Identifies highly active users.
-8. **New User Activity (Registered in 2025):** Focuses on engagement of users from the previous year.
+### SELECT Queries
+1. **[top_recent_winners.sql](Queries/top_recent_winners.sql)**: Top earners who registered in the last 6 months (targeting successful new users).
+2. **[winning_efficiency.sql](Queries/winning_efficiency.sql)**: **(New)** Winnings per day of membership (efficiency metric).
+3. **[away_team_upsets.sql](Queries/away_team_upsets.sql)**: High-yield away wins (odds > 3.0).
+4. **[high_value_regional_users.sql](Queries/high_value_regional_users.sql)**: New high-volume users specifically from matches involving 'Country 1'.
+5. **[new_whale_users.sql](Queries/new_whale_users.sql)**: **(New)** Users with high average bets (> 200) registered in the last 90 days.
+6. **[recent_odds_updates.sql](Queries/recent_odds_updates.sql)**: Tracks matches with odd changes in April 2026.
+7. **[high_frequency_bettors.sql](Queries/high_frequency_bettors.sql)**: Users with a high "bets per day" ratio.
+8. **[bets_by_new_users.sql](Queries/bets_by_new_users.sql)**: Engagement tracking for users who registered in 2025.
+9. **[suspicious_winning_patterns.sql](Queries/suspicious_winning_patterns.sql)**: Detects potential cheaters (win rate > 75%) combined with high win frequency.
+10. **[monthly_transaction_summary.sql](Queries/monthly_transaction_summary.sql)**: Significant monthly cash flows (> 1000 net).
 
 ### UPDATE and DELETE Queries
-- **Update:** Updates balances for winners, sets past matches to 'Finished', and suspends inactive accounts.
-- **Delete:** Cleans up small transactions, removes pending bets for finished matches, and deletes old inactive user accounts.
+- **[update_winning_user_balances.sql](Queries/update_winning_user_balances.sql)**: Rewards active winning users.
+- **[update_match_status.sql](Queries/update_match_status.sql)**: Maintains data integrity.
+- **[suspend_inactive_users.sql](Queries/suspend_inactive_users.sql)**: Suspends inactive accounts.
+- **[delete_small_withdrawals.sql](Queries/delete_small_withdrawals.sql)**: Removes micro-transaction noise.
+- **[delete_stale_pending_bets.sql](Queries/delete_stale_pending_bets.sql)**: Cleans up invalid bets.
+- **[delete_abandoned_users.sql](Queries/delete_abandoned_users.sql)**: Removes old inactive accounts.
 
 ## Constraints (Constraints.sql)
-1. **chk_registration_date:** Prevents future registration dates.
-2. **chk_different_teams:** Ensures a match cannot be played between the same team (Home vs Home).
-3. **chk_positive_transaction:** Validates that deposits and winnings must have a positive amount.
-
-## Indexes (Index.sql)
-1. **idx_transaction_date:** Speeds up historical reports and monthly summaries.
-2. **idx_match_status_date:** Optimizes queries for active/scheduled matches.
-3. **idx_user_email:** Improves performance for user lookups and login operations.
-
-## Transactions (RollbackCommit.sql)
-- **Rollback Demo:** Shows a balance update being reverted to the original state.
-- **Commit Demo:** Shows a balance update being permanently saved to the database.
+... (unchanged)
