@@ -32,4 +32,4 @@ SELECT
 FROM MATCHES m
 WHERE m.final_result = 'Away'
   AND (SELECT away_win_odd FROM ODDS WHERE match_id = m.match_id) > 3.5
-ORDER BY odds DESC;
+ORDER BY (SELECT away_win_odd FROM ODDS WHERE match_id = m.match_id) DESC;
