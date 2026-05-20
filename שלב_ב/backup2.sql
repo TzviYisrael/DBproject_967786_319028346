@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict tBzOugLVWpamM4L5EkpvUo7My7oeCGIy1lK4TFnQcsy09bcofGwiV2gweTAseFt
+\restrict abBru4nKbQKuWaDoX5LHLcJN6gIQbvpmDl7wVkBqxU1yp9Pv7ZIn6N3qlNR5eaC
 
 -- Dumped from database version 16.13 (Debian 16.13-1.pgdg13+1)
 -- Dumped by pg_dump version 16.13 (Debian 16.13-1.pgdg13+1)
@@ -50,7 +50,8 @@ CREATE TABLE public.matches (
     status character varying(20) NOT NULL,
     final_result character varying(10),
     home_team_id integer,
-    away_team_id integer
+    away_team_id integer,
+    CONSTRAINT chk_different_teams CHECK ((home_team_id <> away_team_id))
 );
 
 
@@ -98,7 +99,8 @@ CREATE TABLE public.transactions (
     transaction_type character varying(20),
     transaction_date date NOT NULL,
     user_id integer,
-    CONSTRAINT transactions_transaction_type_check CHECK (((transaction_type)::text = ANY (ARRAY[('Deposit'::character varying)::text, ('Withdrawal'::character varying)::text, ('Bet Placement'::character varying)::text, ('Winnings'::character varying)::text])))
+    CONSTRAINT chk_positive_transaction CHECK (((((transaction_type)::text = ANY ((ARRAY['Deposit'::character varying, 'Winnings'::character varying])::text[])) AND (amount > (0)::numeric)) OR ((transaction_type)::text = ANY ((ARRAY['Withdrawal'::character varying, 'Bet Placement'::character varying])::text[])))),
+    CONSTRAINT transactions_transaction_type_check CHECK (((transaction_type)::text = ANY ((ARRAY['Deposit'::character varying, 'Withdrawal'::character varying, 'Bet Placement'::character varying, 'Winnings'::character varying])::text[])))
 );
 
 
@@ -115,6 +117,7 @@ CREATE TABLE public.users (
     balance numeric(12,2) DEFAULT 0,
     registration_date date NOT NULL,
     account_status character varying(20) DEFAULT 'Active'::character varying,
+    CONSTRAINT chk_registration_date CHECK ((registration_date <= CURRENT_DATE)),
     CONSTRAINT users_balance_check CHECK ((balance >= (0)::numeric))
 );
 
@@ -44034,6 +44037,27 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: idx_match_status_date; Type: INDEX; Schema: public; Owner: betmaster_user
+--
+
+CREATE INDEX idx_match_status_date ON public.matches USING btree (status, match_date);
+
+
+--
+-- Name: idx_transaction_date; Type: INDEX; Schema: public; Owner: betmaster_user
+--
+
+CREATE INDEX idx_transaction_date ON public.transactions USING btree (transaction_date);
+
+
+--
+-- Name: idx_user_email; Type: INDEX; Schema: public; Owner: betmaster_user
+--
+
+CREATE INDEX idx_user_email ON public.users USING btree (email);
+
+
+--
 -- Name: bets bets_match_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: betmaster_user
 --
 
@@ -44085,5 +44109,5 @@ ALTER TABLE ONLY public.transactions
 -- PostgreSQL database dump complete
 --
 
-\unrestrict tBzOugLVWpamM4L5EkpvUo7My7oeCGIy1lK4TFnQcsy09bcofGwiV2gweTAseFt
+\unrestrict abBru4nKbQKuWaDoX5LHLcJN6gIQbvpmDl7wVkBqxU1yp9Pv7ZIn6N3qlNR5eaC
 
