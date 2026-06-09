@@ -131,7 +131,7 @@ SELECT
     matches_played,
     total_goals
 FROM vw_football_player_performance
-WHERE salary > 1000000
+WHERE salary > 100000
   AND total_goals < 5
 ORDER BY salary DESC
 LIMIT 10;
@@ -185,9 +185,27 @@ GROUP BY
     hfs.stadium_name,
     fms.attendees;
 
+WITH betmaster_examples AS (
+    SELECT *
+    FROM vw_integrated_match_betting_context
+    WHERE source_system = 'BetMaster'
+      AND total_bet_amount > 0
+    ORDER BY total_bet_amount DESC
+    LIMIT 5
+), football_examples AS (
+    SELECT *
+    FROM vw_integrated_match_betting_context
+    WHERE source_system = 'FootballManagement'
+      AND attendees IS NOT NULL
+    ORDER BY attendees DESC
+    LIMIT 5
+)
 SELECT *
-FROM vw_integrated_match_betting_context
-LIMIT 10;
+FROM betmaster_examples
+UNION ALL
+SELECT *
+FROM football_examples
+ORDER BY source_system, total_bet_amount DESC, attendees DESC;
 
 -- Query 1 on View 3: BetMaster matches with the largest betting volume.
 SELECT
