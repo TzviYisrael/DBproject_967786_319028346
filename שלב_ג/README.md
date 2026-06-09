@@ -34,7 +34,23 @@ The integration was done according to **Method A** from the assignment:
 | Integration validation output | `integration_validation_output.txt` |
 | Stage B queries after integration | `stage_b_queries_on_integrated_output.txt` |
 
-## 3. Received Department DSD
+## 3. Screenshot Guide
+
+This table explains the purpose of each screenshot used in this README.
+
+| Screenshot | Purpose | What to check |
+| --- | --- | --- |
+| `integration_counts.png` | Confirms that the integrated database contains data | Original BetMaster tables and new `football_*` tables both have rows |
+| `stage_b_top_recent_winners_integrated.png` | Proves that a Stage B query still works after integration | The query returns recent users with high winnings |
+| `view_betmaster_select.png` | Shows the BetMaster view output | Each row summarizes one user's betting and financial activity |
+| `view_betmaster_query1.png` | Shows high-activity betting users | Users are active and ordered by total betting volume |
+| `view_betmaster_query2.png` | Shows users with winnings greater than withdrawals | The calculated difference column is positive |
+| `view_football_select.png` | Shows the Football Management view output | Each row summarizes one player's team, contract, and match performance |
+| `view_football_query1.png` | Shows the most productive players | Players are ordered by goals plus assists |
+| `view_football_query2.png` | Shows high-salary players with low goal contribution | Salary is high relative to this dataset and goals are below 5 |
+| `view_integrated_select.png` | Shows a mixed integrated view sample | BetMaster rows show betting data and FootballManagement rows show stadium data |
+
+## 4. Received Department DSD
 
 The received backup was restored and analyzed. From the tables, primary keys, foreign keys, and constraints, we built the DSD of the received department.
 
@@ -61,7 +77,7 @@ Main tables in the received system:
 the received database before integration. It is used as evidence that we
 restored and analyzed the other group's backup.
 
-## 4. Received Department ERD
+## 5. Received Department ERD
 
 After building the DSD, we reverse engineered it into an ERD.
 
@@ -84,7 +100,7 @@ Relationship tables such as `matchteam`, `coachedby`, `playsfor_player`, and `re
 conceptual entities and relationships. It shows the reverse engineering result
 for the received department.
 
-## 5. Reverse Engineering Algorithm
+## 6. Reverse Engineering Algorithm
 
 The reverse engineering process from the received database schema to ERD was:
 
@@ -99,7 +115,7 @@ The reverse engineering process from the received database schema to ERD was:
 9. Determine cardinalities based on foreign keys and uniqueness.
 10. Convert the relational structure into a conceptual ERD.
 
-## 6. Integration Design Decisions
+## 7. Integration Design Decisions
 
 The main integration decision was to connect both systems through the football entities that both systems share:
 
@@ -135,7 +151,7 @@ The received system had football-management data around teams and matches:
 7. `teams.home_stadium_id` was added so each team can be linked to its home stadium.
 8. If received teams had names that did not match BetMaster teams, they were kept as separate teams with source tracking.
 
-## 7. Integrated ERD
+## 8. Integrated ERD
 
 The integrated ERD is the conceptual design of the combined system.
 
@@ -154,7 +170,7 @@ The BetMaster side connects through bets, users, odds, and transactions. The Foo
 system. `Team` and `Match` are the shared center, with BetMaster entities on
 one side and Football Management entities on the other side.
 
-## 8. DSD After Integration
+## 9. DSD After Integration
 
 The DSD after integration was generated from the integrated ERD in ERDPlus. It shows the relational schema that comes from the ERD design, including the main tables, keys, and relationships.
 
@@ -186,7 +202,7 @@ Diagrams/integrated_DSD.png
 actually implemented by `Integrate.sql`. It includes implementation details
 such as mapping tables and technical integration columns.
 
-## 9. Why the ERDPlus DSD and Implemented DSD Are Not Identical
+## 10. Why the ERDPlus DSD and Implemented DSD Are Not Identical
 
 The integrated ERD was built in ERDPlus as a conceptual diagram. ERDPlus can also generate a relational schema from that ERD, and this generated DSD is included as `integrated_DSD_erdplus.png`.
 
@@ -194,7 +210,7 @@ However, the implemented DSD is based on the actual SQL schema created by `Integ
 
 This is expected: the ERDPlus DSD demonstrates the conversion from ERD to relational schema, while the implemented DSD demonstrates the real database structure after integration.
 
-## 10. Integration SQL
+## 11. Integration SQL
 
 The integration commands are in:
 
@@ -214,7 +230,7 @@ This file performs the following actions:
 8. Connects teams to home stadiums.
 9. Runs validation queries to verify row counts.
 
-## 11. Integration Validation
+## 12. Integration Validation
 
 After the integration, we verified that the combined database contains data in both the original BetMaster tables and the new football-management tables.
 
@@ -233,7 +249,7 @@ Full validation output:
 integration_validation_output.txt
 ```
 
-## 12. Running Stage B Queries After Integration
+## 13. Running Stage B Queries After Integration
 
 The assignment requires running the previous stage queries on the integrated database to make sure they still work.
 
@@ -255,7 +271,7 @@ Full output:
 stage_b_queries_on_integrated_output.txt
 ```
 
-## 13. Views
+## 14. Views
 
 The assignment requires two views:
 
@@ -264,7 +280,37 @@ The assignment requires two views:
 
 We created the required two views and also created one additional integrated view.
 
-## 14. View 1 - BetMaster Point of View
+### Important Interpretation Notes
+
+These notes explain the main calculated columns that appear in the screenshots:
+
+- `total_bet_amount` means the total amount of money a user or match received in bets.
+- `balance` means the user's current available account balance.
+- `bet_count` means how many bets were placed on a match.
+- `won_bets` and `lost_bets` count only resolved bets. For scheduled or cancelled matches, a match can have bets but still show `0` won bets and `0` lost bets.
+- Empty stadium fields in BetMaster rows are expected because the original BetMaster system did not store stadium data.
+- Zero betting fields in FootballManagement rows are expected because the received Football Management system did not store betting data.
+
+### Why Some Values Are Empty Or Zero
+
+Some screenshots contain empty cells or zero values. These values are expected
+and reflect the difference between the two systems that were integrated.
+
+| Case | Why it happens | Why it is not an error |
+| --- | --- | --- |
+| BetMaster rows have empty stadium columns | The original BetMaster system managed betting data, not stadium data | Stadiums came from the received Football Management system |
+| FootballManagement rows have `bet_count = 0` and `total_bet_amount = 0` | The received system managed football matches, not bets | Bets exist only for the original BetMaster matches |
+| Scheduled matches have bets but `won_bets = 0` and `lost_bets = 0` | Users can place bets before a match is finished | The bets are not resolved until the match has a final result |
+| Cancelled matches may have bets but no wins/losses | The match was not completed | There is no final outcome to mark bets as won or lost |
+| `competition_stage` is empty for BetMaster rows | BetMaster did not store tournament stages | This field was added for matches received from Football Management |
+| `attendees` is empty for BetMaster rows | BetMaster did not store audience attendance | Attendance data came from the received stadium/match data |
+
+The integrated view intentionally keeps both systems in the same result set.
+Therefore, not every row has values in every column. A BetMaster row is rich in
+betting data, while a FootballManagement row is rich in stadium and football
+context data.
+
+## 15. View 1 - BetMaster Point of View
 
 View name:
 
@@ -345,7 +391,7 @@ LIMIT 10;
 their withdrawals. The calculated column shows the remaining difference between
 winnings and withdrawals.
 
-## 15. View 2 - Football Management Point of View
+## 16. View 2 - Football Management Point of View
 
 View name:
 
@@ -428,7 +474,7 @@ LIMIT 10;
 The salary threshold is set to `100000` because this matches the salary scale in
 the actual data.
 
-## 16. Additional Integrated View
+## 17. Additional Integrated View
 
 In addition to the required two views, we created an extra integrated view:
 
@@ -474,7 +520,7 @@ expected because the original betting system did not store stadium information.
 Zero betting columns in FootballManagement rows are also expected because the
 received system did not store bets.
 
-## 17. Final Backup
+## 18. Final Backup
 
 The final integrated backup is:
 
@@ -490,7 +536,7 @@ This backup was created after:
 4. validating the data,
 5. running Stage B queries successfully.
 
-## 18. Final Execution Order
+## 19. Final Execution Order
 
 The actual execution order was:
 
@@ -502,7 +548,7 @@ The actual execution order was:
 6. Run Stage B queries on the integrated database.
 7. Generate `backup3.sql`.
 
-## 19. Summary
+## 20. Summary
 
 The final integrated database contains data from both original systems. The integration keeps the original BetMaster betting functionality and adds football-management information such as players, coaches, referees, stadiums, and performance statistics.
 
