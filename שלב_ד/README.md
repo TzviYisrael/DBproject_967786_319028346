@@ -127,6 +127,15 @@ the screenshot because it returns enough rows to clearly prove the function
 worked. The function default is `50`, so it can also be used with a stricter
 threshold.
 
+Proof screenshot:
+
+![Function risk ref cursor](screenshots/function_risk_refcursor.png)
+
+In the screenshot, the function returns the cursor name `risk_report_cursor`.
+Then `FETCH ALL` reads the cursor and prints users with risk score, reason,
+status and opening time. This proves both the ref cursor requirement and the
+insert into `risk_review_queue`.
+
 Main PL/pgSQL elements:
 
 - explicit cursor,
@@ -144,6 +153,14 @@ bets, pending bets, won/lost bets, total stake and potential liability.
 
 Passing `NULL` means: summarize multiple matches instead of one specific match.
 This was useful for the screenshot because it shows several rows of output.
+
+Proof screenshot:
+
+![Function match financial summary](screenshots/function_match_financial_summary.png)
+
+The screenshot shows multiple match summaries. Each row includes match status,
+pending bets, total stake and potential liability, so it proves that the
+function performs grouped financial processing and not a simple table print.
 
 Main PL/pgSQL elements:
 
@@ -169,12 +186,28 @@ It then:
 This is the strongest DML example in the stage because it changes several
 tables in one business process.
 
+Proof screenshot:
+
+![Procedure settle match](screenshots/procedure_settle_match.png)
+
+The screenshot shows the selected match before and after the procedure. Before
+the `CALL`, the match has pending bets. After the `CALL`, the match is
+`Finished`, `pending_bets` is 0, winners and losers are counted, winnings are
+paid and a row appears in `match_settlement_log`.
+
 ### Procedure 2 - `proc_recalculate_user_statuses`
 
 This procedure reviews users and changes their account status when the risk
 rules require it. For example, users with high pending exposure can become
 `Blocked`. These updates activate the users UPDATE trigger, so the same workflow
 also proves the audit trigger.
+
+Proof screenshot:
+
+![Procedure recalculate user statuses and users trigger](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+
+The upper part of the screenshot shows the risk-review queue. The lower part
+shows `account_audit_log`, which proves that user updates were audited.
 
 ### Trigger 1 - `users_account_audit_update`
 
@@ -185,6 +218,13 @@ It writes old values, new values, delta, reason and timestamp to
 This is important because sensitive financial/user-status changes should be
 audited.
 
+Proof screenshot:
+
+![Users update trigger audit](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+
+The audit rows include old status, new status, old balance, new balance and
+reason. This proves that the trigger runs automatically when `users` is updated.
+
 ### Trigger 2 - `odds_audit_update`
 
 This trigger runs before UPDATE on the odds values. It validates that odds stay
@@ -193,6 +233,13 @@ greater than 1, updates `update_date`, and writes the old/new odds values to
 
 This is important because odds changes affect financial exposure and should
 have history.
+
+Proof screenshot:
+
+![Trigger odds update audit](screenshots/trigger_odds_update_audit.png)
+
+The screenshot shows `UPDATE 1` on `odds` and matching rows in
+`odds_audit_log`, including old and new odds values.
 
 ## 7. Main Programs
 
@@ -213,6 +260,13 @@ CALL proc_recalculate_user_statuses(1200, 500, 40);
 
 Then it prints rows from `risk_review_queue` and `account_audit_log`.
 
+Proof screenshot:
+
+![Main program risk review](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+
+The screenshot proves that the main program runs a complete risk-review flow:
+function output, procedure call, risk queue output and audit output.
+
 ### Main Program 2 - Match Settlement
 
 File:
@@ -228,54 +282,15 @@ summary after settlement.
 It proves that the database changed because `pending_bets` becomes 0 and a row
 appears in `match_settlement_log`.
 
-## 8. Screenshot Evidence
+Proof screenshot:
 
-| Proof | Screenshot |
-| --- | --- |
-| Function 1 - risk report ref cursor | `screenshots/function_risk_refcursor.png` |
-| Function 2 - match financial summary | `screenshots/function_match_financial_summary.png` |
-| Procedure 1 - match settlement | `screenshots/procedure_settle_match.png` |
-| Procedure 2 and users UPDATE trigger | `screenshots/procedure_recalculate_user_statuses_and_user_trigger.png` |
-| Odds UPDATE trigger | `screenshots/trigger_odds_update_audit.png` |
-| Exception handling | `screenshots/exception_invalid_settlement_result.png` |
+![Main program settle match](screenshots/procedure_settle_match.png)
 
-### Function 1 - Risk Ref Cursor
+The screenshot proves that the main program runs the full settlement flow:
+summary before settlement, procedure call, summary after settlement and
+settlement log output.
 
-![Function risk ref cursor](screenshots/function_risk_refcursor.png)
-
-The screenshot shows that the function opened `risk_report_cursor`, and that
-`FETCH ALL` printed the generated risk report.
-
-### Function 2 - Match Financial Summary
-
-![Function match financial summary](screenshots/function_match_financial_summary.png)
-
-The screenshot shows multiple match summaries with pending bets, total stake and
-potential liability.
-
-### Procedure 1 - Settle Match
-
-![Procedure settle match](screenshots/procedure_settle_match.png)
-
-The screenshot shows the selected match before and after settlement. After the
-procedure, the match is `Finished`, pending bets are 0 and a settlement log row
-exists.
-
-### Procedure 2 And Trigger 1 - User Status Review
-
-![Procedure recalculate user statuses and users trigger](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
-
-The screenshot shows risk-review rows and audit rows created after updates to
-the `users` table.
-
-### Trigger 2 - Odds Update Audit
-
-![Trigger odds update audit](screenshots/trigger_odds_update_audit.png)
-
-The screenshot shows `UPDATE 1` on `odds` and the matching audit rows in
-`odds_audit_log`.
-
-### Exception Handling
+## 8. Exception Handling
 
 ![Exception invalid settlement result](screenshots/exception_invalid_settlement_result.png)
 
