@@ -8,22 +8,22 @@
 \i שלב_ד/AlterTable.sql
 
 \echo '2. Creating functions'
-\i שלב_ד/function_open_user_risk_report.sql
-\i שלב_ד/function_match_financial_summary.sql
+\i שלב_ד/programs/function_open_user_risk_report.sql
+\i שלב_ד/programs/function_match_financial_summary.sql
 
 \echo '3. Creating procedures'
-\i שלב_ד/procedure_settle_match.sql
-\i שלב_ד/procedure_recalculate_user_statuses.sql
+\i שלב_ד/programs/procedure_settle_match.sql
+\i שלב_ד/programs/procedure_recalculate_user_statuses.sql
 
 \echo '4. Creating triggers'
-\i שלב_ד/trigger_user_account_audit.sql
-\i שלב_ד/trigger_odds_update_audit.sql
+\i שלב_ד/programs/trigger_user_account_audit.sql
+\i שלב_ד/programs/trigger_odds_update_audit.sql
 
 \echo '5. Running main program 1'
-\i שלב_ד/MainProgram_RiskReview.sql
+\i שלב_ד/programs/MainProgram_RiskReview.sql
 
 \echo '6. Running main program 2'
-\i שלב_ד/MainProgram_SettleMatch.sql
+\i שלב_ד/programs/MainProgram_SettleMatch.sql
 
 \echo '7. Demonstrating odds UPDATE trigger'
 UPDATE odds

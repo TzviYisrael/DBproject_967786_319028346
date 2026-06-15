@@ -3,16 +3,16 @@ CREATE TABLE
 psql:שלב_ד/AlterTable.sql:17: NOTICE:  relation "account_audit_log" already exists, skipping
 CREATE INDEX
 psql:שלב_ד/AlterTable.sql:20: NOTICE:  relation "idx_account_audit_log_user_time" already exists, skipping
+CREATE TABLE
 psql:שלב_ד/AlterTable.sql:30: NOTICE:  relation "risk_review_queue" already exists, skipping
-CREATE TABLE
-CREATE INDEX
 psql:שלב_ד/AlterTable.sql:33: NOTICE:  relation "idx_risk_review_queue_open" already exists, skipping
-psql:שלב_ד/AlterTable.sql:43: NOTICE:  relation "match_settlement_log" already exists, skipping
+CREATE INDEX
 CREATE TABLE
+psql:שלב_ד/AlterTable.sql:43: NOTICE:  relation "match_settlement_log" already exists, skipping
 psql:שלב_ד/AlterTable.sql:46: NOTICE:  relation "idx_match_settlement_log_match" already exists, skipping
 CREATE INDEX
-psql:שלב_ד/AlterTable.sql:60: NOTICE:  relation "odds_audit_log" already exists, skipping
 CREATE TABLE
+psql:שלב_ד/AlterTable.sql:60: NOTICE:  relation "odds_audit_log" already exists, skipping
 psql:שלב_ד/AlterTable.sql:63: NOTICE:  relation "idx_odds_audit_log_odd_time" already exists, skipping
 CREATE INDEX
 2. Creating functions
@@ -64,8 +64,8 @@ BEGIN
        183 |     216 | Daniel Coleman   |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
 (25 rows)
 
-psql:שלב_ד/MainProgram_RiskReview.sql:13: NOTICE:  proc_recalculate_user_statuses changed 0 users
 CALL
+psql:שלב_ד/programs/MainProgram_RiskReview.sql:13: NOTICE:  proc_recalculate_user_statuses changed 1 users
  review_id | user_id |   full_name    | risk_score | status |                                                              reason                                                               
 -----------+---------+----------------+------------+--------+-----------------------------------------------------------------------------------------------------------------------------------
        747 |     183 | Paul Ray       |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
@@ -82,43 +82,43 @@ CALL
 
  audit_id | user_id | old_status | new_status | old_balance | new_balance |  audit_reason   |         changed_at         
 ----------+---------+------------+------------+-------------+-------------+-----------------+----------------------------
-       46 |     765 | Blocked    | Blocked    |    22599.19 |    22781.55 | Balance changed | 2026-06-15 20:33:27.106415
-       45 |     700 | Inactive   | Inactive   |    50523.52 |    50781.62 | Balance changed | 2026-06-15 20:33:27.106415
-       44 |      50 | Blocked    | Blocked    |    22530.25 |    23314.54 | Balance changed | 2026-06-15 20:33:27.106415
-       43 |     631 | Active     | Active     |    33342.30 |    33513.08 | Balance changed | 2026-06-15 20:33:27.106415
-       42 |     131 | Blocked    | Blocked    |    31037.54 |    31444.66 | Balance changed | 2026-06-15 20:33:27.106415
-       41 |     767 | Active     | Active     |    25361.01 |    25550.71 | Balance changed | 2026-06-15 20:33:27.106415
-       40 |     542 | Inactive   | Blocked    |    63882.09 |    63882.09 | Status changed  | 2026-06-15 20:33:26.813233
-       39 |     212 | Inactive   | Inactive   |    16176.24 |    16420.54 | Balance changed | 2026-06-15 20:33:03.611737
-       38 |     371 | Inactive   | Inactive   |    36287.30 |    36513.29 | Balance changed | 2026-06-15 20:33:03.611737
-       37 |     235 | Blocked    | Blocked    |    44084.68 |    44424.29 | Balance changed | 2026-06-15 20:33:03.611737
+       73 |      16 | Inactive   | Blocked    |    16065.45 |    16065.45 | Status changed  | 2026-06-15 21:11:40.141905
+       72 |     745 | Blocked    | Blocked    |    41934.95 |    42176.35 | Balance changed | 2026-06-15 21:04:24.262289
+       71 |     513 | Active     | Active     |    48446.63 |    48844.79 | Balance changed | 2026-06-15 21:04:24.262289
+       70 |     800 | Inactive   | Inactive   |    41842.37 |    42482.30 | Balance changed | 2026-06-15 21:04:24.262289
+       69 |     419 | Blocked    | Blocked    |    33075.04 |    33340.62 | Balance changed | 2026-06-15 21:04:24.262289
+       68 |     413 | Blocked    | Blocked    |    40581.60 |    41010.95 | Balance changed | 2026-06-15 21:04:24.262289
+       67 |     116 | Blocked    | Blocked    |    35126.33 |    35202.03 | Balance changed | 2026-06-15 21:04:24.262289
+       66 |       7 | Blocked    | Blocked    |    29957.27 |    30447.44 | Balance changed | 2026-06-15 21:04:24.262289
+       65 |     330 | Blocked    | Blocked    |    24575.00 |    25173.73 | Balance changed | 2026-06-15 21:04:24.262289
+       64 |     195 | Blocked    | Blocked    |    29822.34 |    29947.30 | Balance changed | 2026-06-15 21:04:24.262289
 (10 rows)
 
 COMMIT
 6. Running main program 2
 BEGIN
-psql:שלב_ד/MainProgram_SettleMatch.sql:10: NOTICE:  table "stage4_selected_match" does not exist, skipping
+psql:שלב_ד/programs/MainProgram_SettleMatch.sql:10: NOTICE:  table "stage4_selected_match" does not exist, skipping
 DROP TABLE
 SELECT 1
        phase       | match_id | settlement_result 
 -------------------+----------+-------------------
- BEFORE_SETTLEMENT |      113 | Home
+ BEFORE_SETTLEMENT |      456 | Home
 (1 row)
 
- summary_match_id |   home_team   |    away_team     | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
-------------------+---------------+------------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
-              113 | Cordoba Lions | Setubal Athletic | Scheduled    |              |         27 |           27 |        0 |         0 |     3744.54 |          14448.9514
+ summary_match_id |    home_team     |   away_team    | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
+------------------+------------------+----------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
+              456 | Setubal Athletic | Mechelen Lions | Scheduled    |              |         26 |           26 |        0 |         0 |     3387.92 |          10812.6208
 (1 row)
 
 CALL
- summary_match_id |   home_team   |    away_team     | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
-------------------+---------------+------------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
-              113 | Cordoba Lions | Setubal Athletic | Finished     | Home         |         27 |            0 |        8 |        19 |     3744.54 |                   0
+ summary_match_id |    home_team     |   away_team    | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
+------------------+------------------+----------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
+              456 | Setubal Athletic | Mechelen Lions | Finished     | Home         |         26 |            0 |        8 |        18 |     3387.92 |                   0
 (1 row)
 
  settlement_log_id | match_id | final_result | affected_bets | paid_winnings |        details         |         settled_at         
 -------------------+----------+--------------+---------------+---------------+------------------------+----------------------------
-                 3 |      113 | Home         |            27 |       3850.96 | Winners: 8, losers: 19 | 2026-06-15 20:33:47.252872
+                 6 |      456 | Home         |            26 |       1331.52 | Winners: 8, losers: 18 | 2026-06-15 21:11:40.456553
 (1 row)
 
 COMMIT
@@ -126,10 +126,12 @@ COMMIT
 UPDATE 1
  odds_audit_id | odd_id | old_home_win_odd | new_home_win_odd |    change_reason    |         changed_at         
 ---------------+--------+------------------+------------------+---------------------+----------------------------
+             6 |      1 |             2.00 |             2.10 | Regular odds update | 2026-06-15 21:11:40.518184
+             5 |      1 |             1.90 |             2.00 | Regular odds update | 2026-06-15 21:04:24.354519
+             4 |      1 |             1.80 |             1.90 | Regular odds update | 2026-06-15 20:53:41.817521
              3 |      1 |             1.70 |             1.80 | Regular odds update | 2026-06-15 20:33:47.318309
              2 |      1 |             1.60 |             1.70 | Regular odds update | 2026-06-15 20:33:27.142431
-             1 |      1 |             1.50 |             1.60 | Regular odds update | 2026-06-15 20:33:03.663955
-(3 rows)
+(5 rows)
 
 8. Demonstrating exception handling
 psql:/project/שלב_ד/RunAllStage4.sql:64: NOTICE:  proc_settle_match failed for match 1. Error: Invalid final result InvalidResult. Expected Home, Draw or Away

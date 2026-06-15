@@ -1,99 +1,109 @@
 # Stage D - PL/pgSQL Programming
 
-This folder contains the Stage D submission for the integrated BetMaster database.
+This folder contains the Stage D submission for the integrated BetMaster
+database. The implementation adds non-trivial PL/pgSQL functions, procedures,
+UPDATE triggers, main programs, execution evidence, screenshots and the final
+database backup.
 
-## Files
+## Folder Structure
+
+| Path | Purpose |
+| --- | --- |
+| `programs/` | All functions, procedures, triggers and main programs |
+| `screenshots/` | Screenshot proof for each required program |
+| `evidence/stage4_execution_output.txt` | Full psql execution output |
+| `AlterTable.sql` | Supporting schema changes required by Stage D |
+| `backup4.sql` | Final database backup after Stage D |
+| `RunAllStage4.sql` | Main script that loads and runs all Stage D programs |
+| `דוח הפרויקט שלב ד.md` | Stage D project report, including full code appendix |
+
+## Program Files
 
 | Requirement | File |
 | --- | --- |
 | Supporting schema changes | `AlterTable.sql` |
-| Function 1, returns ref cursor | `function_open_user_risk_report.sql` |
-| Function 2, table result | `function_match_financial_summary.sql` |
-| Procedure 1 | `procedure_settle_match.sql` |
-| Procedure 2 | `procedure_recalculate_user_statuses.sql` |
-| UPDATE trigger 1 | `trigger_user_account_audit.sql` |
-| UPDATE trigger 2 | `trigger_odds_update_audit.sql` |
-| Main program 1 | `MainProgram_RiskReview.sql` |
-| Main program 2 | `MainProgram_SettleMatch.sql` |
-| Full execution script | `RunAllStage4.sql` |
-| Execution proof | `evidence/stage4_execution_output.txt` |
-| Screenshot proof - risk ref cursor function | `screenshots/function_risk_refcursor.png` |
-| Screenshot proof - match financial summary function | `screenshots/function_match_financial_summary.png` |
-| Screenshot proof - settle match procedure | `screenshots/procedure_settle_match.png` |
-| Screenshot proof - user status procedure and users UPDATE trigger | `screenshots/procedure_recalculate_user_statuses_and_user_trigger.png` |
-| Screenshot proof - odds UPDATE trigger | `screenshots/trigger_odds_update_audit.png` |
-| Screenshot proof - exception handling | `screenshots/exception_invalid_settlement_result.png` |
-| Final backup | `backup4.sql` |
-| Report | `דוח הפרויקט שלב ד.md` |
+| Function 1, returns ref cursor | `programs/function_open_user_risk_report.sql` |
+| Function 2, table result | `programs/function_match_financial_summary.sql` |
+| Procedure 1 | `programs/procedure_settle_match.sql` |
+| Procedure 2 | `programs/procedure_recalculate_user_statuses.sql` |
+| UPDATE trigger 1 | `programs/trigger_user_account_audit.sql` |
+| UPDATE trigger 2 | `programs/trigger_odds_update_audit.sql` |
+| Main program 1 | `programs/MainProgram_RiskReview.sql` |
+| Main program 2 | `programs/MainProgram_SettleMatch.sql` |
 
 ## Screenshot Evidence
+
+| Proof | Screenshot |
+| --- | --- |
+| Function 1 - risk report ref cursor | `screenshots/function_risk_refcursor.png` |
+| Function 2 - match financial summary | `screenshots/function_match_financial_summary.png` |
+| Procedure 1 - match settlement | `screenshots/procedure_settle_match.png` |
+| Procedure 2 and users UPDATE trigger | `screenshots/procedure_recalculate_user_statuses_and_user_trigger.png` |
+| Odds UPDATE trigger | `screenshots/trigger_odds_update_audit.png` |
+| Exception handling | `screenshots/exception_invalid_settlement_result.png` |
 
 ### Function 1 - Risk Ref Cursor
 
 ![Function risk ref cursor](screenshots/function_risk_refcursor.png)
 
-This screenshot proves that `fn_open_user_risk_report(35)` opened and returned
-the `risk_report_cursor`. The following `FETCH ALL IN "risk_report_cursor"`
-prints the generated risk-review rows. Each row contains a user, calculated
-risk score, explanation, status and opening time, proving that the function
-performed both PL/pgSQL processing and database updates before returning the
-cursor.
+`fn_open_user_risk_report(35)` opens and returns `risk_report_cursor`. The
+following `FETCH ALL IN "risk_report_cursor"` prints users with calculated risk
+scores, reasons, status and opening time. This proves the function uses
+PL/pgSQL logic, writes risk-review rows, and returns the result through a
+ref cursor.
 
 ### Function 2 - Match Financial Summary
 
 ![Function match financial summary](screenshots/function_match_financial_summary.png)
 
-This screenshot proves that `fn_match_financial_summary(NULL)` can summarize
-multiple matches. The function scans match and betting records, groups the
-financial state per match, and returns totals such as number of bets, pending
-bets, total stake and potential liability. The output is ordered by open betting
-exposure, which makes it useful for operational risk monitoring.
+`fn_match_financial_summary(NULL)` summarizes multiple matches. It scans match,
+team, bet and odds data and returns total bets, pending bets, total stake and
+potential liability for each match.
 
 ### Procedure 1 - Settle Match
 
 ![Procedure settle match](screenshots/procedure_settle_match.png)
 
-This screenshot proves that `proc_settle_match` changed database state. Before
-the `CALL`, the selected match is still `Scheduled` with pending bets and a
-positive potential liability. After the procedure runs, the match is `Finished`,
-the final result is set to `Home`, pending bets become zero, winning and losing
-bets are counted, winnings are paid, and a row is written to
-`match_settlement_log`.
+`proc_settle_match` changes real database state. Before the `CALL`, the selected
+match is `Scheduled` with pending bets. After the procedure runs, the match is
+`Finished`, pending bets become zero, winning and losing bets are counted,
+winnings are paid, and `match_settlement_log` receives a settlement row.
 
 ### Procedure 2 And Trigger 1 - User Status Review
 
 ![Procedure recalculate user statuses and users trigger](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
-This screenshot shows the risk-review main program after calling
-`proc_recalculate_user_statuses`. The upper result set shows open risk-review
-records, and the lower result set shows `account_audit_log` rows created by the
-`users_account_audit_update` trigger. The audit rows prove that updates to
-`users.balance` or `users.account_status` are automatically recorded with old
-values, new values, reason and timestamp.
+`proc_recalculate_user_statuses` reviews account risk and updates user status
+when needed. The same screenshot also proves the `users_account_audit_update`
+trigger, because `account_audit_log` contains old values, new values, reason and
+timestamp for user balance/status updates.
 
 ### Trigger 2 - Odds Update Audit
 
 ![Trigger odds update audit](screenshots/trigger_odds_update_audit.png)
 
-This screenshot proves that the `odds_audit_update` trigger runs on `UPDATE`.
-The command changes `home_win_odd`, and the audit table immediately records
-the old and new odds values, the related match, the reason and the timestamp.
-The repeated rows show a full history of odds changes instead of only the
-current value in `odds`.
+The `odds_audit_update` trigger runs automatically on `UPDATE odds`. It records
+the old and new odds values, related match, reason and timestamp in
+`odds_audit_log`.
 
 ### Exception Handling
 
 ![Exception invalid settlement result](screenshots/exception_invalid_settlement_result.png)
 
-This screenshot proves the exception path in `proc_settle_match`. The procedure
-is called with `InvalidResult`, which is not a legal match result. The procedure
-raises an error, and the outer PL/pgSQL block catches it and prints the captured
-message. This demonstrates controlled exception handling instead of silent
-failure.
+The exception screenshot calls `proc_settle_match` with `InvalidResult`. The
+procedure rejects the invalid result, raises an error, and the outer PL/pgSQL
+block catches it and prints a controlled `NOTICE`.
 
-## Execution Order
+## Execution
+
+Run the full Stage D script from the project root:
 
 ```bash
-docker exec -i betmaster_db psql -U betmaster_user -d betmaster < שלב_ד/RunAllStage4.sql
+docker exec -w /project betmaster_db psql -U betmaster_user -d betmaster -f /project/שלב_ד/RunAllStage4.sql
+```
+
+Create the final backup:
+
+```bash
 docker exec betmaster_db pg_dump -U betmaster_user betmaster > שלב_ד/backup4.sql
 ```
