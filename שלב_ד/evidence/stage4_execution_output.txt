@@ -1,0 +1,139 @@
+﻿1. Creating supporting tables
+CREATE TABLE
+psql:שלב_ד/AlterTable.sql:17: NOTICE:  relation "account_audit_log" already exists, skipping
+CREATE INDEX
+psql:שלב_ד/AlterTable.sql:20: NOTICE:  relation "idx_account_audit_log_user_time" already exists, skipping
+CREATE TABLE
+psql:שלב_ד/AlterTable.sql:30: NOTICE:  relation "risk_review_queue" already exists, skipping
+psql:שלב_ד/AlterTable.sql:33: NOTICE:  relation "idx_risk_review_queue_open" already exists, skipping
+CREATE INDEX
+CREATE TABLE
+psql:שלב_ד/AlterTable.sql:43: NOTICE:  relation "match_settlement_log" already exists, skipping
+psql:שלב_ד/AlterTable.sql:46: NOTICE:  relation "idx_match_settlement_log_match" already exists, skipping
+CREATE INDEX
+CREATE TABLE
+psql:שלב_ד/AlterTable.sql:60: NOTICE:  relation "odds_audit_log" already exists, skipping
+psql:שלב_ד/AlterTable.sql:63: NOTICE:  relation "idx_odds_audit_log_odd_time" already exists, skipping
+CREATE INDEX
+2. Creating functions
+CREATE FUNCTION
+CREATE FUNCTION
+3. Creating procedures
+CREATE PROCEDURE
+CREATE PROCEDURE
+4. Creating triggers
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+5. Running main program 1
+BEGIN
+   opened_cursor    
+--------------------
+ risk_report_cursor
+(1 row)
+
+ review_id | user_id |    full_name     | risk_score |                                                              reason                                                               | status |         opened_at          
+-----------+---------+------------------+------------+-----------------------------------------------------------------------------------------------------------------------------------+--------+----------------------------
+       747 |     183 | Paul Ray         |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:33:46.80733
+       744 |     715 | Jon Smith        |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:33:26.813233
+       735 |     133 | Martha Warner    |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:33:03.203912
+       740 |     486 | Jeffrey Brown    |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:33:03.203912
+        35 |      44 | Whitney Hicks    |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+        39 |      49 | Wendy Rice       |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+         8 |      11 | Linda Wolfe      |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+        91 |     112 | Amy Adkins       |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+        31 |      39 | Robin Ellis      |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       106 |     128 | Yolanda Ferrell  |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       118 |     141 | Jennifer Harris  |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       125 |     149 | Ronald Smith     |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       134 |     160 | Eric Spears      |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       176 |     209 | John Alvarez     |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       205 |     245 | Amy Morrison     |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+        53 |      65 | Natasha Decker   |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       194 |     229 | Katie Boyd       |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       218 |     260 | Andrew Ryan      |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       234 |     279 | David Riggs      |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       239 |     285 | Cynthia Poole    |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       241 |     287 | Jessica Sheppard |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       249 |     299 | Jacqueline Hill  |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       265 |     317 | Justin Garcia    |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       276 |     328 | Lynn Morales     |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+       183 |     216 | Daniel Coleman   |     105.00 | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active.  | Open   | 2026-06-15 20:32:38.398207
+(25 rows)
+
+CALL
+psql:שלב_ד/programs/MainProgram_RiskReview.sql:13: NOTICE:  proc_recalculate_user_statuses changed 1 users
+ review_id | user_id |   full_name    | risk_score | status |                                                              reason                                                               
+-----------+---------+----------------+------------+--------+-----------------------------------------------------------------------------------------------------------------------------------
+       747 |     183 | Paul Ray       |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+       744 |     715 | Jon Smith      |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+       735 |     133 | Martha Warner  |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+       740 |     486 | Jeffrey Brown  |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+        35 |      44 | Whitney Hicks  |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+        39 |      49 | Wendy Rice     |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+         8 |      11 | Linda Wolfe    |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+        91 |     112 | Amy Adkins     |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+        31 |      39 | Robin Ellis    |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+        53 |      65 | Natasha Decker |     105.00 | Open   | Pending exposure is greater than balance. Loss ratio is high. Withdrawals are high compared with balance. Account is not active. 
+(10 rows)
+
+ audit_id | user_id | old_status | new_status | old_balance | new_balance |  audit_reason   |         changed_at         
+----------+---------+------------+------------+-------------+-------------+-----------------+----------------------------
+       73 |      16 | Inactive   | Blocked    |    16065.45 |    16065.45 | Status changed  | 2026-06-15 21:11:40.141905
+       72 |     745 | Blocked    | Blocked    |    41934.95 |    42176.35 | Balance changed | 2026-06-15 21:04:24.262289
+       71 |     513 | Active     | Active     |    48446.63 |    48844.79 | Balance changed | 2026-06-15 21:04:24.262289
+       70 |     800 | Inactive   | Inactive   |    41842.37 |    42482.30 | Balance changed | 2026-06-15 21:04:24.262289
+       69 |     419 | Blocked    | Blocked    |    33075.04 |    33340.62 | Balance changed | 2026-06-15 21:04:24.262289
+       68 |     413 | Blocked    | Blocked    |    40581.60 |    41010.95 | Balance changed | 2026-06-15 21:04:24.262289
+       67 |     116 | Blocked    | Blocked    |    35126.33 |    35202.03 | Balance changed | 2026-06-15 21:04:24.262289
+       66 |       7 | Blocked    | Blocked    |    29957.27 |    30447.44 | Balance changed | 2026-06-15 21:04:24.262289
+       65 |     330 | Blocked    | Blocked    |    24575.00 |    25173.73 | Balance changed | 2026-06-15 21:04:24.262289
+       64 |     195 | Blocked    | Blocked    |    29822.34 |    29947.30 | Balance changed | 2026-06-15 21:04:24.262289
+(10 rows)
+
+COMMIT
+6. Running main program 2
+BEGIN
+psql:שלב_ד/programs/MainProgram_SettleMatch.sql:10: NOTICE:  table "stage4_selected_match" does not exist, skipping
+DROP TABLE
+SELECT 1
+       phase       | match_id | settlement_result 
+-------------------+----------+-------------------
+ BEFORE_SETTLEMENT |      456 | Home
+(1 row)
+
+ summary_match_id |    home_team     |   away_team    | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
+------------------+------------------+----------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
+              456 | Setubal Athletic | Mechelen Lions | Scheduled    |              |         26 |           26 |        0 |         0 |     3387.92 |          10812.6208
+(1 row)
+
+CALL
+ summary_match_id |    home_team     |   away_team    | match_status | final_result | total_bets | pending_bets | won_bets | lost_bets | total_stake | potential_liability 
+------------------+------------------+----------------+--------------+--------------+------------+--------------+----------+-----------+-------------+---------------------
+              456 | Setubal Athletic | Mechelen Lions | Finished     | Home         |         26 |            0 |        8 |        18 |     3387.92 |                   0
+(1 row)
+
+ settlement_log_id | match_id | final_result | affected_bets | paid_winnings |        details         |         settled_at         
+-------------------+----------+--------------+---------------+---------------+------------------------+----------------------------
+                 6 |      456 | Home         |            26 |       1331.52 | Winners: 8, losers: 18 | 2026-06-15 21:11:40.456553
+(1 row)
+
+COMMIT
+7. Demonstrating odds UPDATE trigger
+UPDATE 1
+ odds_audit_id | odd_id | old_home_win_odd | new_home_win_odd |    change_reason    |         changed_at         
+---------------+--------+------------------+------------------+---------------------+----------------------------
+             6 |      1 |             2.00 |             2.10 | Regular odds update | 2026-06-15 21:11:40.518184
+             5 |      1 |             1.90 |             2.00 | Regular odds update | 2026-06-15 21:04:24.354519
+             4 |      1 |             1.80 |             1.90 | Regular odds update | 2026-06-15 20:53:41.817521
+             3 |      1 |             1.70 |             1.80 | Regular odds update | 2026-06-15 20:33:47.318309
+             2 |      1 |             1.60 |             1.70 | Regular odds update | 2026-06-15 20:33:27.142431
+(5 rows)
+
+8. Demonstrating exception handling
+psql:/project/שלב_ד/RunAllStage4.sql:64: NOTICE:  proc_settle_match failed for match 1. Error: Invalid final result InvalidResult. Expected Home, Draw or Away
+psql:/project/שלב_ד/RunAllStage4.sql:64: NOTICE:  Expected exception captured in main validation: Invalid final result InvalidResult. Expected Home, Draw or Away
+DO
