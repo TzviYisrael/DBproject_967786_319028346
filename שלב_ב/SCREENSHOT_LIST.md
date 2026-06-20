@@ -27,24 +27,24 @@ For each, capture:
 2. **Execution**: The `UPDATE` or `DELETE` command being run.
 3. **After**: The same `SELECT` query showing the change.
 
-*   **Update 1**: Reward winning users (`update_winning_user_balances.sql`)
-*   **Update 2**: Maintain match status (`update_match_status.sql`)
-*   **Delete 1**: Remove small withdrawals (`delete_small_withdrawals.sql`)
-*   **Delete 2**: Clean up stale bets (`delete_stale_pending_bets.sql`)
+* v **Update 1**: Reward winning users (`update_winning_user_balances.sql`)
+* v **Update 2**: Maintain match status (`update_match_status.sql`)
+* v **Delete 1**: Remove small withdrawals (`delete_small_withdrawals.sql`)
+* ? **Delete 2**: Clean up stale bets (`delete_stale_pending_bets.sql`)
 
 ## 4. Constraints
 Capture:
 1. **Alter Table**: The `ALTER TABLE` command adding the constraint.
 2. **Failure Proof**: An `INSERT` or `UPDATE` command that violates the constraint, showing the resulting error message.
 
-*   **Constraint 1**: Registration date check (`chk_registration_date`)
-*   **Constraint 2**: Different teams check (`chk_different_teams`)
-*   **Constraint 3**: Positive transaction check (`chk_positive_transaction`)
+* v **Constraint 1**: Registration date check (`chk_registration_date`)
+* v **Constraint 2**: Different teams check (`chk_different_teams`)
+* v **Constraint 3**: Positive transaction check (`chk_positive_transaction`)
 
 ## 5. Rollback & Commit
 Capture the output of `RollbackCommit.sql` showing the database state at every step:
-1. **Rollback Scenario**: Initial state -> After Update -> After Rollback.
-2. **Commit Scenario**: Initial state -> After Update -> After Commit.
+1. v **Rollback Scenario**: Initial state -> After Update -> After Rollback.
+2.  nothing to show **Commit Scenario**: Initial state -> After Update -> After Commit.
 
 ## 6. Indexes
 Capture `EXPLAIN ANALYZE` output for a query:
@@ -53,4 +53,4 @@ Capture `EXPLAIN ANALYZE` output for a query:
 
 *   **Index 1**: `idx_transaction_date`
 *   **Index 2**: `idx_match_status_date`
-*   **Index 3**: `idx_user_email`
+*   **Index 3**: `idx_bets_user_id`

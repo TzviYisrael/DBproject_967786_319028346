@@ -1,4 +1,4 @@
--- Query 1: Top Recent Winners (Two Versions)
+    -- Query 1: Top Recent Winners (Two Versions)
 -- Purpose: Identify top earners from recent registrations for the "Featured Winners" screen.
 
 -- Version A: Using standard JOIN and GROUP BY
