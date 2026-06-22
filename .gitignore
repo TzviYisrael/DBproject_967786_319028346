@@ -6,3 +6,5 @@ AGENTS.md
 *LLM*.md
 *llm*.md
 *.prompt.md
+__pycache__/
+*.pyc
