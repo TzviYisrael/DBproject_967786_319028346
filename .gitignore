@@ -2,3 +2,7 @@
 .idea/
 GEMINI.md
 .gemini/
+AGENTS.md
+*LLM*.md
+*llm*.md
+*.prompt.md
