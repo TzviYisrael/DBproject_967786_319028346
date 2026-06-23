@@ -162,11 +162,11 @@ class BetMasterAdmin:
                             "Browse, create, update and delete\n\nrecords across all 40 database tables.")
             dpg.add_spacer(width=40)
             self._make_card("Analytical Queries", 460,
-                            lambda: self._show_queries_screen(),
+                            lambda: self._show_actions("queries"),
                             "Run Stage B analytical queries:\ntop winners, suspicious patterns,\nregional analysis and more.")
             dpg.add_spacer(width=40)
             self._make_card("PL/pgSQL Programs", 460,
-                            lambda: self._show_programs_screen(),
+                            lambda: self._show_actions("programs"),
                             "Execute Stage D programs:\nsettle matches, risk reports,\nstatus recalculations.")
 
         status = "Connected" if self.repo.db.is_connected() else "Disconnected"
@@ -560,40 +560,44 @@ class BetMasterAdmin:
                 return str(opt[1])
         return str(id_val) if id_val is not None else ""
 
-    def _show_queries_screen(self):
-        self.current_screen = "queries"
+    def _show_actions(self, initial_tab="queries"):
+        self.current_screen = "actions"
         self.current_table = None
         self._delete_all_children("main_window")
 
-        self._make_top_bar("← Back to Home", self._show_home, "Analytical Queries — Stage B")
+        self._make_top_bar("← Back to Home", self._show_home, "Actions — Stage B & D")
 
-        with dpg.group(parent="main_window", tag="queries_panel"):
+        with dpg.group(parent="main_window", horizontal=True):
+            dpg.add_button(label="Queries", callback=lambda: self._switch_action_tab("queries"),
+                           user_data="queries")
+            dpg.add_button(label="Programs", callback=lambda: self._switch_action_tab("programs"),
+                           user_data="programs")
+
+        dpg.add_separator(parent="main_window")
+        with dpg.group(parent="main_window", tag="action_panel"):
             dpg.add_spacer(height=5)
-            dpg.add_text("Select a query from Stage B to execute:", color=(140, 140, 150))
-            query_names = list(self.repo.QUERIES.keys())
-            dpg.add_combo(tag="q_selector", label="Query", items=query_names,
-                          width=500,
-                          callback=lambda s, a: self._execute_query(a))
-            dpg.add_child_window(tag="q_results", parent="queries_panel", width=-1, height=-400)
-            dpg.add_text("Choose a query above", parent="q_results", color=(140, 140, 150))
 
-    def _show_programs_screen(self):
-        self.current_screen = "programs"
-        self.current_table = None
-        self._delete_all_children("main_window")
+        if initial_tab == "queries":
+            self._show_queries_panel()
+        else:
+            self._show_programs_panel()
 
-        self._make_top_bar("← Back to Home", self._show_home, "PL/pgSQL Programs — Stage D")
+    def _switch_action_tab(self, tab):
+        self._delete_all_children("action_panel")
+        if tab == "queries":
+            self._show_queries_panel()
+        else:
+            self._show_programs_panel()
 
-        with dpg.group(parent="main_window", tag="programs_panel"):
-            dpg.add_spacer(height=5)
-            dpg.add_text("Select a Stage D program to execute:", color=(140, 140, 150))
-            proc_names = list(self.repo.PROCEDURES.keys())
-            dpg.add_combo(tag="p_selector", label="Program", items=proc_names,
-                          width=500,
-                          callback=lambda s, a: self._show_program_form(a))
-            dpg.add_group(tag="p_form", parent="programs_panel")
-            dpg.add_child_window(tag="p_results", parent="programs_panel", width=-1, height=-350)
-            dpg.add_text("Choose a program above", parent="p_results", color=(140, 140, 150))
+    def _show_queries_panel(self):
+        panel = "action_panel"
+        dpg.add_text("Select a query from Stage B to execute:", parent=panel, color=(140, 140, 150))
+        query_names = list(self.repo.QUERIES.keys())
+        dpg.add_combo(tag="q_selector", label="Query", items=query_names,
+                      width=500, parent=panel,
+                      callback=lambda s, a: self._execute_query(a))
+        dpg.add_child_window(tag="q_results", parent=panel, width=-1, height=-400)
+        dpg.add_text("Choose a query above", parent="q_results", color=(140, 140, 150))
 
     def _execute_query(self, query_name):
         if not query_name:
@@ -618,6 +622,17 @@ class BetMasterAdmin:
                 with dpg.table_row():
                     for cell in row:
                         dpg.add_text(str(cell) if cell is not None else "—")
+
+    def _show_programs_panel(self):
+        panel = "action_panel"
+        dpg.add_text("Select a Stage D program to execute:", parent=panel, color=(140, 140, 150))
+        proc_names = list(self.repo.PROCEDURES.keys())
+        dpg.add_combo(tag="p_selector", label="Program", items=proc_names,
+                      width=500, parent=panel,
+                      callback=lambda s, a: self._show_program_form(a))
+        dpg.add_group(tag="p_form", parent=panel)
+        dpg.add_child_window(tag="p_results", parent=panel, width=-1, height=-350)
+        dpg.add_text("Choose a program above", parent="p_results", color=(140, 140, 150))
 
     def _show_program_form(self, prog_name):
         if not prog_name:
