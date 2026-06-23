@@ -659,7 +659,10 @@ class Repository:
         from_clause = f"FROM {table_name} {table_alias}"
         join_clause = "\n".join(joins) if joins else ""
 
-        where_clause = ""
+        where_parts = []
+        if table_name == "users":
+            where_parts.append(f"{table_alias}.account_status != 'Deleted'")
+
         if search:
             searchable = []
             if search_cols:
@@ -672,8 +675,9 @@ class Repository:
                         searchable.append(f"{table_alias}.{col['name']}")
             if searchable:
                 like_clauses = [f"{c} ILIKE '%' || %s || '%'" for c in searchable]
-                where_parts = " OR ".join(like_clauses)
-                where_clause = f"WHERE ({where_parts})"
+                where_parts.append(f"({' OR '.join(like_clauses)})")
+
+        where_clause = f"WHERE {' AND '.join(where_parts)}" if where_parts else ""
 
         order_by_raw = meta.get("order_by", "")
         if order_by_raw:
@@ -829,7 +833,10 @@ class Repository:
         meta = self.TABLE_META[table_name]
         pk_where = self._get_pk_where(table_name, pk_values)
 
-        sql = f"DELETE FROM {table_name} WHERE {pk_where}"
+        if table_name == "users":
+            sql = f"UPDATE users SET account_status = 'Deleted' WHERE {pk_where}"
+        else:
+            sql = f"DELETE FROM {table_name} WHERE {pk_where}"
 
         cursor = self.db.get_cursor()
         try:
