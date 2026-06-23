@@ -15,5 +15,5 @@ FROM USERS u
 JOIN BETS b ON u.user_id = b.user_id
 GROUP BY u.user_id, u.full_name, u.email, u.registration_date
 HAVING (CURRENT_DATE - u.registration_date) > 30 -- Minimum 1 month membership
-   AND CAST(COUNT(b.bet_id) AS NUMERIC) / NULLIF(CURRENT_DATE - u.registration_date, 0) > 0.5 -- More than 1 bet per two days avg
+   AND CAST(COUNT(b.bet_id) AS NUMERIC) / NULLIF(CURRENT_DATE - u.registration_date, 0) > 0.10 -- More than 1 bet every 10 days on average
 ORDER BY daily_bet_avg DESC;
