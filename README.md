@@ -52,14 +52,14 @@ BetMaster היא מערכת בסיס נתונים מקיפה שנועדה לנה
 
 ## טכנולוגיות
 
-- **בסיס נתונים:** PostgreSQL 16
-- **קונטיינריזציה:** Docker ו-Docker Compose
-- **יצירת נתונים:** Python 3
-- **כלים:** VS Code, pg_dump, Dear PyGui, psycopg2
+- **Database:** PostgreSQL 16
+- **Containerization:** Docker ו-Docker Compose
+- **Data Generation:** Python 3
+- **Tools:** VS Code, pg_dump, Dear PyGui, psycopg2
 
 ## תכנון בסיס הנתונים
 
-הסכמה מנורמלת והורחבה בשלב האינטגרציה. בסיס הנתונים הסופי כולל את טבלאות BetMaster המקוריות, הסכמה שהתקבלה ממערכת ניהול הכדורגל, טבלאות כדורגל משולבות, טבלאות מיפוי אינטגרציה וטבלאות audit וסיכון משלב ד'.
+ה-schema מנורמל והורחב בשלב האינטגרציה. בסיס הנתונים הסופי כולל את טבלאות BetMaster המקוריות, ה-schema שהתקבל ממערכת ניהול הכדורגל, טבלאות כדורגל משולבות, טבלאות מיפוי אינטגרציה וטבלאות audit וסיכון משלב ד'.
 
 ### ישויות מרכזיות
 
@@ -94,9 +94,9 @@ docker compose up -d
 
 בסיס הנתונים זמין בכתובת `localhost:5432`.
 
-- **משתמש:** `betmaster_user`
-- **סיסמה:** `betmaster_pass`
-- **בסיס נתונים:** `betmaster`
+- **User:** `betmaster_user`
+- **Password:** `betmaster_pass`
+- **Database:** `betmaster`
 
 במחשב נקי או Docker volume ריק, יש לשחזר את גיבוי שלב ד':
 
@@ -106,10 +106,10 @@ docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\ba
 
 ## מבנה הפרויקט
 
-- `שלב_א/`: שלב א' - תכנון סכמה, יצירת נתונים, גיבוי ומסכים ראשוניים.
-- `שלב_ב/`: שלב ב' - שאילתות מתקדמות, אינדקסים, אילוצים וטרנזקציות.
+- `שלב_א/`: שלב א' - schema design, יצירת נתונים, גיבוי ומסכים ראשוניים.
+- `שלב_ב/`: שלב ב' - Advanced Queries, Indexes, Constraints ו-Transactions.
 - `שלב_ג/`: שלב ג' - אינטגרציה עם בסיס נתוני הכדורגל שהתקבל.
-- `שלב_ד/`: שלב ד' - פונקציות PL/pgSQL, פרוצדורות, triggers וטבלאות audit.
+- `שלב_ד/`: שלב ד' - PL/pgSQL Functions, Procedures, Triggers וטבלאות audit.
 - `שלב_ה/`: שלב ה' - ממשק גרפי לבסיס הנתונים.
 - `DBProject/שלב ה/`: עותק הגשה עבור שלב ה'.
 - `docker-compose.yml`: תשתית PostgreSQL.
@@ -166,13 +166,13 @@ docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\ba
 
 פעולות נתמכות:
 
-- יצירה, שליפה, עדכון ומחיקה של רשומות ממסכי הטבלאות.
-- תהליך עדכון לפי מפתח ראשי: הכנסת מפתח, שליפת הרשומה הקיימת, עריכת שדות ושמירה.
-- הצגת מפתחות זרים כערכים קריאים במקום מזהים מספריים.
-- הרצת שאילתות שלב ב'.
-- הרצת פרוצדורות ופונקציות שלב ד'.
+- Create, Read, Update ו-Delete של רשומות ממסכי הטבלאות.
+- תהליך Update לפי primary key: הכנסת מפתח, שליפת הרשומה הקיימת, עריכת שדות ושמירה.
+- הצגת Foreign Keys כערכים קריאים במקום מזהים מספריים.
+- הרצת Stage B Queries.
+- הרצת Stage D Procedures ו-Functions.
 
-שאילתות שלב ב' הזמינות בממשק:
+Stage B Queries הזמינים בממשק:
 
 - `Top Recent Winners`
 - `Suspicious Winning Patterns`
@@ -180,7 +180,7 @@ docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\ba
 - `Away Team Upsets`
 - `Monthly Cash Flow`
 
-תוכניות שלב ד' הזמינות בממשק:
+Stage D Programs הזמינים בממשק:
 
 - `proc_settle_match`
 - `proc_recalculate_user_statuses`
@@ -193,4 +193,4 @@ docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\ba
 
 ![ניהול נתונים בשלב ה'](שלב_ה/screenshots/data_page.png)
 
-![שאילתות ותוכניות בשלב ה'](שלב_ה/screenshots/query_page.png)
+![Queries ו-Programs בשלב ה'](שלב_ה/screenshots/query_page.png)

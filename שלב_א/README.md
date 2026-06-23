@@ -118,7 +118,7 @@ BetMaster היא מערכת לניהול הימורי כדורגל.
 
 ## DSD
 
-תרשים ה-DSD מתאר את מבנה בסיס הנתונים הרלציוני, כולל טבלאות, מפתחות ראשיים, מפתחות זרים והקשרים בין הטבלאות.
+תרשים ה-DSD מתאר את מבנה בסיס הנתונים הרלציוני, כולל טבלאות, Primary Keys, Foreign Keys והקשרים בין הטבלאות.
 
 ![DSD](Diagrams/DSD.png)
 
@@ -244,9 +244,9 @@ BetMaster היא מערכת לניהול הימורי כדורגל.
 - כל הימור שייך למשחק אחד.
 - כל עסקה שייכת למשתמש אחד.
 
-## קשרי מפתחות זרים
+## Foreign Key Relationships
 
-קשרי המפתחות הזרים הם:
+קשרי ה-Foreign Keys הם:
 
 - `BETS.user_id` מפנה אל `USERS.user_id`
 - `BETS.match_id` מפנה אל `MATCHES.match_id`
@@ -257,11 +257,11 @@ BetMaster היא מערכת לניהול הימורי כדורגל.
 
 ---
 
-# נרמול הסכמה עד 3NF
+# Normalization של ה-schema עד 3NF
 
-הסכמה נבדקה ונמצאה מנורמלת לפחות עד הצורה הנורמלית השלישית.
+ה-schema נבדק ונמצא מנורמל לפחות עד הצורה הנורמלית השלישית.
 
-כל טבלה מייצגת ישות ברורה אחת, וכל המאפיינים שאינם מפתח תלויים במפתח הראשי של אותה טבלה.
+כל טבלה מייצגת ישות ברורה אחת, וכל המאפיינים שאינם key תלויים ב-Primary Key של אותה טבלה.
 
 דוגמאות:
 
@@ -307,7 +307,7 @@ BetMaster היא מערכת לניהול הימורי כדורגל.
 - VS Code
 - Python
 
-נוצר והוגדר קונטיינר PostgreSQL באמצעות `docker-compose.yml`.
+נוצר והוגדר PostgreSQL container באמצעות `docker-compose.yml`.
 
 שם בסיס הנתונים הראשי:
 
@@ -315,7 +315,7 @@ BetMaster היא מערכת לניהול הימורי כדורגל.
 betmaster
 ```
 
-שם קונטיינר Docker הראשי:
+שם ה-Docker container הראשי:
 
 ```text
 betmaster_db
@@ -336,7 +336,7 @@ betmaster_db
 
 ### createTables.sql
 
-יוצר את טבלאות בסיס הנתונים, מפתחות ראשיים, מפתחות זרים ואילוצים.
+יוצר את טבלאות בסיס הנתונים, Primary Keys, Foreign Keys ו-Constraints.
 
 ### dropTables.sql
 
@@ -397,9 +397,9 @@ Country 1
 
 ---
 
-## טיפול במפתחות זרים ב-Python
+## טיפול ב-Foreign Keys ב-Python
 
-סקריפט ה-Python תוכנן גם כך שישמור על כל קשרי המפתחות הזרים.
+סקריפט ה-Python תוכנן גם כך שישמור על כל קשרי ה-Foreign Keys.
 
 הלוגיקה מבוססת על יצירת טבלאות אב תחילה, ולאחר מכן שימוש רק במזהים קיימים בעת יצירת טבלאות בן.
 
@@ -412,7 +412,7 @@ Country 1
 5. `BETS`
 6. `TRANSACTIONS`
 
-כך מובטח שכל מפתח זר מצביע למפתח ראשי קיים.
+כך מובטח שכל Foreign Key מצביע ל-Primary Key קיים.
 
 דוגמאות:
 
@@ -440,7 +440,7 @@ Country 1
 - [bets.csv](DataImportFiles/bets.csv)
 - [transactions.csv](DataImportFiles/transactions.csv)
 
-סדר הייבוא תואם את סדר התלויות של המפתחות הזרים:
+סדר הייבוא תואם את סדר התלויות של ה-Foreign Keys:
 
 1. `USERS`
 2. `TEAMS`
@@ -474,9 +474,9 @@ Country 1
 
 ---
 
-# בדיקת מפתחות זרים
+# בדיקת Foreign Keys
 
-לאחר ייבוא קבצי ה-CSV ל-PostgreSQL, נבדקו קשרי המפתחות הזרים.
+לאחר ייבוא קבצי ה-CSV ל-PostgreSQL, נבדקו קשרי ה-Foreign Keys.
 
 הבדיקה אימתה כי:
 
@@ -493,11 +493,11 @@ Country 1
 0 invalid records
 ```
 
-תוצאה זו מאשרת שהנתונים שנוצרו עומדים בקשרי בסיס הנתונים ובאילוצי המפתחות הזרים.
+תוצאה זו מאשרת שהנתונים שנוצרו עומדים בקשרי בסיס הנתונים וב-Foreign Key Constraints.
 
-![בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+![בדיקת Foreign Keys](Screenshots/fk_validation.png)
 
-[פתיחת צילום בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+[פתיחת צילום בדיקת Foreign Keys](Screenshots/fk_validation.png)
 
 ---
 
@@ -582,13 +582,13 @@ betmaster_restore
 
 ---
 
-## בדיקת מפתחות זרים
+## בדיקת Foreign Keys
 
-צילום זה מראה שכל בדיקות המפתחות הזרים החזירו אפס רשומות לא תקינות.
+צילום זה מראה שכל בדיקות ה-Foreign Keys החזירו אפס רשומות לא תקינות.
 
-![בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+![בדיקת Foreign Keys](Screenshots/fk_validation.png)
 
-[פתיחת צילום בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+[פתיחת צילום בדיקת Foreign Keys](Screenshots/fk_validation.png)
 
 ---
 
@@ -669,6 +669,6 @@ betmaster_restore
 
 תהליך יצירת הנתונים שופר באמצעות שימוש בספריית `Faker` כדי ליצור שמות וערכים ריאליים.
 
-בנוסף, הנתונים שנוצרו אומתו כדי לוודא שכל קשרי המפתחות הזרים נשמרים.
+בנוסף, הנתונים שנוצרו אומתו כדי לוודא שכל קשרי ה-Foreign Keys נשמרים.
 
 בסיס הנתונים אוכלס בהצלחה, גובה בשתי שיטות שונות, שוחזר לבסיס נתונים נפרד ואומת באמצעות בדיקות כמות רשומות.

@@ -1,6 +1,6 @@
 # שלב ד' - תכנות PL/pgSQL
 
-תיקייה זו מכילה את ההגשה של שלב ד' עבור בסיס הנתונים המשולב של BetMaster. בשלב זה כתבנו תוכניות PL/pgSQL שעובדות על בסיס הנתונים המורחב משלב ג' ומדגימות לוגיקה אמיתית בבסיס הנתונים, ולא רק שאילתות `SELECT` פשוטות.
+תיקייה זו מכילה את ההגשה של שלב ד' עבור בסיס הנתונים המשולב של BetMaster. בשלב זה כתבנו PL/pgSQL Programs שעובדים על בסיס הנתונים המורחב משלב ג' ומדגימים לוגיקה אמיתית בבסיס הנתונים, ולא רק `SELECT` Queries פשוטים.
 
 הרעיון המרכזי של השלב הוא להשתמש במערכת ההימורים כמערכת תפעולית:
 
@@ -10,17 +10,17 @@
 - לתעד שינויים חשובים,
 - להוכיח שטיפול בחריגות מתבצע בצורה תקינה.
 
-## 1. מדוע התוכניות האלה נבחרו
+## 1. מדוע ה-Programs האלה נבחרו
 
 בסיס הנתונים המשולב מכיל טבלאות הימורים (`users`, `bets`, `transactions`, `matches`, `odds`) וטבלאות ניהול כדורגל מהשלב הקודם. עבור שלב ד', הלוגיקה התכנותית המשמעותית ביותר היא סביב פעולות הימורים, כי אזור זה דורש באופן טבעי עדכונים, אימות, לולאות, cursors ורשומות audit.
 
-התוכניות תוכננו סביב שני תהליכי עבודה ריאליים:
+ה-Programs תוכננו סביב שני תהליכי עבודה ריאליים:
 
 1. **תהליך בדיקת סיכון**
-   חברת הימורים צריכה לאתר משתמשים עם חשיפה גבוהה בהימורים ממתינים, הפסדים רבים, משיכות גדולות או סטטוס לא פעיל/חסום. הדבר מצדיק את פונקציית דוח הסיכון, פרוצדורת חישוב מחדש של סטטוס המשתמש ו-trigger לתיעוד עדכוני משתמשים.
+   חברת הימורים צריכה לאתר משתמשים עם חשיפה גבוהה בהימורים ממתינים, הפסדים רבים, משיכות גדולות או סטטוס לא פעיל/חסום. הדבר מצדיק את ה-Function של דוח הסיכון, את ה-Procedure לחישוב מחדש של סטטוס המשתמש ואת ה-Trigger לתיעוד עדכוני משתמשים.
 
 2. **תהליך סגירת משחק**
-   כאשר תוצאת משחק ידועה, המערכת צריכה לסגור את המשחק, לסמן הימורים כמנצחים/מפסידים, לשלם לזוכים, להכניס רשומות עסקאות ולשמור לוג סגירה. הדבר מצדיק את פונקציית סיכום המשחק, פרוצדורת סגירת המשחק ו-trigger לתיעוד עדכוני יחסי הימורים.
+   כאשר תוצאת משחק ידועה, המערכת צריכה לסגור את המשחק, לסמן הימורים כמנצחים/מפסידים, לשלם לזוכים, להכניס רשומות עסקאות ולשמור לוג סגירה. הדבר מצדיק את ה-Function של סיכום המשחק, את ה-Procedure לסגירת המשחק ואת ה-Trigger לתיעוד עדכוני יחסי הימורים.
 
 תהליכים אלה אינם טריוויאליים משום שהם משתמשים במספר טבלאות יחד ומשנים את מצב בסיס הנתונים.
 
@@ -28,32 +28,32 @@
 
 | נתיב | מטרה |
 | --- | --- |
-| `AlterTable.sql` | שינויי סכמה תומכים הנדרשים לשלב ד' |
-| `programs/` | פונקציות, פרוצדורות, triggers ותוכניות ראשיות |
-| `screenshots/` | הוכחות בצילומי מסך לכל תוכנית נדרשת |
+| `AlterTable.sql` | supporting schema changes הנדרשים לשלב ד' |
+| `programs/` | Functions, Procedures, Triggers ו-Main Programs |
+| `screenshots/` | הוכחות בצילומי מסך לכל Program נדרש |
 | `evidence/stage4_execution_output.txt` | פלט psql מלא של ההרצה |
 | `backup4.sql` | גיבוי סופי של בסיס הנתונים לאחר שלב ד' |
-| `RunAllStage4.sql` | סקריפט שטוען ומריץ את כל תוכניות שלב ד' |
+| `RunAllStage4.sql` | סקריפט שטוען ומריץ את כל Stage D Programs |
 | `דוח הפרויקט שלב ד.md` | דוח מלא של שלב ד', כולל נספח קוד |
 
-`AlterTable.sql` נשאר בשורש של `שלב_ד` משום שהמטלה דורשת במפורש קובץ אחד בשם זה עם כל שינויי הטבלאות. שאר קבצי התוכניות מרוכזים ב-`programs/` כדי שההגשה תהיה נוחה לקריאה.
+`AlterTable.sql` נשאר בשורש של `שלב_ד` משום שהמטלה דורשת במפורש קובץ אחד בשם זה עם כל שינויי הטבלאות. שאר קבצי ה-Programs מרוכזים ב-`programs/` כדי שההגשה תהיה נוחה לקריאה.
 
 ## 3. רשימת בדיקה מול הדרישות
 
 | דרישת המטלה | מימוש |
 | --- | --- |
-| 2 פונקציות | `fn_open_user_risk_report`, `fn_match_financial_summary` |
-| 2 פרוצדורות | `proc_settle_match`, `proc_recalculate_user_statuses` |
-| 2 triggers, לפחות אחד על UPDATE | `users_account_audit_update`, `odds_audit_update`; שניהם triggers על UPDATE |
-| 2 תוכניות ראשיות | `MainProgram_RiskReview.sql`, `MainProgram_SettleMatch.sql` |
-| שימוש בבסיס הנתונים המורחב משלב ג' | התוכניות משתמשות בטבלאות ההימורים והמשחקים המשולבות |
+| 2 Functions | `fn_open_user_risk_report`, `fn_match_financial_summary` |
+| 2 Procedures | `proc_settle_match`, `proc_recalculate_user_statuses` |
+| 2 Triggers, לפחות אחד על UPDATE | `users_account_audit_update`, `odds_audit_update`; שניהם Triggers על UPDATE |
+| 2 Main Programs | `MainProgram_RiskReview.sql`, `MainProgram_SettleMatch.sql` |
+| שימוש בבסיס הנתונים המורחב משלב ג' | ה-Programs משתמשים בטבלאות ההימורים והמשחקים המשולבות |
 | פקודות DML | עדכונים והכנסות ל-`users`, `bets`, `matches`, `transactions`, טבלאות audit וטבלאות log |
 | Cursors | Cursors מפורשים ולולאות cursor מרומזות |
 | החזרת Ref Cursor | `fn_open_user_risk_report` מחזירה `REFCURSOR` |
 | הסתעפויות | `IF`, `ELSIF`, `CASE` |
 | לולאות | `LOOP`, `FETCH`, `FOR record IN SELECT` |
 | חריגות | `EXCEPTION WHEN OTHERS` ואימות תוצאה לא תקינה |
-| Records | משתני `RECORD` בפונקציות ובפרוצדורות |
+| Records | משתני `RECORD` ב-Functions וב-Procedures |
 | גיבוי | `backup4.sql` |
 | דוח | `דוח הפרויקט שלב ד.md` |
 
@@ -65,7 +65,7 @@
 AlterTable.sql
 ```
 
-קובץ זה יוצר טבלאות תומכות שהופכות את התוכניות למשמעותיות יותר וגם שומרות הוכחה לכך שהתוכניות שינו את בסיס הנתונים.
+קובץ זה יוצר טבלאות תומכות שהופכות את ה-Programs למשמעותיים יותר וגם שומרות הוכחה לכך שה-Programs שינו את בסיס הנתונים.
 
 | טבלה | מטרה |
 | --- | --- |
@@ -76,39 +76,39 @@ AlterTable.sql
 
 טבלאות הבסיס לא נוצרו מחדש. הוספנו רק טבלאות תומכות, משום שהמטלה דורשת להשתמש בבסיס הנתונים המורחב מהשלב הקודם.
 
-## 5. קבצי התוכניות
+## 5. קבצי ה-Programs
 
 | סוג | קובץ | מה הוא עושה |
 | --- | --- | --- |
-| פונקציה | `programs/function_open_user_risk_report.sql` | מחשבת ציוני סיכון, מכניסה רשומות בדיקה ומחזירה ref cursor |
-| פונקציה | `programs/function_match_financial_summary.sql` | מסכמת חשיפה פיננסית לפי משחק |
-| פרוצדורה | `programs/procedure_settle_match.sql` | מסיימת משחק, מעדכנת הימורים, משלמת זכיות ומתעדת סגירה |
-| פרוצדורה | `programs/procedure_recalculate_user_statuses.sql` | מחשבת מחדש סטטוס חשבון משתמש לפי כללי סיכון |
+| Function | `programs/function_open_user_risk_report.sql` | מחשבת ציוני סיכון, מכניסה רשומות בדיקה ומחזירה ref cursor |
+| Function | `programs/function_match_financial_summary.sql` | מסכמת חשיפה פיננסית לפי משחק |
+| Procedure | `programs/procedure_settle_match.sql` | מסיימת משחק, מעדכנת הימורים, משלמת זכיות ומתעדת סגירה |
+| Procedure | `programs/procedure_recalculate_user_statuses.sql` | מחשבת מחדש סטטוס חשבון משתמש לפי כללי סיכון |
 | Trigger | `programs/trigger_user_account_audit.sql` | מתעד שינויי UPDATE על `users` |
 | Trigger | `programs/trigger_odds_update_audit.sql` | מתעד שינויי UPDATE על `odds` |
-| תוכנית ראשית | `programs/MainProgram_RiskReview.sql` | קוראת לפונקציה ולפרוצדורה אחת עבור בדיקת סיכון |
-| תוכנית ראשית | `programs/MainProgram_SettleMatch.sql` | קוראת לפונקציה ולפרוצדורה אחת עבור סגירת משחק |
+| Main Program | `programs/MainProgram_RiskReview.sql` | קוראת ל-Function ול-Procedure אחת עבור בדיקת סיכון |
+| Main Program | `programs/MainProgram_SettleMatch.sql` | קוראת ל-Function ול-Procedure אחת עבור סגירת משחק |
 
-## 6. הסבר על התוכניות
+## 6. הסבר על ה-Programs
 
-### פונקציה 1 - `fn_open_user_risk_report`
+### Function 1 - `fn_open_user_risk_report`
 
-פונקציה זו מחשבת ציון סיכון לכל משתמש. היא בודקת חשיפת הימורים ממתינים, יחס הפסדים, משיכות וסטטוס חשבון. משתמשים מעל הסף שנבחר מוכנסים ל-`risk_review_queue`.
+Function זה מחשב ציון סיכון לכל משתמש. הוא בודק חשיפת הימורים ממתינים, יחס הפסדים, משיכות וסטטוס חשבון. משתמשים מעל הסף שנבחר מוכנסים ל-`risk_review_queue`.
 
-הפונקציה מחזירה `REFCURSOR`, ולכן הקריאה הראשית היא:
+ה-Function מחזיר `REFCURSOR`, ולכן הקריאה הראשית היא:
 
 ```sql
 SELECT fn_open_user_risk_report(35);
 FETCH ALL IN "risk_report_cursor";
 ```
 
-הערך `35` הוא ציון הסיכון המינימלי שמוצג בדוח. הוא נבחר עבור צילום המסך משום שהוא מחזיר מספיק שורות כדי להוכיח בבירור שהפונקציה עבדה. ברירת המחדל של הפונקציה היא `50`, כך שניתן להשתמש בה גם עם סף מחמיר יותר.
+הערך `35` הוא ציון הסיכון המינימלי שמוצג בדוח. הוא נבחר עבור צילום המסך משום שהוא מחזיר מספיק שורות כדי להוכיח בבירור שה-Function עבד. ברירת המחדל של ה-Function היא `50`, כך שניתן להשתמש בו גם עם סף מחמיר יותר.
 
 הוכחה בצילום מסך:
 
-![פונקציית סיכון עם ref cursor](screenshots/function_risk_refcursor.png)
+![Function סיכון עם ref cursor](screenshots/function_risk_refcursor.png)
 
-בצילום המסך, הפונקציה מחזירה את שם ה-cursor `risk_report_cursor`. לאחר מכן `FETCH ALL` קורא את ה-cursor ומדפיס משתמשים עם ציון סיכון, סיבה, סטטוס וזמן פתיחה. הדבר מוכיח גם את דרישת ה-ref cursor וגם את ההכנסה ל-`risk_review_queue`.
+בצילום המסך, ה-Function מחזיר את שם ה-cursor `risk_report_cursor`. לאחר מכן `FETCH ALL` קורא את ה-cursor ומדפיס משתמשים עם ציון סיכון, סיבה, סטטוס וזמן פתיחה. הדבר מוכיח גם את דרישת ה-ref cursor וגם את ההכנסה ל-`risk_review_queue`.
 
 רכיבי PL/pgSQL מרכזיים:
 
@@ -120,17 +120,17 @@ FETCH ALL IN "risk_report_cursor";
 - החזרת `REFCURSOR`,
 - טיפול בחריגות.
 
-### פונקציה 2 - `fn_match_financial_summary`
+### Function 2 - `fn_match_financial_summary`
 
-פונקציה זו מסכמת את המצב הפיננסי של משחקים. היא מחזירה מספר הימורים, הימורים ממתינים, הימורים שניצחו/הפסידו, סכום הימורים כולל וחשיפה פוטנציאלית.
+Function זה מסכם את המצב הפיננסי של משחקים. הוא מחזיר מספר הימורים, הימורים ממתינים, הימורים שניצחו/הפסידו, סכום הימורים כולל וחשיפה פוטנציאלית.
 
 העברת `NULL` פירושה: לסכם מספר משחקים במקום משחק מסוים אחד. זה היה שימושי לצילום המסך משום שהוא מציג כמה שורות פלט.
 
 הוכחה בצילום מסך:
 
-![פונקציית סיכום פיננסי למשחק](screenshots/function_match_financial_summary.png)
+![Function סיכום פיננסי למשחק](screenshots/function_match_financial_summary.png)
 
-צילום המסך מציג מספר סיכומי משחקים. כל שורה כוללת סטטוס משחק, הימורים ממתינים, סכום הימורים כולל וחשיפה פוטנציאלית, ולכן הוא מוכיח שהפונקציה מבצעת עיבוד פיננסי מקובץ ולא הדפסה פשוטה של טבלה.
+צילום המסך מציג מספר סיכומי משחקים. כל שורה כוללת סטטוס משחק, הימורים ממתינים, סכום הימורים כולל וחשיפה פוטנציאלית, ולכן הוא מוכיח שה-Function מבצע עיבוד פיננסי מקובץ ולא הדפסה פשוטה של טבלה.
 
 רכיבי PL/pgSQL מרכזיים:
 
@@ -141,32 +141,32 @@ FETCH ALL IN "risk_report_cursor";
 - חישובים,
 - טיפול בחריגות.
 
-### פרוצדורה 1 - `proc_settle_match`
+### Procedure 1 - `proc_settle_match`
 
-פרוצדורה זו מקבלת מזהה משחק ותוצאה סופית (`Home`, `Draw`, `Away`). לאחר מכן היא:
+Procedure זה מקבל מזהה משחק ותוצאה סופית (`Home`, `Draw`, `Away`). לאחר מכן הוא:
 
-1. מעדכנת את המשחק ל-`Finished`,
-2. מסמנת הימורים מנצחים כ-`Won`,
-3. מסמנת את שאר ההימורים הממתינים כ-`Lost`,
-4. מוסיפה זכיות ליתרות המשתמשים,
-5. מכניסה עסקאות `Winnings`,
-6. מכניסה שורה אחת ל-`match_settlement_log`.
+1. מעדכן את המשחק ל-`Finished`,
+2. מסמן הימורים מנצחים כ-`Won`,
+3. מסמן את שאר ההימורים הממתינים כ-`Lost`,
+4. מוסיף זכיות ליתרות המשתמשים,
+5. מכניס עסקאות `Winnings`,
+6. מכניס שורה אחת ל-`match_settlement_log`.
 
 זו דוגמת ה-DML החזקה ביותר בשלב, משום שהיא משנה כמה טבלאות בתהליך עסקי אחד.
 
 הוכחה בצילום מסך:
 
-![פרוצדורת סגירת משחק](screenshots/procedure_settle_match.png)
+![Procedure לסגירת משחק](screenshots/procedure_settle_match.png)
 
-צילום המסך מציג את המשחק הנבחר לפני ואחרי הפרוצדורה. לפני ה-`CALL`, למשחק יש הימורים ממתינים. אחרי ה-`CALL`, המשחק הוא `Finished`, `pending_bets` הוא 0, נספרים זוכים ומפסידים, זכיות משולמות ונוצרת שורה ב-`match_settlement_log`.
+צילום המסך מציג את המשחק הנבחר לפני ואחרי ה-Procedure. לפני ה-`CALL`, למשחק יש הימורים ממתינים. אחרי ה-`CALL`, המשחק הוא `Finished`, `pending_bets` הוא 0, נספרים זוכים ומפסידים, זכיות משולמות ונוצרת שורה ב-`match_settlement_log`.
 
-### פרוצדורה 2 - `proc_recalculate_user_statuses`
+### Procedure 2 - `proc_recalculate_user_statuses`
 
-פרוצדורה זו בודקת משתמשים ומשנה את סטטוס החשבון שלהם כאשר כללי הסיכון דורשים זאת. לדוגמה, משתמשים עם חשיפה גבוהה בהימורים ממתינים יכולים להפוך ל-`Blocked`. עדכונים אלה מפעילים את trigger ה-UPDATE של המשתמשים, ולכן אותו תהליך מוכיח גם את trigger ה-audit.
+Procedure זה בודק משתמשים ומשנה את סטטוס החשבון שלהם כאשר כללי הסיכון דורשים זאת. לדוגמה, משתמשים עם חשיפה גבוהה בהימורים ממתינים יכולים להפוך ל-`Blocked`. עדכונים אלה מפעילים את ה-Trigger מסוג UPDATE של המשתמשים, ולכן אותו תהליך מוכיח גם את ה-audit Trigger.
 
 הוכחה בצילום מסך:
 
-![פרוצדורת חישוב סטטוס משתמשים ו-trigger משתמשים](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+![Procedure לחישוב סטטוס משתמשים ו-Trigger משתמשים](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
 החלק העליון של צילום המסך מציג את תור בדיקת הסיכון. החלק התחתון מציג את `account_audit_log`, שמוכיח שעדכוני המשתמשים תועדו.
 
@@ -194,9 +194,9 @@ Trigger זה רץ לפני UPDATE על ערכי יחסי ההימורים. הו�
 
 צילום המסך מציג `UPDATE 1` על `odds` ושורות תואמות ב-`odds_audit_log`, כולל ערכי odds ישנים וחדשים.
 
-## 7. תוכניות ראשיות
+## 7. Main Programs
 
-### תוכנית ראשית 1 - בדיקת סיכון
+### Main Program 1 - בדיקת סיכון
 
 קובץ:
 
@@ -204,22 +204,22 @@ Trigger זה רץ לפני UPDATE על ערכי יחסי ההימורים. הו�
 programs/MainProgram_RiskReview.sql
 ```
 
-תוכנית ראשית זו קוראת ל:
+Main Program זה קורא ל:
 
 ```sql
 SELECT fn_open_user_risk_report(35);
 CALL proc_recalculate_user_statuses(1200, 500, 40);
 ```
 
-לאחר מכן היא מדפיסה שורות מתוך `risk_review_queue` ומתוך `account_audit_log`.
+לאחר מכן הוא מדפיס שורות מתוך `risk_review_queue` ומתוך `account_audit_log`.
 
 הוכחה בצילום מסך:
 
-![תוכנית ראשית לבדיקת סיכון](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+![Main Program לבדיקת סיכון](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
-צילום המסך מוכיח שהתוכנית הראשית מריצה תהליך בדיקת סיכון מלא: פלט פונקציה, קריאה לפרוצדורה, פלט תור סיכון ופלט audit.
+צילום המסך מוכיח שה-Main Program מריץ תהליך בדיקת סיכון מלא: פלט Function, קריאה ל-Procedure, פלט תור סיכון ופלט audit.
 
-### תוכנית ראשית 2 - סגירת משחק
+### Main Program 2 - סגירת משחק
 
 קובץ:
 
@@ -227,15 +227,15 @@ CALL proc_recalculate_user_statuses(1200, 500, 40);
 programs/MainProgram_SettleMatch.sql
 ```
 
-תוכנית ראשית זו בוחרת משחק עם הימורים ממתינים, מציגה את הסיכום הפיננסי לפני הסגירה, קוראת לפרוצדורת הסגירה ולאחר מכן מציגה את הסיכום הפיננסי לאחר הסגירה.
+Main Program זה בוחר משחק עם הימורים ממתינים, מציג את הסיכום הפיננסי לפני הסגירה, קורא ל-Procedure הסגירה ולאחר מכן מציג את הסיכום הפיננסי לאחר הסגירה.
 
-היא מוכיחה שבסיס הנתונים השתנה משום ש-`pending_bets` הופך ל-0 ונוצרת שורה ב-`match_settlement_log`.
+הוא מוכיח שבסיס הנתונים השתנה משום ש-`pending_bets` הופך ל-0 ונוצרת שורה ב-`match_settlement_log`.
 
 הוכחה בצילום מסך:
 
-![תוכנית ראשית לסגירת משחק](screenshots/procedure_settle_match.png)
+![Main Program לסגירת משחק](screenshots/procedure_settle_match.png)
 
-צילום המסך מוכיח שהתוכנית הראשית מריצה את תהליך הסגירה המלא: סיכום לפני סגירה, קריאה לפרוצדורה, סיכום לאחר סגירה ופלט לוג סגירה.
+צילום המסך מוכיח שה-Main Program מריץ את תהליך הסגירה המלא: סיכום לפני סגירה, קריאה ל-Procedure, סיכום לאחר סגירה ופלט לוג סגירה.
 
 ## 8. טיפול בחריגות
 
@@ -254,11 +254,11 @@ docker exec -w /project betmaster_db psql -U betmaster_user -d betmaster -f /pro
 הסקריפט מבצע את הסדר המלא:
 
 1. יצירת טבלאות תומכות,
-2. יצירת הפונקציות,
-3. יצירת הפרוצדורות,
+2. יצירת ה-Functions,
+3. יצירת ה-Procedures,
 4. יצירת ה-triggers,
-5. הרצת תוכנית ראשית 1,
-6. הרצת תוכנית ראשית 2,
+5. הרצת Main Program 1,
+6. הרצת Main Program 2,
 7. הדגמת trigger ה-UPDATE של odds,
 8. הדגמת טיפול בחריגות.
 
@@ -284,7 +284,7 @@ evidence/stage4_execution_output.txt
 
 הדוח כולל:
 
-- תיאור של כל תוכנית,
+- תיאור של כל Program,
 - הוכחות בצילומי מסך,
 - הסבר על ההוכחות,
 - נספח קוד מלא.
