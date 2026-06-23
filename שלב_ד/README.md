@@ -1,344 +1,290 @@
-# Stage D - PL/pgSQL Programming
+# שלב ד' - תכנות PL/pgSQL
 
-This folder contains the Stage D submission for the integrated BetMaster
-database. In this stage we wrote PL/pgSQL programs that work on the expanded
-database from Stage C and demonstrate real database logic, not only simple
-`SELECT` queries.
+תיקייה זו מכילה את ההגשה של שלב ד' עבור בסיס הנתונים המשולב של BetMaster. בשלב זה כתבנו תוכניות PL/pgSQL שעובדות על בסיס הנתונים המורחב משלב ג' ומדגימות לוגיקה אמיתית בבסיס הנתונים, ולא רק שאילתות `SELECT` פשוטות.
 
-The main idea of the stage is to use the betting system as an operational
-system:
+הרעיון המרכזי של השלב הוא להשתמש במערכת ההימורים כמערכת תפעולית:
 
-- identify risky users,
-- summarize financial exposure on matches,
-- settle matches and pay winnings,
-- audit important updates,
-- prove that exceptions are handled correctly.
+- לזהות משתמשים בסיכון,
+- לסכם חשיפה פיננסית במשחקים,
+- לסגור משחקים ולשלם זכיות,
+- לתעד שינויים חשובים,
+- להוכיח שטיפול בחריגות מתבצע בצורה תקינה.
 
-## 1. Why These Programs Were Chosen
+## 1. מדוע התוכניות האלה נבחרו
 
-The integrated database contains betting tables (`users`, `bets`,
-`transactions`, `matches`, `odds`) and football-management tables from the
-previous stage. For Stage D, the most meaningful programming logic is around
-betting operations, because this area naturally requires updates, validation,
-loops, cursors and audit records.
+בסיס הנתונים המשולב מכיל טבלאות הימורים (`users`, `bets`, `transactions`, `matches`, `odds`) וטבלאות ניהול כדורגל מהשלב הקודם. עבור שלב ד', הלוגיקה התכנותית המשמעותית ביותר היא סביב פעולות הימורים, כי אזור זה דורש באופן טבעי עדכונים, אימות, לולאות, cursors ורשומות audit.
 
-The programs were designed around two realistic workflows:
+התוכניות תוכננו סביב שני תהליכי עבודה ריאליים:
 
-1. **Risk review workflow**
-   A betting company needs to find users with high pending exposure, many
-   losses, large withdrawals or inactive/blocked status. This justifies the
-   risk-report function, status recalculation procedure and user-audit trigger.
+1. **תהליך בדיקת סיכון**
+   חברת הימורים צריכה לאתר משתמשים עם חשיפה גבוהה בהימורים ממתינים, הפסדים רבים, משיכות גדולות או סטטוס לא פעיל/חסום. הדבר מצדיק את פונקציית דוח הסיכון, פרוצדורת חישוב מחדש של סטטוס המשתמש ו-trigger לתיעוד עדכוני משתמשים.
 
-2. **Match settlement workflow**
-   When a match result is known, the system must close the match, mark bets as
-   won/lost, pay winners, insert transaction records and keep a settlement log.
-   This justifies the match-summary function, settlement procedure and odds
-   update trigger.
+2. **תהליך סגירת משחק**
+   כאשר תוצאת משחק ידועה, המערכת צריכה לסגור את המשחק, לסמן הימורים כמנצחים/מפסידים, לשלם לזוכים, להכניס רשומות עסקאות ולשמור לוג סגירה. הדבר מצדיק את פונקציית סיכום המשחק, פרוצדורת סגירת המשחק ו-trigger לתיעוד עדכוני יחסי הימורים.
 
-These workflows are non-trivial because they use several tables together and
-change database state.
+תהליכים אלה אינם טריוויאליים משום שהם משתמשים במספר טבלאות יחד ומשנים את מצב בסיס הנתונים.
 
-## 2. Folder Structure
+## 2. מבנה התיקייה
 
-| Path | Purpose |
+| נתיב | מטרה |
 | --- | --- |
-| `AlterTable.sql` | Supporting schema changes required by Stage D |
-| `programs/` | Functions, procedures, triggers and main programs |
-| `screenshots/` | Screenshot proof for each required program |
-| `evidence/stage4_execution_output.txt` | Full psql execution output |
-| `backup4.sql` | Final database backup after Stage D |
-| `RunAllStage4.sql` | Script that loads and runs all Stage D programs |
-| `דוח הפרויקט שלב ד.md` | Full Stage D report, including code appendix |
+| `AlterTable.sql` | שינויי סכמה תומכים הנדרשים לשלב ד' |
+| `programs/` | פונקציות, פרוצדורות, triggers ותוכניות ראשיות |
+| `screenshots/` | הוכחות בצילומי מסך לכל תוכנית נדרשת |
+| `evidence/stage4_execution_output.txt` | פלט psql מלא של ההרצה |
+| `backup4.sql` | גיבוי סופי של בסיס הנתונים לאחר שלב ד' |
+| `RunAllStage4.sql` | סקריפט שטוען ומריץ את כל תוכניות שלב ד' |
+| `דוח הפרויקט שלב ד.md` | דוח מלא של שלב ד', כולל נספח קוד |
 
-`AlterTable.sql` stays in the root of `שלב_ד` because the assignment explicitly
-requires one file with all table changes under this name. The other program
-files are grouped in `programs/` so the submission is easy to read.
+`AlterTable.sql` נשאר בשורש של `שלב_ד` משום שהמטלה דורשת במפורש קובץ אחד בשם זה עם כל שינויי הטבלאות. שאר קבצי התוכניות מרוכזים ב-`programs/` כדי שההגשה תהיה נוחה לקריאה.
 
-## 3. Requirement Checklist
+## 3. רשימת בדיקה מול הדרישות
 
-| Assignment requirement | Implementation |
+| דרישת המטלה | מימוש |
 | --- | --- |
-| 2 functions | `fn_open_user_risk_report`, `fn_match_financial_summary` |
-| 2 procedures | `proc_settle_match`, `proc_recalculate_user_statuses` |
-| 2 triggers, at least one on UPDATE | `users_account_audit_update`, `odds_audit_update`; both are UPDATE triggers |
-| 2 main programs | `MainProgram_RiskReview.sql`, `MainProgram_SettleMatch.sql` |
-| Use expanded Stage C database | Programs use integrated betting and match tables |
-| DML commands | Updates and inserts into `users`, `bets`, `matches`, `transactions`, audit tables and log tables |
-| Cursors | Explicit cursors and implicit cursor loops |
-| Return Ref Cursor | `fn_open_user_risk_report` returns a `REFCURSOR` |
-| Branching | `IF`, `ELSIF`, `CASE` |
-| Loops | `LOOP`, `FETCH`, `FOR record IN SELECT` |
-| Exceptions | `EXCEPTION WHEN OTHERS` and invalid-result validation |
-| Records | `RECORD` variables in functions and procedures |
-| Backup | `backup4.sql` |
-| Report | `דוח הפרויקט שלב ד.md` |
+| 2 פונקציות | `fn_open_user_risk_report`, `fn_match_financial_summary` |
+| 2 פרוצדורות | `proc_settle_match`, `proc_recalculate_user_statuses` |
+| 2 triggers, לפחות אחד על UPDATE | `users_account_audit_update`, `odds_audit_update`; שניהם triggers על UPDATE |
+| 2 תוכניות ראשיות | `MainProgram_RiskReview.sql`, `MainProgram_SettleMatch.sql` |
+| שימוש בבסיס הנתונים המורחב משלב ג' | התוכניות משתמשות בטבלאות ההימורים והמשחקים המשולבות |
+| פקודות DML | עדכונים והכנסות ל-`users`, `bets`, `matches`, `transactions`, טבלאות audit וטבלאות log |
+| Cursors | Cursors מפורשים ולולאות cursor מרומזות |
+| החזרת Ref Cursor | `fn_open_user_risk_report` מחזירה `REFCURSOR` |
+| הסתעפויות | `IF`, `ELSIF`, `CASE` |
+| לולאות | `LOOP`, `FETCH`, `FOR record IN SELECT` |
+| חריגות | `EXCEPTION WHEN OTHERS` ואימות תוצאה לא תקינה |
+| Records | משתני `RECORD` בפונקציות ובפרוצדורות |
+| גיבוי | `backup4.sql` |
+| דוח | `דוח הפרויקט שלב ד.md` |
 
-## 4. Supporting Table Changes
+## 4. שינויי טבלאות תומכים
 
-File:
+קובץ:
 
 ```text
 AlterTable.sql
 ```
 
-This file creates supporting tables that make the programs more interesting and
-also preserve proof that the programs changed the database.
+קובץ זה יוצר טבלאות תומכות שהופכות את התוכניות למשמעותיות יותר וגם שומרות הוכחה לכך שהתוכניות שינו את בסיס הנתונים.
 
-| Table | Purpose |
+| טבלה | מטרה |
 | --- | --- |
-| `account_audit_log` | Stores old/new balance and status values for user updates |
-| `risk_review_queue` | Stores users that need risk review |
-| `match_settlement_log` | Stores match settlement results and paid winnings |
-| `odds_audit_log` | Stores old/new odds values after odds updates |
+| `account_audit_log` | שומרת ערכי יתרה וסטטוס ישנים/חדשים עבור עדכוני משתמשים |
+| `risk_review_queue` | שומרת משתמשים שדורשים בדיקת סיכון |
+| `match_settlement_log` | שומרת תוצאות סגירת משחק וזכיות ששולמו |
+| `odds_audit_log` | שומרת ערכי יחסי הימורים ישנים/חדשים לאחר עדכוני odds |
 
-The base tables were not recreated. We added only supporting tables, because
-the assignment asks us to use the expanded database from the previous stage.
+טבלאות הבסיס לא נוצרו מחדש. הוספנו רק טבלאות תומכות, משום שהמטלה דורשת להשתמש בבסיס הנתונים המורחב מהשלב הקודם.
 
-## 5. Program Files
+## 5. קבצי התוכניות
 
-| Type | File | What it does |
+| סוג | קובץ | מה הוא עושה |
 | --- | --- | --- |
-| Function | `programs/function_open_user_risk_report.sql` | Calculates risk scores, inserts review rows and returns a ref cursor |
-| Function | `programs/function_match_financial_summary.sql` | Summarizes betting exposure per match |
-| Procedure | `programs/procedure_settle_match.sql` | Finishes a match, updates bets, pays winnings and logs settlement |
-| Procedure | `programs/procedure_recalculate_user_statuses.sql` | Recalculates user account status by risk rules |
-| Trigger | `programs/trigger_user_account_audit.sql` | Audits UPDATE changes on `users` |
-| Trigger | `programs/trigger_odds_update_audit.sql` | Audits UPDATE changes on `odds` |
-| Main program | `programs/MainProgram_RiskReview.sql` | Calls one function and one procedure for risk review |
-| Main program | `programs/MainProgram_SettleMatch.sql` | Calls one function and one procedure for match settlement |
+| פונקציה | `programs/function_open_user_risk_report.sql` | מחשבת ציוני סיכון, מכניסה רשומות בדיקה ומחזירה ref cursor |
+| פונקציה | `programs/function_match_financial_summary.sql` | מסכמת חשיפה פיננסית לפי משחק |
+| פרוצדורה | `programs/procedure_settle_match.sql` | מסיימת משחק, מעדכנת הימורים, משלמת זכיות ומתעדת סגירה |
+| פרוצדורה | `programs/procedure_recalculate_user_statuses.sql` | מחשבת מחדש סטטוס חשבון משתמש לפי כללי סיכון |
+| Trigger | `programs/trigger_user_account_audit.sql` | מתעד שינויי UPDATE על `users` |
+| Trigger | `programs/trigger_odds_update_audit.sql` | מתעד שינויי UPDATE על `odds` |
+| תוכנית ראשית | `programs/MainProgram_RiskReview.sql` | קוראת לפונקציה ולפרוצדורה אחת עבור בדיקת סיכון |
+| תוכנית ראשית | `programs/MainProgram_SettleMatch.sql` | קוראת לפונקציה ולפרוצדורה אחת עבור סגירת משחק |
 
-## 6. Explanation Of The Programs
+## 6. הסבר על התוכניות
 
-### Function 1 - `fn_open_user_risk_report`
+### פונקציה 1 - `fn_open_user_risk_report`
 
-This function calculates a risk score for each user. It checks pending betting
-exposure, loss ratio, withdrawals and account status. Users above the selected
-threshold are inserted into `risk_review_queue`.
+פונקציה זו מחשבת ציון סיכון לכל משתמש. היא בודקת חשיפת הימורים ממתינים, יחס הפסדים, משיכות וסטטוס חשבון. משתמשים מעל הסף שנבחר מוכנסים ל-`risk_review_queue`.
 
-The function returns a `REFCURSOR`, which is why the main call is:
+הפונקציה מחזירה `REFCURSOR`, ולכן הקריאה הראשית היא:
 
 ```sql
 SELECT fn_open_user_risk_report(35);
 FETCH ALL IN "risk_report_cursor";
 ```
 
-The value `35` is the minimum risk score shown in the report. It was chosen for
-the screenshot because it returns enough rows to clearly prove the function
-worked. The function default is `50`, so it can also be used with a stricter
-threshold.
+הערך `35` הוא ציון הסיכון המינימלי שמוצג בדוח. הוא נבחר עבור צילום המסך משום שהוא מחזיר מספיק שורות כדי להוכיח בבירור שהפונקציה עבדה. ברירת המחדל של הפונקציה היא `50`, כך שניתן להשתמש בה גם עם סף מחמיר יותר.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Function risk ref cursor](screenshots/function_risk_refcursor.png)
+![פונקציית סיכון עם ref cursor](screenshots/function_risk_refcursor.png)
 
-In the screenshot, the function returns the cursor name `risk_report_cursor`.
-Then `FETCH ALL` reads the cursor and prints users with risk score, reason,
-status and opening time. This proves both the ref cursor requirement and the
-insert into `risk_review_queue`.
+בצילום המסך, הפונקציה מחזירה את שם ה-cursor `risk_report_cursor`. לאחר מכן `FETCH ALL` קורא את ה-cursor ומדפיס משתמשים עם ציון סיכון, סיבה, סטטוס וזמן פתיחה. הדבר מוכיח גם את דרישת ה-ref cursor וגם את ההכנסה ל-`risk_review_queue`.
 
-Main PL/pgSQL elements:
+רכיבי PL/pgSQL מרכזיים:
 
-- explicit cursor,
+- cursor מפורש,
 - `RECORD`,
-- loop with `FETCH`,
-- `IF` conditions,
-- `INSERT` DML,
-- returned `REFCURSOR`,
-- exception handling.
+- לולאה עם `FETCH`,
+- תנאי `IF`,
+- פקודת DML מסוג `INSERT`,
+- החזרת `REFCURSOR`,
+- טיפול בחריגות.
 
-### Function 2 - `fn_match_financial_summary`
+### פונקציה 2 - `fn_match_financial_summary`
 
-This function summarizes the financial state of matches. It returns number of
-bets, pending bets, won/lost bets, total stake and potential liability.
+פונקציה זו מסכמת את המצב הפיננסי של משחקים. היא מחזירה מספר הימורים, הימורים ממתינים, הימורים שניצחו/הפסידו, סכום הימורים כולל וחשיפה פוטנציאלית.
 
-Passing `NULL` means: summarize multiple matches instead of one specific match.
-This was useful for the screenshot because it shows several rows of output.
+העברת `NULL` פירושה: לסכם מספר משחקים במקום משחק מסוים אחד. זה היה שימושי לצילום המסך משום שהוא מציג כמה שורות פלט.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Function match financial summary](screenshots/function_match_financial_summary.png)
+![פונקציית סיכום פיננסי למשחק](screenshots/function_match_financial_summary.png)
 
-The screenshot shows multiple match summaries. Each row includes match status,
-pending bets, total stake and potential liability, so it proves that the
-function performs grouped financial processing and not a simple table print.
+צילום המסך מציג מספר סיכומי משחקים. כל שורה כוללת סטטוס משחק, הימורים ממתינים, סכום הימורים כולל וחשיפה פוטנציאלית, ולכן הוא מוכיח שהפונקציה מבצעת עיבוד פיננסי מקובץ ולא הדפסה פשוטה של טבלה.
 
-Main PL/pgSQL elements:
+רכיבי PL/pgSQL מרכזיים:
 
-- implicit cursor using `FOR record IN SELECT`,
+- cursor מרומז באמצעות `FOR record IN SELECT`,
 - `RECORD`,
-- loop,
+- לולאה,
 - `CASE`,
-- calculations,
-- exception handling.
+- חישובים,
+- טיפול בחריגות.
 
-### Procedure 1 - `proc_settle_match`
+### פרוצדורה 1 - `proc_settle_match`
 
-This procedure receives a match id and final result (`Home`, `Draw`, `Away`).
-It then:
+פרוצדורה זו מקבלת מזהה משחק ותוצאה סופית (`Home`, `Draw`, `Away`). לאחר מכן היא:
 
-1. updates the match to `Finished`,
-2. marks winning bets as `Won`,
-3. marks the other pending bets as `Lost`,
-4. adds winnings to user balances,
-5. inserts `Winnings` transactions,
-6. inserts one row into `match_settlement_log`.
+1. מעדכנת את המשחק ל-`Finished`,
+2. מסמנת הימורים מנצחים כ-`Won`,
+3. מסמנת את שאר ההימורים הממתינים כ-`Lost`,
+4. מוסיפה זכיות ליתרות המשתמשים,
+5. מכניסה עסקאות `Winnings`,
+6. מכניסה שורה אחת ל-`match_settlement_log`.
 
-This is the strongest DML example in the stage because it changes several
-tables in one business process.
+זו דוגמת ה-DML החזקה ביותר בשלב, משום שהיא משנה כמה טבלאות בתהליך עסקי אחד.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Procedure settle match](screenshots/procedure_settle_match.png)
+![פרוצדורת סגירת משחק](screenshots/procedure_settle_match.png)
 
-The screenshot shows the selected match before and after the procedure. Before
-the `CALL`, the match has pending bets. After the `CALL`, the match is
-`Finished`, `pending_bets` is 0, winners and losers are counted, winnings are
-paid and a row appears in `match_settlement_log`.
+צילום המסך מציג את המשחק הנבחר לפני ואחרי הפרוצדורה. לפני ה-`CALL`, למשחק יש הימורים ממתינים. אחרי ה-`CALL`, המשחק הוא `Finished`, `pending_bets` הוא 0, נספרים זוכים ומפסידים, זכיות משולמות ונוצרת שורה ב-`match_settlement_log`.
 
-### Procedure 2 - `proc_recalculate_user_statuses`
+### פרוצדורה 2 - `proc_recalculate_user_statuses`
 
-This procedure reviews users and changes their account status when the risk
-rules require it. For example, users with high pending exposure can become
-`Blocked`. These updates activate the users UPDATE trigger, so the same workflow
-also proves the audit trigger.
+פרוצדורה זו בודקת משתמשים ומשנה את סטטוס החשבון שלהם כאשר כללי הסיכון דורשים זאת. לדוגמה, משתמשים עם חשיפה גבוהה בהימורים ממתינים יכולים להפוך ל-`Blocked`. עדכונים אלה מפעילים את trigger ה-UPDATE של המשתמשים, ולכן אותו תהליך מוכיח גם את trigger ה-audit.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Procedure recalculate user statuses and users trigger](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+![פרוצדורת חישוב סטטוס משתמשים ו-trigger משתמשים](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
-The upper part of the screenshot shows the risk-review queue. The lower part
-shows `account_audit_log`, which proves that user updates were audited.
+החלק העליון של צילום המסך מציג את תור בדיקת הסיכון. החלק התחתון מציג את `account_audit_log`, שמוכיח שעדכוני המשתמשים תועדו.
 
 ### Trigger 1 - `users_account_audit_update`
 
-This trigger runs after UPDATE on `users.balance` or `users.account_status`.
-It writes old values, new values, delta, reason and timestamp to
-`account_audit_log`.
+Trigger זה רץ לאחר UPDATE על `users.balance` או `users.account_status`. הוא כותב ערכים ישנים, ערכים חדשים, delta, סיבה וחותמת זמן לתוך `account_audit_log`.
 
-This is important because sensitive financial/user-status changes should be
-audited.
+זה חשוב משום ששינויים רגישים בכסף או בסטטוס משתמש צריכים להיות מתועדים.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Users update trigger audit](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+![Trigger audit לעדכון משתמשים](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
-The audit rows include old status, new status, old balance, new balance and
-reason. This proves that the trigger runs automatically when `users` is updated.
+רשומות ה-audit כוללות סטטוס ישן, סטטוס חדש, יתרה ישנה, יתרה חדשה וסיבה. הדבר מוכיח שה-trigger רץ אוטומטית כאשר `users` מתעדכנת.
 
 ### Trigger 2 - `odds_audit_update`
 
-This trigger runs before UPDATE on the odds values. It validates that odds stay
-greater than 1, updates `update_date`, and writes the old/new odds values to
-`odds_audit_log`.
+Trigger זה רץ לפני UPDATE על ערכי יחסי ההימורים. הוא מוודא שהיחסים נשארים גדולים מ-1, מעדכן את `update_date`, וכותב את ערכי היחסים הישנים/חדשים לתוך `odds_audit_log`.
 
-This is important because odds changes affect financial exposure and should
-have history.
+זה חשוב משום ששינויי odds משפיעים על חשיפה פיננסית ולכן צריכים היסטוריה.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Trigger odds update audit](screenshots/trigger_odds_update_audit.png)
+![Trigger לתיעוד עדכון odds](screenshots/trigger_odds_update_audit.png)
 
-The screenshot shows `UPDATE 1` on `odds` and matching rows in
-`odds_audit_log`, including old and new odds values.
+צילום המסך מציג `UPDATE 1` על `odds` ושורות תואמות ב-`odds_audit_log`, כולל ערכי odds ישנים וחדשים.
 
-## 7. Main Programs
+## 7. תוכניות ראשיות
 
-### Main Program 1 - Risk Review
+### תוכנית ראשית 1 - בדיקת סיכון
 
-File:
+קובץ:
 
 ```text
 programs/MainProgram_RiskReview.sql
 ```
 
-This main program calls:
+תוכנית ראשית זו קוראת ל:
 
 ```sql
 SELECT fn_open_user_risk_report(35);
 CALL proc_recalculate_user_statuses(1200, 500, 40);
 ```
 
-Then it prints rows from `risk_review_queue` and `account_audit_log`.
+לאחר מכן היא מדפיסה שורות מתוך `risk_review_queue` ומתוך `account_audit_log`.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Main program risk review](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
+![תוכנית ראשית לבדיקת סיכון](screenshots/procedure_recalculate_user_statuses_and_user_trigger.png)
 
-The screenshot proves that the main program runs a complete risk-review flow:
-function output, procedure call, risk queue output and audit output.
+צילום המסך מוכיח שהתוכנית הראשית מריצה תהליך בדיקת סיכון מלא: פלט פונקציה, קריאה לפרוצדורה, פלט תור סיכון ופלט audit.
 
-### Main Program 2 - Match Settlement
+### תוכנית ראשית 2 - סגירת משחק
 
-File:
+קובץ:
 
 ```text
 programs/MainProgram_SettleMatch.sql
 ```
 
-This main program chooses a match with pending bets, shows the financial summary
-before settlement, calls the settlement procedure, and then shows the financial
-summary after settlement.
+תוכנית ראשית זו בוחרת משחק עם הימורים ממתינים, מציגה את הסיכום הפיננסי לפני הסגירה, קוראת לפרוצדורת הסגירה ולאחר מכן מציגה את הסיכום הפיננסי לאחר הסגירה.
 
-It proves that the database changed because `pending_bets` becomes 0 and a row
-appears in `match_settlement_log`.
+היא מוכיחה שבסיס הנתונים השתנה משום ש-`pending_bets` הופך ל-0 ונוצרת שורה ב-`match_settlement_log`.
 
-Proof screenshot:
+הוכחה בצילום מסך:
 
-![Main program settle match](screenshots/procedure_settle_match.png)
+![תוכנית ראשית לסגירת משחק](screenshots/procedure_settle_match.png)
 
-The screenshot proves that the main program runs the full settlement flow:
-summary before settlement, procedure call, summary after settlement and
-settlement log output.
+צילום המסך מוכיח שהתוכנית הראשית מריצה את תהליך הסגירה המלא: סיכום לפני סגירה, קריאה לפרוצדורה, סיכום לאחר סגירה ופלט לוג סגירה.
 
-## 8. Exception Handling
+## 8. טיפול בחריגות
 
-![Exception invalid settlement result](screenshots/exception_invalid_settlement_result.png)
+![חריגה עבור תוצאת משחק לא תקינה](screenshots/exception_invalid_settlement_result.png)
 
-The screenshot shows a deliberate invalid result, `InvalidResult`, and the
-controlled exception message.
+צילום המסך מציג תוצאה לא תקינה מכוונת, `InvalidResult`, ואת הודעת החריגה המבוקרת.
 
-## 9. How To Run
+## 9. הוראות הרצה
 
-From the project root, run:
+מתיקיית השורש של הפרויקט, להריץ:
 
 ```bash
 docker exec -w /project betmaster_db psql -U betmaster_user -d betmaster -f /project/שלב_ד/RunAllStage4.sql
 ```
 
-This script performs the full order:
+הסקריפט מבצע את הסדר המלא:
 
-1. creates supporting tables,
-2. creates the functions,
-3. creates the procedures,
-4. creates the triggers,
-5. runs main program 1,
-6. runs main program 2,
-7. demonstrates the odds UPDATE trigger,
-8. demonstrates exception handling.
+1. יצירת טבלאות תומכות,
+2. יצירת הפונקציות,
+3. יצירת הפרוצדורות,
+4. יצירת ה-triggers,
+5. הרצת תוכנית ראשית 1,
+6. הרצת תוכנית ראשית 2,
+7. הדגמת trigger ה-UPDATE של odds,
+8. הדגמת טיפול בחריגות.
 
-Create the final backup:
+יצירת הגיבוי הסופי:
 
 ```bash
 docker exec betmaster_db pg_dump -U betmaster_user betmaster > שלב_ד/backup4.sql
 ```
 
-## 10. Final Notes
+## 10. הערות סופיות
 
-The full proof output is saved in:
+פלט ההוכחה המלא נשמר בקובץ:
 
 ```text
 evidence/stage4_execution_output.txt
 ```
 
-The final report is:
+הדוח הסופי הוא:
 
 ```text
 דוח הפרויקט שלב ד.md
 ```
 
-The report includes:
+הדוח כולל:
 
-- description of each program,
-- screenshot proof,
-- explanation of the proof,
-- full code appendix.
+- תיאור של כל תוכנית,
+- הוכחות בצילומי מסך,
+- הסבר על ההוכחות,
+- נספח קוד מלא.

@@ -1,178 +1,178 @@
-# BetMaster - Football Betting Management System
+# BetMaster - מערכת לניהול הימורי כדורגל
 
-BetMaster is a comprehensive database system designed to manage football betting operations. It tracks users, football teams, matches, betting odds, placed bets, and financial transactions.
+BetMaster היא מערכת בסיס נתונים מקיפה שנועדה לנהל פעולות הימורי כדורגל. המערכת עוקבת אחר משתמשים, קבוצות כדורגל, משחקים, יחסי הימורים, הימורים שבוצעו ועסקאות כספיות.
 
-## System Overview
+## סקירת המערכת
 
-The system provides a platform for:
+המערכת מספקת פלטפורמה עבור:
 
-- Viewing scheduled football matches.
-- Analyzing betting odds.
-- Placing bets on match outcomes.
-- Managing user balances and financial transactions.
-- Tracking historical performance and winning streaks.
+- צפייה במשחקי כדורגל מתוכננים.
+- ניתוח יחסי הימורים.
+- ביצוע הימורים על תוצאות משחקים.
+- ניהול יתרות משתמשים ועסקאות כספיות.
+- מעקב אחר ביצועים היסטוריים ורצפי זכיות.
 
-## Google AI Studio Application Link
+## קישור לאפליקציה ב-Google AI Studio
 
-**Application Link:** [BetMaster App](https://aistudio.google.com/apps/6016d178-4c68-4631-b42c-c4ed68553f7f)
+**קישור לאפליקציה:** [BetMaster App](https://aistudio.google.com/apps/6016d178-4c68-4631-b42c-c4ed68553f7f)
 
-## Screens
+## מסכים
 
-### Screen 1 - User Account
+### מסך 1 - חשבון משתמש
 
-This screen presents the user's personal account details, including the user name, user ID, account status, and current balance. It also allows financial actions such as deposits and withdrawals.
+מסך זה מציג את פרטי החשבון האישיים של המשתמש, כולל שם המשתמש, מזהה המשתמש, סטטוס החשבון והיתרה הנוכחית. בנוסף, הוא מאפשר פעולות כספיות כגון הפקדות ומשיכות.
 
-**Relevant entities:** `USERS`, `TRANSACTIONS`
+**ישויות רלוונטיות:** `USERS`, `TRANSACTIONS`
 
-![Screen 1](שלב_א/Screens/screen1.png)
+![מסך 1](שלב_א/Screens/screen1.png)
 
-### Screen 2 - Matches
+### מסך 2 - משחקים
 
-This screen presents the list of football matches available for betting, including participating teams, match date, status, and odds.
+מסך זה מציג את רשימת משחקי הכדורגל הזמינים להימור, כולל הקבוצות המשתתפות, תאריך המשחק, הסטטוס ויחסי ההימורים.
 
-**Relevant entities:** `MATCHES`, `TEAMS`, `ODDS`
+**ישויות רלוונטיות:** `MATCHES`, `TEAMS`, `ODDS`
 
-![Screen 2](שלב_א/Screens/screen2.png)
+![מסך 2](שלב_א/Screens/screen2.png)
 
-### Screen 3 - Place Bet
+### מסך 3 - ביצוע הימור
 
-This screen allows the user to choose a specific match, select a predicted result, enter a betting amount, and confirm the bet.
+מסך זה מאפשר למשתמש לבחור משחק מסוים, לבחור תוצאה צפויה, להזין סכום הימור ולאשר את ההימור.
 
-**Relevant entities:** `BETS`, `USERS`, `MATCHES`, `ODDS`, `TRANSACTIONS`
+**ישויות רלוונטיות:** `BETS`, `USERS`, `MATCHES`, `ODDS`, `TRANSACTIONS`
 
-![Screen 3](שלב_א/Screens/screen3.png)
+![מסך 3](שלב_א/Screens/screen3.png)
 
-### Screen 4 - History
+### מסך 4 - היסטוריה
 
-This screen presents the user's betting history and financial transaction history, including profits, losses, and account actions.
+מסך זה מציג את היסטוריית ההימורים והיסטוריית העסקאות הכספיות של המשתמש, כולל רווחים, הפסדים ופעולות חשבון.
 
-**Relevant entities:** `BETS`, `TRANSACTIONS`, `MATCHES`
+**ישויות רלוונטיות:** `BETS`, `TRANSACTIONS`, `MATCHES`
 
-![Screen 4](שלב_א/Screens/screen4.png)
+![מסך 4](שלב_א/Screens/screen4.png)
 
-## Technologies
+## טכנולוגיות
 
-- **Database:** PostgreSQL 16
-- **Containerization:** Docker & Docker Compose
-- **Data Generation:** Python 3
-- **Tools:** VS Code, pg_dump, Dear PyGui, psycopg2
+- **בסיס נתונים:** PostgreSQL 16
+- **קונטיינריזציה:** Docker ו-Docker Compose
+- **יצירת נתונים:** Python 3
+- **כלים:** VS Code, pg_dump, Dear PyGui, psycopg2
 
-## Database Design
+## תכנון בסיס הנתונים
 
-The schema is normalized and was expanded through the integration stage. The final database includes the original BetMaster tables, the received football-management schema, integrated football tables, integration mapping tables, and Stage D audit/risk tables.
+הסכמה מנורמלת והורחבה בשלב האינטגרציה. בסיס הנתונים הסופי כולל את טבלאות BetMaster המקוריות, הסכמה שהתקבלה ממערכת ניהול הכדורגל, טבלאות כדורגל משולבות, טבלאות מיפוי אינטגרציה וטבלאות audit וסיכון משלב ד'.
 
-### Core Entities
+### ישויות מרכזיות
 
-- **USERS:** Profiles, balances, and account status.
-- **TEAMS:** Team details and country of origin.
-- **MATCHES:** Dates, participating teams, and final results.
-- **ODDS:** Dynamic betting odds linked to specific matches.
-- **BETS:** Records of user wagers, predictions, and outcomes.
-- **TRANSACTIONS:** Financial logs for all account movements.
+- **USERS:** פרופילים, יתרות וסטטוס חשבון.
+- **TEAMS:** פרטי קבוצות ומדינת מקור.
+- **MATCHES:** תאריכים, קבוצות משתתפות ותוצאות סופיות.
+- **ODDS:** יחסי הימורים דינמיים המקושרים למשחקים.
+- **BETS:** רשומות של הימורים, תחזיות ותוצאות.
+- **TRANSACTIONS:** לוג כספי של כל פעולות החשבון.
 
-### Diagrams
+### תרשימים
 
-- **ERD:** [View ERD](שלב_א/Diagrams/ERD.png)
-- **DSD:** [View DSD](שלב_א/Diagrams/DSD.png)
-- **Integrated ERD:** [View Integrated ERD](שלב_ג/Diagrams/integrated_ERD.png)
-- **Integrated DSD:** [View Integrated DSD](שלב_ג/Diagrams/integrated_DSD.png)
+- **ERD:** [פתיחת ERD](שלב_א/Diagrams/ERD.png)
+- **DSD:** [פתיחת DSD](שלב_א/Diagrams/DSD.png)
+- **ERD משולב:** [פתיחת ERD משולב](שלב_ג/Diagrams/integrated_ERD.png)
+- **DSD משולב:** [פתיחת DSD משולב](שלב_ג/Diagrams/integrated_DSD.png)
 
-## Getting Started
+## התחלה והפעלה
 
-### Prerequisites
+### דרישות מקדימות
 
-- Docker and Docker Compose
-- Python 3.10 or newer for the Stage E GUI
+- Docker ו-Docker Compose
+- Python 3.10 ומעלה עבור הממשק הגרפי של שלב ה'
 
-### Running The Database
+### הרצת בסיס הנתונים
 
-Start PostgreSQL:
+הפעלת PostgreSQL:
 
 ```powershell
 docker compose up -d
 ```
 
-The database is available at `localhost:5432`.
+בסיס הנתונים זמין בכתובת `localhost:5432`.
 
-- **User:** `betmaster_user`
-- **Password:** `betmaster_pass`
-- **DB:** `betmaster`
+- **משתמש:** `betmaster_user`
+- **סיסמה:** `betmaster_pass`
+- **בסיס נתונים:** `betmaster`
 
-On a fresh machine or empty Docker volume, restore the Stage D backup:
+במחשב נקי או Docker volume ריק, יש לשחזר את גיבוי שלב ד':
 
 ```powershell
 docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\backup4.sql
 ```
 
-## Project Structure
+## מבנה הפרויקט
 
-- `שלב_א/`: Stage A - schema design, data generation, backup and initial screens.
-- `שלב_ב/`: Stage B - advanced queries, indexes, constraints and transactions.
-- `שלב_ג/`: Stage C - integration with the received football database.
-- `שלב_ד/`: Stage D - PL/pgSQL functions, procedures, triggers and audit tables.
-- `שלב_ה/`: Stage E - graphical interface for the database.
-- `DBProject/שלב ה/`: delivery copy for Stage E.
-- `docker-compose.yml`: PostgreSQL infrastructure.
+- `שלב_א/`: שלב א' - תכנון סכמה, יצירת נתונים, גיבוי ומסכים ראשוניים.
+- `שלב_ב/`: שלב ב' - שאילתות מתקדמות, אינדקסים, אילוצים וטרנזקציות.
+- `שלב_ג/`: שלב ג' - אינטגרציה עם בסיס נתוני הכדורגל שהתקבל.
+- `שלב_ד/`: שלב ד' - פונקציות PL/pgSQL, פרוצדורות, triggers וטבלאות audit.
+- `שלב_ה/`: שלב ה' - ממשק גרפי לבסיס הנתונים.
+- `DBProject/שלב ה/`: עותק הגשה עבור שלב ה'.
+- `docker-compose.yml`: תשתית PostgreSQL.
 
-## Stage E - Graphical Database Interface
+## שלב ה' - ממשק גרפי לבסיס הנתונים
 
-Stage E adds a desktop administration interface for the integrated BetMaster database.
+שלב ה' מוסיף ממשק ניהול שולחני עבור בסיס הנתונים המשולב של BetMaster.
 
-### How To Run
+### הוראות הפעלה
 
-1. Start PostgreSQL:
+1. הפעלת PostgreSQL:
 
    ```powershell
    docker compose up -d
    ```
 
-2. If the Docker volume is empty, restore the Stage D database:
+2. אם ה-Docker volume ריק, יש לשחזר את בסיס הנתונים של שלב ד':
 
    ```powershell
    docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\backup4.sql
    ```
 
-3. Install the GUI dependencies:
+3. התקנת תלויות הממשק הגרפי:
 
    ```powershell
    cd .\שלב_ה
    python -m pip install -r requirements.txt
    ```
 
-4. Run the application:
+4. הרצת האפליקציה:
 
    ```powershell
    python main.py
    ```
 
-The application connects to `localhost:5432`, database `betmaster`, with user `betmaster_user` and password `betmaster_pass`.
+האפליקציה מתחברת ל-`localhost:5432`, לבסיס הנתונים `betmaster`, עם המשתמש `betmaster_user` והסיסמה `betmaster_pass`.
 
-### Tools Used For The GUI
+### כלים ששימשו לממשק הגרפי
 
-- **Python 3** for the application code.
-- **Dear PyGui** for the graphical desktop interface.
-- **psycopg2-binary** for PostgreSQL access.
-- **Docker Compose** for running PostgreSQL 16.
+- **Python 3** עבור קוד האפליקציה.
+- **Dear PyGui** עבור ממשק שולחני גרפי.
+- **psycopg2-binary** עבור גישה ל-PostgreSQL.
+- **Docker Compose** עבור הרצת PostgreSQL 16.
 
-### Application Coverage
+### כיסוי האפליקציה
 
-The GUI provides access to all **40 public tables** in the integrated database:
+הממשק הגרפי מספק גישה לכל **40 הטבלאות הציבוריות** בבסיס הנתונים המשולב:
 
-- original BetMaster tables
-- received football-management tables
-- normalized integrated football tables
-- integration mapping tables
-- Stage D audit and risk tables
+- טבלאות BetMaster המקוריות
+- טבלאות ניהול הכדורגל שהתקבלו
+- טבלאות כדורגל משולבות ומנורמלות
+- טבלאות מיפוי אינטגרציה
+- טבלאות audit וסיכון של שלב ד'
 
-Supported operations:
+פעולות נתמכות:
 
-- Create, read, update and delete records from the table screens.
-- Update flow by primary key: enter key, fetch existing row, edit fields, save.
-- Foreign-key display using readable values instead of raw IDs.
-- Execution of Stage B queries.
-- Execution of Stage D procedures/functions.
+- יצירה, שליפה, עדכון ומחיקה של רשומות ממסכי הטבלאות.
+- תהליך עדכון לפי מפתח ראשי: הכנסת מפתח, שליפת הרשומה הקיימת, עריכת שדות ושמירה.
+- הצגת מפתחות זרים כערכים קריאים במקום מזהים מספריים.
+- הרצת שאילתות שלב ב'.
+- הרצת פרוצדורות ופונקציות שלב ד'.
 
-Stage B queries exposed in the GUI:
+שאילתות שלב ב' הזמינות בממשק:
 
 - `Top Recent Winners`
 - `Suspicious Winning Patterns`
@@ -180,18 +180,17 @@ Stage B queries exposed in the GUI:
 - `Away Team Upsets`
 - `Monthly Cash Flow`
 
-Stage D programs exposed in the GUI:
+תוכניות שלב ד' הזמינות בממשק:
 
 - `proc_settle_match`
 - `proc_recalculate_user_statuses`
 - `fn_match_financial_summary`
 - `fn_open_user_risk_report`
 
-### Stage E Screenshots
+### צילומי מסך של שלב ה'
 
-![Stage E Home](שלב_ה/screenshots/home_page.png)
+![מסך הבית של שלב ה'](שלב_ה/screenshots/home_page.png)
 
-![Stage E Data Management](שלב_ה/screenshots/data_page.png)
+![ניהול נתונים בשלב ה'](שלב_ה/screenshots/data_page.png)
 
-![Stage E Queries and Programs](שלב_ה/screenshots/query_page.png)
-
+![שאילתות ותוכניות בשלב ה'](שלב_ה/screenshots/query_page.png)

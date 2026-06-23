@@ -1,137 +1,140 @@
-# Stage A – Design, Database Construction, Data Population and Backup
+# שלב א' - תכנון, בניית בסיס הנתונים, טעינת נתונים וגיבוי
 
-## Submitted by
+## הוגש על ידי
+
 - Levi Kaprow
 - Tzvi Israel Ben David
 
-## System Name
-**BetMaster – A Football Betting Management System**
+## שם המערכת
 
-## Selected Unit
-**Football Betting Management**
+**BetMaster - מערכת לניהול הימורי כדורגל**
 
----
+## היחידה שנבחרה
 
-## Introduction
-
-BetMaster is a football betting management system.
-
-The system allows users to view available football matches, check the odds for each possible result, place bets, manage their personal account balance, and view their betting and transaction history.
-
-The goal of the system is to provide a clear, organized, and realistic database model for a football betting platform while maintaining correct relationships between the different entities and preserving database normalization.
+**ניהול הימורי כדורגל**
 
 ---
 
-## System Description and Main Functionality
+## הקדמה
 
-The system supports the following main actions:
+BetMaster היא מערכת לניהול הימורי כדורגל.
 
-- Viewing available football matches
-- Viewing betting odds for each match
-- Placing a bet on a selected result
-- Managing user account details
-- Depositing and withdrawing funds
-- Viewing betting history
-- Viewing transaction history
-- Tracking match results and bet statuses
+המערכת מאפשרת למשתמשים לצפות במשחקי כדורגל זמינים, לבדוק את יחסי ההימורים לכל תוצאה אפשרית, לבצע הימורים, לנהל את יתרת החשבון האישית שלהם ולצפות בהיסטוריית ההימורים והעסקאות.
+
+מטרת המערכת היא לספק מודל בסיס נתונים ברור, מאורגן וריאלי עבור פלטפורמת הימורי כדורגל, תוך שמירה על קשרים תקינים בין הישויות השונות ועל נרמול בסיס הנתונים.
 
 ---
 
-## Google AI Studio Application Link
+## תיאור המערכת והפונקציונליות המרכזית
 
-**Application Link:** [BetMaster App](https://aistudio.google.com/apps/6016d178-4c68-4631-b42c-c4ed68553f7f)
+המערכת תומכת בפעולות המרכזיות הבאות:
 
----
-
-# Screens
-
-## Screen 1 – User Account
-
-This screen presents the user’s personal account details, including the user name, user ID, account status, and current balance.
-
-It also allows the user to perform financial actions such as deposits and withdrawals.
-
-**Relevant entities:** `USERS`, `TRANSACTIONS`
-
-![Screen 1](Screens/screen1.png)
-
-[Open Screen 1](Screens/screen1.png)
+- צפייה במשחקי כדורגל זמינים
+- צפייה ביחסי הימורים לכל משחק
+- ביצוע הימור על תוצאה נבחרת
+- ניהול פרטי חשבון משתמש
+- הפקדה ומשיכת כספים
+- צפייה בהיסטוריית הימורים
+- צפייה בהיסטוריית עסקאות
+- מעקב אחר תוצאות משחקים וסטטוס הימורים
 
 ---
 
-## Screen 2 – Matches
+## קישור לאפליקציה ב-Google AI Studio
 
-This screen presents the list of football matches available for betting.
-
-For each match, the system displays the participating teams, match date, match status, and the odds for each possible result.
-
-**Relevant entities:** `MATCHES`, `TEAMS`, `ODDS`
-
-![Screen 2](Screens/screen2.png)
-
-[Open Screen 2](Screens/screen2.png)
+**קישור לאפליקציה:** [BetMaster App](https://aistudio.google.com/apps/6016d178-4c68-4631-b42c-c4ed68553f7f)
 
 ---
 
-## Screen 3 – Place Bet
+# מסכים
 
-This screen allows the user to choose a specific match, select a predicted result, enter a betting amount, and confirm the bet.
+## מסך 1 - חשבון משתמש
 
-The bet is connected to the selected user and match.
+מסך זה מציג את פרטי החשבון האישיים של המשתמש, כולל שם המשתמש, מזהה המשתמש, סטטוס החשבון והיתרה הנוכחית.
 
-**Relevant entities:** `BETS`, `USERS`, `MATCHES`, `ODDS`, `TRANSACTIONS`
+בנוסף, המסך מאפשר למשתמש לבצע פעולות כספיות כגון הפקדות ומשיכות.
 
-![Screen 3](Screens/screen3.png)
+**ישויות רלוונטיות:** `USERS`, `TRANSACTIONS`
 
-[Open Screen 3](Screens/screen3.png)
+![מסך 1](Screens/screen1.png)
 
----
-
-## Screen 4 – History
-
-This screen presents the user’s betting history and financial transaction history.
-
-The user can see previous bets, bet results, profits, losses, deposits, withdrawals, and other account actions.
-
-**Relevant entities:** `BETS`, `TRANSACTIONS`, `MATCHES`
-
-![Screen 4](Screens/screen4.png)
-
-[Open Screen 4](Screens/screen4.png)
+[פתיחת מסך 1](Screens/screen1.png)
 
 ---
 
-# ERD and DSD Diagrams
+## מסך 2 - משחקים
+
+מסך זה מציג את רשימת משחקי הכדורגל הזמינים להימור.
+
+עבור כל משחק, המערכת מציגה את הקבוצות המשתתפות, תאריך המשחק, סטטוס המשחק ויחסי ההימורים לכל תוצאה אפשרית.
+
+**ישויות רלוונטיות:** `MATCHES`, `TEAMS`, `ODDS`
+
+![מסך 2](Screens/screen2.png)
+
+[פתיחת מסך 2](Screens/screen2.png)
+
+---
+
+## מסך 3 - ביצוע הימור
+
+מסך זה מאפשר למשתמש לבחור משחק מסוים, לבחור תוצאה צפויה, להזין סכום הימור ולאשר את ההימור.
+
+ההימור מקושר למשתמש שנבחר ולמשחק שנבחר.
+
+**ישויות רלוונטיות:** `BETS`, `USERS`, `MATCHES`, `ODDS`, `TRANSACTIONS`
+
+![מסך 3](Screens/screen3.png)
+
+[פתיחת מסך 3](Screens/screen3.png)
+
+---
+
+## מסך 4 - היסטוריה
+
+מסך זה מציג את היסטוריית ההימורים ואת היסטוריית העסקאות הכספיות של המשתמש.
+
+המשתמש יכול לראות הימורים קודמים, תוצאות הימורים, רווחים, הפסדים, הפקדות, משיכות ופעולות נוספות בחשבון.
+
+**ישויות רלוונטיות:** `BETS`, `TRANSACTIONS`, `MATCHES`
+
+![מסך 4](Screens/screen4.png)
+
+[פתיחת מסך 4](Screens/screen4.png)
+
+---
+
+# תרשימי ERD ו-DSD
 
 ## ERD
 
-The ERD describes the conceptual structure of the system, including the main entities, their attributes, and the relationships between them.
+תרשים ה-ERD מתאר את המבנה הקונספטואלי של המערכת, כולל הישויות המרכזיות, המאפיינים שלהן והקשרים ביניהן.
 
 ![ERD](Diagrams/ERD.png)
 
-[Open ERD](Diagrams/ERD.png)
+[פתיחת ERD](Diagrams/ERD.png)
 
 ---
 
 ## DSD
 
-The DSD describes the relational database structure, including tables, primary keys, foreign keys, and the connections between the tables.
+תרשים ה-DSD מתאר את מבנה בסיס הנתונים הרלציוני, כולל טבלאות, מפתחות ראשיים, מפתחות זרים והקשרים בין הטבלאות.
 
 ![DSD](Diagrams/DSD.png)
 
-[Open DSD](Diagrams/DSD.png)
+[פתיחת DSD](Diagrams/DSD.png)
 
 ---
 
-# Entity Description
+# תיאור הישויות
 
-The system is based on 6 main entities.
+המערכת מבוססת על 6 ישויות מרכזיות.
 
 ## USERS
 
-Stores information about the users of the system.
+שומרת מידע על המשתמשים במערכת.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `user_id`
 - `full_name`
@@ -144,9 +147,9 @@ Main attributes:
 
 ## TEAMS
 
-Stores information about football teams.
+שומרת מידע על קבוצות כדורגל.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `team_id`
 - `team_name`
@@ -156,9 +159,9 @@ Main attributes:
 
 ## MATCHES
 
-Stores information about football matches.
+שומרת מידע על משחקי כדורגל.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `match_id`
 - `match_date`
@@ -167,15 +170,15 @@ Main attributes:
 - `home_team_id`
 - `away_team_id`
 
-Each match has a home team and an away team.
+לכל משחק יש קבוצת בית וקבוצת חוץ.
 
 ---
 
 ## ODDS
 
-Stores the betting odds for each match.
+שומרת את יחסי ההימורים עבור כל משחק.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `odd_id`
 - `home_win_odd`
@@ -184,15 +187,15 @@ Main attributes:
 - `update_date`
 - `match_id`
 
-Each match has one related odds record.
+לכל משחק יש רשומת יחסי הימורים אחת מקושרת.
 
 ---
 
 ## BETS
 
-Stores the bets placed by users.
+שומרת את ההימורים שבוצעו על ידי משתמשים.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `bet_id`
 - `predicted_result`
@@ -202,15 +205,15 @@ Main attributes:
 - `user_id`
 - `match_id`
 
-Each bet belongs to one user and one match.
+כל הימור שייך למשתמש אחד ולמשחק אחד.
 
 ---
 
 ## TRANSACTIONS
 
-Stores the financial transactions performed by users.
+שומרת את העסקאות הכספיות שבוצעו על ידי משתמשים.
 
-Main attributes:
+מאפיינים מרכזיים:
 
 - `transaction_id`
 - `amount`
@@ -218,7 +221,7 @@ Main attributes:
 - `transaction_date`
 - `user_id`
 
-Examples of transaction types:
+דוגמאות לסוגי עסקאות:
 
 - Deposit
 - Withdrawal
@@ -227,76 +230,76 @@ Examples of transaction types:
 
 ---
 
-# Relationships Between Entities
+# קשרים בין הישויות
 
-The main relationships in the system are:
+הקשרים המרכזיים במערכת הם:
 
-- One user can place many bets.
-- One user can perform many transactions.
-- One match can have many bets.
-- Each match has one home team.
-- Each match has one away team.
-- Each match has one odds record.
-- Each bet belongs to one user.
-- Each bet belongs to one match.
-- Each transaction belongs to one user.
+- משתמש אחד יכול לבצע הימורים רבים.
+- משתמש אחד יכול לבצע עסקאות רבות.
+- משחק אחד יכול להכיל הימורים רבים.
+- לכל משחק יש קבוצת בית אחת.
+- לכל משחק יש קבוצת חוץ אחת.
+- לכל משחק יש רשומת יחסי הימורים אחת.
+- כל הימור שייך למשתמש אחד.
+- כל הימור שייך למשחק אחד.
+- כל עסקה שייכת למשתמש אחד.
 
-## Foreign Key Relationships
+## קשרי מפתחות זרים
 
-The foreign key relationships are:
+קשרי המפתחות הזרים הם:
 
-- `BETS.user_id` references `USERS.user_id`
-- `BETS.match_id` references `MATCHES.match_id`
-- `TRANSACTIONS.user_id` references `USERS.user_id`
-- `MATCHES.home_team_id` references `TEAMS.team_id`
-- `MATCHES.away_team_id` references `TEAMS.team_id`
-- `ODDS.match_id` references `MATCHES.match_id`
-
----
-
-# Schema Normalization up to 3NF
-
-The schema was checked and found to be normalized at least up to the Third Normal Form.
-
-Each table represents one clear entity, and all non-key attributes depend on the primary key of that table.
-
-Examples:
-
-- User details are stored only in the `USERS` table.
-- Team details are stored only in the `TEAMS` table.
-- Match details are stored only in the `MATCHES` table.
-- Odds are stored only in the `ODDS` table.
-- Bets are stored only in the `BETS` table.
-- Transactions are stored only in the `TRANSACTIONS` table.
-
-This separation prevents unnecessary duplication and keeps the database structure organized and maintainable.
+- `BETS.user_id` מפנה אל `USERS.user_id`
+- `BETS.match_id` מפנה אל `MATCHES.match_id`
+- `TRANSACTIONS.user_id` מפנה אל `USERS.user_id`
+- `MATCHES.home_team_id` מפנה אל `TEAMS.team_id`
+- `MATCHES.away_team_id` מפנה אל `TEAMS.team_id`
+- `ODDS.match_id` מפנה אל `MATCHES.match_id`
 
 ---
 
-# Design Decisions
+# נרמול הסכמה עד 3NF
 
-The database was designed with a clear separation between the main entities.
+הסכמה נבדקה ונמצאה מנורמלת לפחות עד הצורה הנורמלית השלישית.
 
-The purpose of this separation is to:
+כל טבלה מייצגת ישות ברורה אחת, וכל המאפיינים שאינם מפתח תלויים במפתח הראשי של אותה טבלה.
 
-- Avoid duplicated data
-- Preserve normalization
-- Make the database easier to maintain
-- Keep the relationships between tables clear
-- Support future expansion of the system
+דוגמאות:
 
-The system screens were also designed according to the main user actions:
+- פרטי משתמש נשמרים רק בטבלת `USERS`.
+- פרטי קבוצה נשמרים רק בטבלת `TEAMS`.
+- פרטי משחק נשמרים רק בטבלת `MATCHES`.
+- יחסי הימורים נשמרים רק בטבלת `ODDS`.
+- הימורים נשמרים רק בטבלת `BETS`.
+- עסקאות נשמרות רק בטבלת `TRANSACTIONS`.
 
-- Account management
-- Viewing matches
-- Placing bets
-- Viewing history
+הפרדה זו מונעת כפילויות מיותרות ושומרת על מבנה בסיס נתונים מאורגן וקל לתחזוקה.
 
 ---
 
-# Technical Database Implementation
+# החלטות תכנון
 
-The database implementation was carried out using:
+בסיס הנתונים תוכנן עם הפרדה ברורה בין הישויות המרכזיות.
+
+מטרת ההפרדה היא:
+
+- למנוע כפילות נתונים
+- לשמור על נרמול
+- להפוך את בסיס הנתונים לקל יותר לתחזוקה
+- לשמור על קשרים ברורים בין הטבלאות
+- לאפשר הרחבה עתידית של המערכת
+
+מסכי המערכת תוכננו גם הם לפי פעולות המשתמש המרכזיות:
+
+- ניהול חשבון
+- צפייה במשחקים
+- ביצוע הימור
+- צפייה בהיסטוריה
+
+---
+
+# מימוש טכני של בסיס הנתונים
+
+מימוש בסיס הנתונים בוצע באמצעות:
 
 - PostgreSQL
 - Docker
@@ -304,15 +307,15 @@ The database implementation was carried out using:
 - VS Code
 - Python
 
-A PostgreSQL container was created and configured using `docker-compose.yml`.
+נוצר והוגדר קונטיינר PostgreSQL באמצעות `docker-compose.yml`.
 
-The main database is named:
+שם בסיס הנתונים הראשי:
 
 ```text
 betmaster
 ```
 
-The main Docker container is named:
+שם קונטיינר Docker הראשי:
 
 ```text
 betmaster_db
@@ -320,69 +323,69 @@ betmaster_db
 
 ---
 
-# SQL Files
+# קבצי SQL
 
-The following SQL files were prepared for the project:
+הקבצים הבאים הוכנו עבור הפרויקט:
 
 - [createTables.sql](createTables.sql)
 - [dropTables.sql](dropTables.sql)
 - [insertTables.sql](insertTables.sql)
 - [selectAll.sql](selectAll.sql)
 
-## File Purposes
+## מטרת הקבצים
 
 ### createTables.sql
 
-Creates the database tables, primary keys, foreign keys, and constraints.
+יוצר את טבלאות בסיס הנתונים, מפתחות ראשיים, מפתחות זרים ואילוצים.
 
 ### dropTables.sql
 
-Drops the existing tables in the correct order so the database can be recreated.
+מוחק את הטבלאות הקיימות בסדר הנכון כדי שניתן יהיה ליצור מחדש את בסיס הנתונים.
 
 ### insertTables.sql
 
-Contains manual SQL insert examples.
+כולל דוגמאות להכנסות ידניות ב-SQL.
 
 ### selectAll.sql
 
-Displays records from the database tables.
+מציג רשומות מטבלאות בסיס הנתונים.
 
 ---
 
-# Data Insertion Methods
+# שיטות הכנסת נתונים
 
-The project includes three different data insertion methods.
+הפרויקט כולל שלוש שיטות שונות להכנסת נתונים.
 
 ---
 
-## Method 1 – Manual SQL INSERT Statements
+## שיטה 1 - פקודות INSERT ידניות ב-SQL
 
-Manual insertion was implemented using SQL commands inside:
+הכנסה ידנית מומשה באמצעות פקודות SQL בתוך:
 
 - [insertTables.sql](insertTables.sql)
 
-This file demonstrates how records can be inserted directly into the database tables using SQL.
+קובץ זה מדגים כיצד ניתן להכניס רשומות ישירות לטבלאות בסיס הנתונים באמצעות SQL.
 
 ---
 
-## Method 2 – Data Generation Using Python
+## שיטה 2 - יצירת נתונים באמצעות Python
 
-A Python script was written to generate a large amount of realistic data automatically.
+נכתב סקריפט Python ליצירת כמות גדולה של נתונים ריאליים באופן אוטומטי.
 
-File:
+קובץ:
 
 - [generate_data.py](Programming/generate_data.py)
 
-The script uses the `Faker` library to generate realistic data such as:
+הסקריפט משתמש בספריית `Faker` כדי ליצור נתונים ריאליים כגון:
 
-- User names
-- Emails
-- Team names
-- Countries
-- Dates
-- Financial values
+- שמות משתמשים
+- כתובות אימייל
+- שמות קבוצות
+- מדינות
+- תאריכים
+- ערכים כספיים
 
-This was done in order to avoid artificial values such as:
+הדבר נעשה כדי להימנע מערכים מלאכותיים כגון:
 
 ```text
 User 1
@@ -390,17 +393,17 @@ Team 1
 Country 1
 ```
 
-Instead, the generated data contains realistic names and readable textual values.
+במקום זאת, הנתונים שנוצרו כוללים שמות ריאליים וערכים טקסטואליים קריאים.
 
 ---
 
-## Foreign Key Handling in Python
+## טיפול במפתחות זרים ב-Python
 
-The Python script was also designed to respect all foreign key relationships.
+סקריפט ה-Python תוכנן גם כך שישמור על כל קשרי המפתחות הזרים.
 
-The logic is based on generating parent tables first and then using only existing IDs when generating child tables.
+הלוגיקה מבוססת על יצירת טבלאות אב תחילה, ולאחר מכן שימוש רק במזהים קיימים בעת יצירת טבלאות בן.
 
-Generation order:
+סדר היצירה:
 
 1. `USERS`
 2. `TEAMS`
@@ -409,26 +412,26 @@ Generation order:
 5. `BETS`
 6. `TRANSACTIONS`
 
-This ensures that every foreign key points to an existing primary key.
+כך מובטח שכל מפתח זר מצביע למפתח ראשי קיים.
 
-Examples:
+דוגמאות:
 
-- `BETS.user_id` is selected only from existing `USERS.user_id` values.
-- `BETS.match_id` is selected only from existing `MATCHES.match_id` values.
-- `TRANSACTIONS.user_id` is selected only from existing `USERS.user_id` values.
-- `MATCHES.home_team_id` is selected only from existing `TEAMS.team_id` values.
-- `MATCHES.away_team_id` is selected only from existing `TEAMS.team_id` values.
-- `ODDS.match_id` is selected only from existing `MATCHES.match_id` values.
+- `BETS.user_id` נבחר רק מתוך ערכי `USERS.user_id` קיימים.
+- `BETS.match_id` נבחר רק מתוך ערכי `MATCHES.match_id` קיימים.
+- `TRANSACTIONS.user_id` נבחר רק מתוך ערכי `USERS.user_id` קיימים.
+- `MATCHES.home_team_id` נבחר רק מתוך ערכי `TEAMS.team_id` קיימים.
+- `MATCHES.away_team_id` נבחר רק מתוך ערכי `TEAMS.team_id` קיימים.
+- `ODDS.match_id` נבחר רק מתוך ערכי `MATCHES.match_id` קיימים.
 
-The script also prevents a match from having the same team as both home team and away team.
+הסקריפט גם מונע מצב שבו אותה קבוצה מופיעה באותו משחק גם כקבוצת בית וגם כקבוצת חוץ.
 
 ---
 
-## Method 3 – Importing Data from CSV Files
+## שיטה 3 - ייבוא נתונים מקבצי CSV
 
-The generated CSV files were imported into PostgreSQL.
+קבצי ה-CSV שנוצרו יובאו לתוך PostgreSQL.
 
-CSV files:
+קבצי CSV:
 
 - [users.csv](DataImportFiles/users.csv)
 - [teams.csv](DataImportFiles/teams.csv)
@@ -437,7 +440,7 @@ CSV files:
 - [bets.csv](DataImportFiles/bets.csv)
 - [transactions.csv](DataImportFiles/transactions.csv)
 
-The import order follows the foreign key dependency order:
+סדר הייבוא תואם את סדר התלויות של המפתחות הזרים:
 
 1. `USERS`
 2. `TEAMS`
@@ -446,17 +449,17 @@ The import order follows the foreign key dependency order:
 5. `BETS`
 6. `TRANSACTIONS`
 
-This order ensures that all parent records exist before child records are imported.
+סדר זה מבטיח שכל רשומות האב קיימות לפני ייבוא רשומות הבן.
 
 ---
 
-# Record Counts
+# כמות רשומות
 
-According to the project requirements, the database contains more than 500 records in the main tables, and two tables contain at least 20,000 records.
+בהתאם לדרישות הפרויקט, בסיס הנתונים מכיל יותר מ-500 רשומות בטבלאות המרכזיות, ושתי טבלאות מכילות לפחות 20,000 רשומות.
 
-Final number of records:
+כמות הרשומות הסופית:
 
-| Table | Number of Records |
+| טבלה | מספר רשומות |
 |---|---:|
 | `USERS` | 800 |
 | `TEAMS` | 600 |
@@ -465,84 +468,84 @@ Final number of records:
 | `BETS` | 20,000 |
 | `TRANSACTIONS` | 20,000 |
 
-![Record Counts](Screenshots/record_counts.png)
+![כמות רשומות](Screenshots/record_counts.png)
 
-[Open Record Counts Screenshot](Screenshots/record_counts.png)
+[פתיחת צילום כמות הרשומות](Screenshots/record_counts.png)
 
 ---
 
-# Foreign Key Validation
+# בדיקת מפתחות זרים
 
-After importing the CSV files into PostgreSQL, the foreign key relationships were validated.
+לאחר ייבוא קבצי ה-CSV ל-PostgreSQL, נבדקו קשרי המפתחות הזרים.
 
-The validation checked that:
+הבדיקה אימתה כי:
 
-- Every bet references an existing user.
-- Every bet references an existing match.
-- Every transaction references an existing user.
-- Every odds record references an existing match.
-- Every match references existing teams.
-- No match contains the same team as both home team and away team.
+- כל הימור מפנה למשתמש קיים.
+- כל הימור מפנה למשחק קיים.
+- כל עסקה מפנה למשתמש קיים.
+- כל רשומת יחסי הימורים מפנה למשחק קיים.
+- כל משחק מפנה לקבוצות קיימות.
+- אין משחק שבו אותה קבוצה היא גם קבוצת בית וגם קבוצת חוץ.
 
-All validation checks returned:
+כל בדיקות האימות החזירו:
 
 ```text
 0 invalid records
 ```
 
-This confirms that the generated data respects the database relationships and foreign key constraints.
+תוצאה זו מאשרת שהנתונים שנוצרו עומדים בקשרי בסיס הנתונים ובאילוצי המפתחות הזרים.
 
-![Foreign Key Validation](Screenshots/fk_validation.png)
+![בדיקת מפתחות זרים](Screenshots/fk_validation.png)
 
-[Open Foreign Key Validation Screenshot](Screenshots/fk_validation.png)
-
----
-
-# Backup and Restore
-
-Two backup methods were implemented.
+[פתיחת צילום בדיקת מפתחות זרים](Screenshots/fk_validation.png)
 
 ---
 
-## Backup Method 1 – Logical SQL Backup
+# גיבוי ושחזור
 
-A logical SQL backup of the database was created using `pg_dump`.
+מומשו שתי שיטות גיבוי.
 
-File:
+---
+
+## שיטת גיבוי 1 - גיבוי SQL לוגי
+
+נוצר גיבוי SQL לוגי של בסיס הנתונים באמצעות `pg_dump`.
+
+קובץ:
 
 - [backup_2026-05-01.sql](backup_2026-05-01.sql)
 
-This backup contains the database structure and data in SQL format.
+גיבוי זה מכיל את מבנה בסיס הנתונים ואת הנתונים בפורמט SQL.
 
-It can be restored into another PostgreSQL database.
+ניתן לשחזר אותו לתוך בסיס נתונים אחר של PostgreSQL.
 
 ---
 
-## Backup Method 2 – Physical Docker Volume Backup
+## שיטת גיבוי 2 - גיבוי פיזי של Docker Volume
 
-A second backup was created by backing up the PostgreSQL Docker volume itself.
+נוצר גיבוי נוסף על ידי גיבוי ה-Docker volume של PostgreSQL עצמו.
 
-File:
+קובץ:
 
 - [backup_volume_2026-05-01.tar.gz](backup_volume_2026-05-01.tar.gz)
 
-This backup preserves the physical contents of the PostgreSQL database storage volume in compressed format.
+גיבוי זה שומר את התוכן הפיזי של אחסון בסיס הנתונים של PostgreSQL בפורמט דחוס.
 
 ---
 
-## Restore Test
+## בדיקת שחזור
 
-The logical backup was tested by restoring the database into a separate database named:
+הגיבוי הלוגי נבדק על ידי שחזור בסיס הנתונים לתוך בסיס נתונים נפרד בשם:
 
 ```text
 betmaster_restore
 ```
 
-After the restore process, the data was verified successfully.
+לאחר תהליך השחזור, הנתונים אומתו בהצלחה.
 
-The restored database contained the same record counts as the original database:
+בסיס הנתונים ששוחזר הכיל את אותן כמויות רשומות כמו בסיס הנתונים המקורי:
 
-| Table | Number of Records |
+| טבלה | מספר רשומות |
 |---|---:|
 | `USERS` | 800 |
 | `TEAMS` | 600 |
@@ -551,70 +554,70 @@ The restored database contained the same record counts as the original database:
 | `BETS` | 20,000 |
 | `TRANSACTIONS` | 20,000 |
 
-![Restore Counts](Screenshots/restore_counts.png)
+![כמות רשומות לאחר שחזור](Screenshots/restore_counts.png)
 
-[Open Restore Counts Screenshot](Screenshots/restore_counts.png)
-
----
-
-# Screenshots
-
-## Tables Created
-
-This screenshot shows that the six required database tables were created successfully.
-
-![Tables Created](Screenshots/tables_created.png)
-
-[Open Tables Created Screenshot](Screenshots/tables_created.png)
+[פתיחת צילום אימות שחזור](Screenshots/restore_counts.png)
 
 ---
 
-## Record Counts
+# צילומי מסך
 
-This screenshot shows the final number of records in each table.
+## יצירת טבלאות
 
-![Record Counts](Screenshots/record_counts.png)
+צילום זה מראה ששש טבלאות בסיס הנתונים הנדרשות נוצרו בהצלחה.
 
-[Open Record Counts Screenshot](Screenshots/record_counts.png)
+![יצירת טבלאות](Screenshots/tables_created.png)
 
----
-
-## Foreign Key Validation
-
-This screenshot shows that all foreign key validation checks returned zero invalid records.
-
-![Foreign Key Validation](Screenshots/fk_validation.png)
-
-[Open Foreign Key Validation Screenshot](Screenshots/fk_validation.png)
+[פתיחת צילום יצירת טבלאות](Screenshots/tables_created.png)
 
 ---
 
-## Backup Files
+## כמות רשומות
 
-This screenshot shows the updated backup files:
+צילום זה מראה את כמות הרשומות הסופית בכל טבלה.
+
+![כמות רשומות](Screenshots/record_counts.png)
+
+[פתיחת צילום כמות רשומות](Screenshots/record_counts.png)
+
+---
+
+## בדיקת מפתחות זרים
+
+צילום זה מראה שכל בדיקות המפתחות הזרים החזירו אפס רשומות לא תקינות.
+
+![בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+
+[פתיחת צילום בדיקת מפתחות זרים](Screenshots/fk_validation.png)
+
+---
+
+## קבצי גיבוי
+
+צילום זה מראה את קבצי הגיבוי המעודכנים:
 
 - `backup_2026-05-01.sql`
 - `backup_volume_2026-05-01.tar.gz`
 
-![Backup Files](Screenshots/backup_files.png)
+![קבצי גיבוי](Screenshots/backup_files.png)
 
-[Open Backup Files Screenshot](Screenshots/backup_files.png)
-
----
-
-## Restore Verification
-
-This screenshot shows that the backup was restored successfully into `betmaster_restore`.
-
-![Restore Verification](Screenshots/restore_counts.png)
-
-[Open Restore Verification Screenshot](Screenshots/restore_counts.png)
+[פתיחת צילום קבצי גיבוי](Screenshots/backup_files.png)
 
 ---
 
-# Project Files Structure
+## אימות שחזור
 
-The main files of Stage A are organized as follows:
+צילום זה מראה שהגיבוי שוחזר בהצלחה לתוך `betmaster_restore`.
+
+![אימות שחזור](Screenshots/restore_counts.png)
+
+[פתיחת צילום אימות שחזור](Screenshots/restore_counts.png)
+
+---
+
+# מבנה קבצי הפרויקט
+
+הקבצים המרכזיים של שלב א' מאורגנים כך:
 
 ```text
 שלב_א
@@ -658,14 +661,14 @@ The main files of Stage A are organized as follows:
 
 ---
 
-# Conclusion
+# סיכום
 
-The designed system provides an organized and clear foundation for managing a football betting database.
+המערכת שתוכננה מספקת בסיס ברור ומאורגן לניהול בסיס נתונים של הימורי כדורגל.
 
-The project includes four system screens, six main database entities, ERD and DSD diagrams, SQL implementation files, generated data, CSV imports, backup files, and restore verification.
+הפרויקט כולל ארבעה מסכי מערכת, שש ישויות בסיס נתונים מרכזיות, תרשימי ERD ו-DSD, קבצי מימוש SQL, נתונים שנוצרו, ייבוא CSV, קבצי גיבוי ואימות שחזור.
 
-The data generation process was improved to use realistic names and values using the `Faker` library.
+תהליך יצירת הנתונים שופר באמצעות שימוש בספריית `Faker` כדי ליצור שמות וערכים ריאליים.
 
-In addition, the generated data was validated to ensure that all foreign key relationships are respected.
+בנוסף, הנתונים שנוצרו אומתו כדי לוודא שכל קשרי המפתחות הזרים נשמרים.
 
-The database was successfully populated, backed up using two different methods, restored into a separate database, and verified using record count checks.
+בסיס הנתונים אוכלס בהצלחה, גובה בשתי שיטות שונות, שוחזר לבסיס נתונים נפרד ואומת באמצעות בדיקות כמות רשומות.

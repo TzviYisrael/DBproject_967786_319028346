@@ -1,60 +1,60 @@
-﻿# Stage C - Integration and Views
+# שלב ג' - אינטגרציה ומבטים
 
-## 1. Stage Goal
+## 1. מטרת השלב
 
-In Stage C, we integrated two different database systems into one combined database.
+בשלב ג' שילבנו שתי מערכות בסיסי נתונים שונות לתוך בסיס נתונים משולב אחד.
 
-Our original system is **BetMaster**, a football betting management system. The received system is **Football Management System**, which manages football teams, matches, players, coaches, referees, stadiums, and match statistics.
+המערכת המקורית שלנו היא **BetMaster**, מערכת לניהול הימורי כדורגל. המערכת שהתקבלה היא **Football Management System**, שמנהלת קבוצות כדורגל, משחקים, שחקנים, מאמנים, שופטים, אצטדיונים וסטטיסטיקות משחק.
 
-The integration was done according to **Method A** from the assignment:
+האינטגרציה בוצעה לפי **שיטה א'** מהמטלה:
 
-- Build the DSD of the received department from its backup.
-- Reverse engineer the received DSD into an ERD.
-- Design a shared integrated ERD.
-- Convert the integrated ERD into a new relational schema.
-- Modify the existing database using SQL commands instead of recreating all tables from scratch.
-- Make sure the integrated database contains data from both systems.
-- Run the previous Stage B queries on the integrated database.
-- Create two required views, one for each original department, and two meaningful queries for each view.
-- Create the final backup `backup3.sql`.
+- בניית DSD של המחלקה שהתקבלה מתוך קובץ הגיבוי שלה.
+- ביצוע reverse engineering מה-DSD שהתקבל ל-ERD.
+- תכנון ERD משולב משותף.
+- המרת ה-ERD המשולב לסכמה רלציונית חדשה.
+- שינוי בסיס הנתונים הקיים באמצעות פקודות SQL במקום יצירה מחדש של כל הטבלאות מאפס.
+- וידוא שבסיס הנתונים המשולב מכיל נתונים משתי המערכות.
+- הרצת שאילתות שלב ב' הקודמות על בסיס הנתונים המשולב.
+- יצירת שני מבטים נדרשים, אחד עבור כל מחלקה מקורית, ושתי שאילתות משמעותיות לכל מבט.
+- יצירת הגיבוי הסופי `backup3.sql`.
 
-## 2. Submission Checklist
+## 2. רשימת בדיקה להגשה
 
-| Requirement | File / Evidence |
+| דרישה | קובץ / הוכחה |
 | --- | --- |
-| DSD of the received department | `Diagrams/received_DSD.png` |
-| ERD of the received department | `Diagrams/received_ERD.png` |
-| Integrated ERD | `Diagrams/integrated_ERD.png` |
-| DSD after integration | `Diagrams/integrated_DSD.png` |
-| Table creation/change commands | `Integrate.sql` |
-| Views and queries on views | `Views.sql` |
-| Final updated backup | `backup3.sql` |
-| Stage C report | `דוח הפרויקט שלב ג.md` |
-| Screenshots and outputs | `screenshots/` |
-| Integration validation output | `integration_validation_output.txt` |
-| Stage B queries after integration | `stage_b_queries_on_integrated_output.txt` |
+| DSD של המחלקה שהתקבלה | `Diagrams/received_DSD.png` |
+| ERD של המחלקה שהתקבלה | `Diagrams/received_ERD.png` |
+| ERD משולב | `Diagrams/integrated_ERD.png` |
+| DSD לאחר האינטגרציה | `Diagrams/integrated_DSD.png` |
+| פקודות יצירה/שינוי של טבלאות | `Integrate.sql` |
+| מבטים ושאילתות על מבטים | `Views.sql` |
+| גיבוי סופי מעודכן | `backup3.sql` |
+| דוח שלב ג' | `דוח הפרויקט שלב ג.md` |
+| צילומי מסך ופלטים | `screenshots/` |
+| פלט אימות האינטגרציה | `integration_validation_output.txt` |
+| שאילתות שלב ב' לאחר האינטגרציה | `stage_b_queries_on_integrated_output.txt` |
 
-## 3. Screenshot Guide
+## 3. מדריך צילומי מסך
 
-This table explains the purpose of each screenshot used in this README.
+הטבלה הבאה מסבירה את מטרת כל צילום מסך שמופיע ב-README זה.
 
-| Screenshot | Purpose | What to check |
+| צילום מסך | מטרה | מה לבדוק |
 | --- | --- | --- |
-| `integration_counts.png` | Confirms that the integrated database contains data | Original BetMaster tables and new `football_*` tables both have rows |
-| `stage_b_top_recent_winners_integrated.png` | Proves that a Stage B query still works after integration | The query returns recent users with high winnings |
-| `view_betmaster_select.png` | Shows the BetMaster view output | Each row summarizes one user's betting and financial activity |
-| `view_betmaster_query1.png` | Shows high-activity betting users | Users are active and ordered by total betting volume |
-| `view_betmaster_query2.png` | Shows users with winnings greater than withdrawals | The calculated difference column is positive |
-| `view_football_select.png` | Shows the Football Management view output | Each row summarizes one player's team, contract, and match performance |
-| `view_football_query1.png` | Shows the most productive players | Players are ordered by goals plus assists |
-| `view_football_query2.png` | Shows high-salary players with low goal contribution | Salary is high relative to this dataset and goals are below 5 |
-| `view_integrated_select.png` | Shows a mixed integrated view sample | BetMaster rows show betting data and FootballManagement rows show stadium data |
+| `integration_counts.png` | מאשר שבסיס הנתונים המשולב מכיל נתונים | גם טבלאות BetMaster המקוריות וגם טבלאות `football_*` החדשות מכילות שורות |
+| `stage_b_top_recent_winners_integrated.png` | מוכיח ששאילתת שלב ב' עדיין עובדת לאחר האינטגרציה | השאילתה מחזירה משתמשים חדשים יחסית עם זכיות גבוהות |
+| `view_betmaster_select.png` | מציג את פלט המבט של BetMaster | כל שורה מסכמת פעילות הימורים ופיננסים של משתמש אחד |
+| `view_betmaster_query1.png` | מציג משתמשים פעילים עם פעילות הימורים גבוהה | משתמשים פעילים וממוינים לפי נפח הימורים כולל |
+| `view_betmaster_query2.png` | מציג משתמשים שהזכיות שלהם גבוהות מהמשיכות | עמודת ההפרש המחושבת חיובית |
+| `view_football_select.png` | מציג את פלט המבט של Football Management | כל שורה מסכמת שחקן, קבוצה, חוזה וביצועי משחק |
+| `view_football_query1.png` | מציג את השחקנים היעילים ביותר | השחקנים ממוינים לפי שערים ועוד בישולים |
+| `view_football_query2.png` | מציג שחקנים עם שכר גבוה ותרומת שערים נמוכה | השכר גבוה ביחס לנתונים ומספר השערים נמוך מ-5 |
+| `view_integrated_select.png` | מציג דוגמה מעורבת מהמבט המשולב | שורות BetMaster מציגות נתוני הימורים ושורות FootballManagement מציגות נתוני אצטדיון |
 
-## 4. Received Department DSD
+## 4. DSD של המחלקה שהתקבלה
 
-The received backup was restored and analyzed. From the tables, primary keys, foreign keys, and constraints, we built the DSD of the received department.
+הגיבוי שהתקבל שוחזר ונותח. מתוך הטבלאות, המפתחות הראשיים, המפתחות הזרים והאילוצים, בנינו את ה-DSD של המחלקה שהתקבלה.
 
-Main tables in the received system:
+הטבלאות המרכזיות במערכת שהתקבלה:
 
 - `team`
 - `match`
@@ -69,19 +69,17 @@ Main tables in the received system:
 - `stadium`
 - `matchstadium`
 
-**DSD of the received department:**
+**DSD של המחלקה שהתקבלה:**
 
-![Received DSD](Diagrams/received_DSD.png)
+![DSD שהתקבל](Diagrams/received_DSD.png)
 
-**How to read this image:** this diagram shows the physical table structure of
-the received database before integration. It is used as evidence that we
-restored and analyzed the other group's backup.
+**איך לקרוא את התמונה:** תרשים זה מציג את מבנה הטבלאות הפיזי של בסיס הנתונים שהתקבל לפני האינטגרציה. הוא משמש כהוכחה לכך ששחזרנו וניתחנו את הגיבוי של הקבוצה האחרת.
 
-## 5. Received Department ERD
+## 5. ERD של המחלקה שהתקבלה
 
-After building the DSD, we reverse engineered it into an ERD.
+לאחר בניית ה-DSD, ביצענו reverse engineering והמרנו אותו ל-ERD.
 
-The main conceptual entities are:
+הישויות הקונספטואליות המרכזיות הן:
 
 - `Team`
 - `Match`
@@ -90,39 +88,37 @@ The main conceptual entities are:
 - `Referee`
 - `Stadium`
 
-Relationship tables such as `matchteam`, `coachedby`, `playsfor_player`, and `refereeat` were interpreted as conceptual relationships between entities.
+טבלאות קשר כגון `matchteam`, `coachedby`, `playsfor_player` ו-`refereeat` פורשו כקשרים קונספטואליים בין ישויות.
 
-**ERD of the received department:**
+**ERD של המחלקה שהתקבלה:**
 
-![Received ERD](Diagrams/received_ERD.png)
+![ERD שהתקבל](Diagrams/received_ERD.png)
 
-**How to read this image:** this diagram converts the received tables into
-conceptual entities and relationships. It shows the reverse engineering result
-for the received department.
+**איך לקרוא את התמונה:** תרשים זה ממיר את הטבלאות שהתקבלו לישויות וקשרים קונספטואליים. הוא מציג את תוצאת ה-reverse engineering עבור המחלקה שהתקבלה.
 
-## 6. Reverse Engineering Algorithm
+## 6. אלגוריתם Reverse Engineering
 
-The reverse engineering process from the received database schema to ERD was:
+תהליך ה-reverse engineering מסכמת בסיס הנתונים שהתקבלה ל-ERD היה:
 
-1. Restore the received backup.
-2. List all tables in the restored database.
-3. For each table, inspect columns, data types, nullability, and constraints.
-4. Identify primary keys using `PRIMARY KEY` constraints.
-5. Identify foreign keys using `FOREIGN KEY` constraints.
-6. Treat tables with independent primary keys as strong entities.
-7. Treat tables made mostly of foreign keys as relationship tables.
-8. Treat tables whose primary key is also a foreign key as subtype or dependent entities.
-9. Determine cardinalities based on foreign keys and uniqueness.
-10. Convert the relational structure into a conceptual ERD.
+1. שחזור הגיבוי שהתקבל.
+2. הצגת כל הטבלאות בבסיס הנתונים ששוחזר.
+3. עבור כל טבלה, בדיקת עמודות, טיפוסי נתונים, אפשרות לערכי NULL ואילוצים.
+4. זיהוי מפתחות ראשיים באמצעות אילוצי `PRIMARY KEY`.
+5. זיהוי מפתחות זרים באמצעות אילוצי `FOREIGN KEY`.
+6. התייחסות לטבלאות עם מפתחות ראשיים עצמאיים כישויות חזקות.
+7. התייחסות לטבלאות שמורכבות בעיקר ממפתחות זרים כטבלאות קשר.
+8. התייחסות לטבלאות שהמפתח הראשי שלהן הוא גם מפתח זר כתת-סוג או ישות תלויה.
+9. קביעת קרדינליות לפי מפתחות זרים וייחודיות.
+10. המרת המבנה הרלציוני ל-ERD קונספטואלי.
 
-## 7. Integration Design Decisions
+## 7. החלטות תכנון באינטגרציה
 
-The main integration decision was to connect both systems through the football entities that both systems share:
+החלטת האינטגרציה המרכזית הייתה לחבר את שתי המערכות דרך ישויות הכדורגל המשותפות לשתיהן:
 
 - `Team`
 - `Match`
 
-BetMaster already had:
+ב-BetMaster כבר היו:
 
 - `teams`
 - `matches`
@@ -131,207 +127,190 @@ BetMaster already had:
 - `transactions`
 - `odds`
 
-The received system had football-management data around teams and matches:
+במערכת שהתקבלה היו נתוני ניהול כדורגל סביב קבוצות ומשחקים:
 
-- players
-- coaches
-- referees
-- stadiums
-- match statistics
-- player contracts
+- שחקנים
+- מאמנים
+- שופטים
+- אצטדיונים
+- סטטיסטיקות משחק
+- חוזי שחקנים
 
-### Main Integration Decisions
+### החלטות אינטגרציה מרכזיות
 
-1. Received `team` records were inserted into the existing `teams` table.
-2. Received `match` records were inserted into the existing `matches` table.
-3. Existing tables were changed with `ALTER TABLE`; we did not recreate the full database from scratch.
-4. New football-related tables were created only for entities that did not exist in BetMaster.
-5. Mapping tables were created to preserve the relationship between received IDs and integrated IDs.
-6. `source_system`, `received_team_id`, and `received_match_id` were added to preserve source information.
-7. `teams.home_stadium_id` was added so each team can be linked to its home stadium.
-8. If received teams had names that did not match BetMaster teams, they were kept as separate teams with source tracking.
+1. רשומות `team` שהתקבלו הוכנסו לטבלת `teams` הקיימת.
+2. רשומות `match` שהתקבלו הוכנסו לטבלת `matches` הקיימת.
+3. טבלאות קיימות שונו באמצעות `ALTER TABLE`; לא יצרנו מחדש את כל בסיס הנתונים מאפס.
+4. טבלאות כדורגל חדשות נוצרו רק עבור ישויות שלא היו קיימות ב-BetMaster.
+5. נוצרו טבלאות מיפוי כדי לשמור את הקשר בין המזהים שהתקבלו לבין המזהים המשולבים.
+6. נוספו `source_system`, `received_team_id` ו-`received_match_id` כדי לשמור מידע על מקור הנתונים.
+7. נוספה עמודת `teams.home_stadium_id` כדי לקשר כל קבוצה לאצטדיון הבית שלה.
+8. אם לקבוצות שהתקבלו היו שמות שלא התאימו לקבוצות BetMaster, הן נשמרו כקבוצות נפרדות עם מעקב מקור.
 
-## 8. Integrated ERD
+## 8. ERD משולב
 
-The integrated ERD is the conceptual design of the combined system.
+ה-ERD המשולב הוא התכנון הקונספטואלי של המערכת המאוחדת.
 
-The center of the integrated ERD is:
+מרכז ה-ERD המשולב הוא:
 
 - `Team`
 - `Match`
 
-The BetMaster side connects through bets, users, odds, and transactions. The Football Management side connects through players, coaches, referees, stadiums, and statistics.
+צד BetMaster מתחבר דרך הימורים, משתמשים, יחסי הימורים ועסקאות. צד Football Management מתחבר דרך שחקנים, מאמנים, שופטים, אצטדיונים וסטטיסטיקות.
 
-**Integrated ERD:**
+**ERD משולב:**
 
-![Integrated ERD](Diagrams/integrated_ERD.png)
+![ERD משולב](Diagrams/integrated_ERD.png)
 
-**How to read this image:** this is the conceptual design of the combined
-system. `Team` and `Match` are the shared center, with BetMaster entities on
-one side and Football Management entities on the other side.
+**איך לקרוא את התמונה:** זהו התכנון הקונספטואלי של המערכת המשולבת. `Team` ו-`Match` נמצאות במרכז המשותף, עם ישויות BetMaster בצד אחד וישויות Football Management בצד השני.
 
-## 9. DSD After Integration
+## 9. DSD לאחר האינטגרציה
 
-The DSD after integration was generated from the integrated ERD in ERDPlus. It shows the relational schema that comes from the ERD design, including the main tables, keys, and relationships.
+ה-DSD לאחר האינטגרציה נוצר מתוך ה-ERD המשולב ב-ERDPlus. הוא מציג את הסכמה הרלציונית שנובעת מתכנון ה-ERD, כולל הטבלאות המרכזיות, המפתחות והקשרים.
 
-File:
+קובץ:
 
 ```text
 Diagrams/integrated_DSD_erdplus.png
 ```
 
-**DSD generated by ERDPlus from the integrated ERD:**
+**DSD שנוצר על ידי ERDPlus מתוך ה-ERD המשולב:**
 
-![Integrated DSD Generated By ERDPlus](Diagrams/integrated_DSD_erdplus.png)
+![DSD משולב שנוצר על ידי ERDPlus](Diagrams/integrated_DSD_erdplus.png)
 
-**How to read this image:** this is the relational schema generated from the
-integrated ERD design. It shows the expected database structure according to the
-ERDPlus conversion.
+**איך לקרוא את התמונה:** זוהי הסכמה הרלציונית שנוצרה מתכנון ה-ERD המשולב. היא מציגה את מבנה בסיס הנתונים הצפוי לפי ההמרה של ERDPlus.
 
-In addition, we kept a schema-based DSD that reflects the actual implemented database structure after running `Integrate.sql`:
+בנוסף, שמרנו DSD מבוסס סכמה שמשקף את מבנה בסיס הנתונים שיושם בפועל לאחר הרצת `Integrate.sql`:
 
 ```text
 Diagrams/integrated_DSD.png
 ```
 
-**Implemented relational schema DSD:**
+**DSD של הסכמה הרלציונית שמומשה:**
 
-![Integrated DSD Implemented Schema](Diagrams/integrated_DSD.png)
+![DSD של הסכמה הממומשת](Diagrams/integrated_DSD.png)
 
-**How to read this image:** this diagram reflects the database that was
-actually implemented by `Integrate.sql`. It includes implementation details
-such as mapping tables and technical integration columns.
+**איך לקרוא את התמונה:** תרשים זה משקף את בסיס הנתונים שיושם בפועל על ידי `Integrate.sql`. הוא כולל פרטי מימוש כגון טבלאות מיפוי ועמודות אינטגרציה טכניות.
 
-## 10. Why the ERDPlus DSD and Implemented DSD Are Not Identical
+## 10. מדוע ה-DSD של ERDPlus וה-DSD הממומש אינם זהים
 
-The integrated ERD was built in ERDPlus as a conceptual diagram. ERDPlus can also generate a relational schema from that ERD, and this generated DSD is included as `integrated_DSD_erdplus.png`.
+ה-ERD המשולב נבנה ב-ERDPlus כתרשים קונספטואלי. ERDPlus יכול גם ליצור סכמה רלציונית מתוך ה-ERD, וה-DSD שנוצר כך צורף כ-`integrated_DSD_erdplus.png`.
 
-However, the implemented DSD is based on the actual SQL schema created by `Integrate.sql` and saved in `backup3.sql`. Therefore, the implemented DSD may contain additional technical tables, mapping tables, and implementation details that are not shown the same way in the ERDPlus-generated schema.
+עם זאת, ה-DSD הממומש מבוסס על סכמה SQL אמיתית שנוצרה על ידי `Integrate.sql` ונשמרה ב-`backup3.sql`. לכן ה-DSD הממומש עשוי לכלול טבלאות טכניות נוספות, טבלאות מיפוי ופרטי מימוש שאינם מוצגים באותה צורה בסכמה שנוצרה על ידי ERDPlus.
 
-This is expected: the ERDPlus DSD demonstrates the conversion from ERD to relational schema, while the implemented DSD demonstrates the real database structure after integration.
+זה מצב צפוי: ה-DSD של ERDPlus מדגים את ההמרה מ-ERD לסכמה רלציונית, בעוד שה-DSD הממומש מדגים את מבנה בסיס הנתונים האמיתי לאחר האינטגרציה.
 
-## 11. Integration SQL
+## 11. SQL של האינטגרציה
 
-The integration commands are in:
+פקודות האינטגרציה נמצאות בקובץ:
 
 ```text
 Integrate.sql
 ```
 
-This file performs the following actions:
+הקובץ מבצע את הפעולות הבאות:
 
-1. Creates `integration_sources` to document data sources.
-2. Extends existing `teams` and `matches` tables.
-3. Creates mapping tables for received team IDs and match IDs.
-4. Migrates received teams into `teams`.
-5. Migrates received matches into `matches`.
-6. Creates new football-management tables.
-7. Migrates players, coaches, referees, stadiums, contracts, and statistics.
-8. Connects teams to home stadiums.
-9. Runs validation queries to verify row counts.
+1. יצירת `integration_sources` לתיעוד מקורות הנתונים.
+2. הרחבת הטבלאות הקיימות `teams` ו-`matches`.
+3. יצירת טבלאות מיפוי עבור מזהי קבוצות ומזהי משחקים שהתקבלו.
+4. העברת קבוצות שהתקבלו לתוך `teams`.
+5. העברת משחקים שהתקבלו לתוך `matches`.
+6. יצירת טבלאות חדשות לניהול כדורגל.
+7. העברת שחקנים, מאמנים, שופטים, אצטדיונים, חוזים וסטטיסטיקות.
+8. חיבור קבוצות לאצטדיוני בית.
+9. הרצת שאילתות אימות לבדיקת כמות שורות.
 
-## 12. Integration Validation
+## 12. אימות האינטגרציה
 
-After the integration, we verified that the combined database contains data in both the original BetMaster tables and the new football-management tables.
+לאחר האינטגרציה, בדקנו שבסיס הנתונים המשולב מכיל נתונים גם בטבלאות BetMaster המקוריות וגם בטבלאות Football Management החדשות.
 
-**Row count validation screenshot:**
+**צילום מסך של בדיקת כמות שורות:**
 
-![Integration Counts](screenshots/integration_counts.png)
+![כמויות באינטגרציה](screenshots/integration_counts.png)
 
-**What this screenshot proves:** the integrated database contains records from
-both systems. BetMaster tables such as `users`, `bets`, `transactions`, and
-`odds` still contain data, and the new `football_*` tables also contain data
-from the received system.
+**מה צילום המסך מוכיח:** בסיס הנתונים המשולב מכיל רשומות משתי המערכות. טבלאות BetMaster כגון `users`, `bets`, `transactions` ו-`odds` עדיין מכילות נתונים, וגם טבלאות `football_*` החדשות מכילות נתונים מהמערכת שהתקבלה.
 
-Full validation output:
+פלט אימות מלא:
 
 ```text
 integration_validation_output.txt
 ```
 
-## 13. Running Stage B Queries After Integration
+## 13. הרצת שאילתות שלב ב' לאחר האינטגרציה
 
-The assignment requires running the previous stage queries on the integrated database to make sure they still work.
+הדרישה במטלה היא להריץ את שאילתות השלב הקודם על בסיס הנתונים המשולב כדי לוודא שהן עדיין עובדות.
 
-We ran Stage B queries after the integration. The screenshot below shows the
-`top_recent_winners.sql` query running on the integrated database and returning
-recent users with high winnings.
+הרצנו את שאילתות שלב ב' לאחר האינטגרציה. צילום המסך הבא מציג את השאילתה `top_recent_winners.sql` רצה על בסיס הנתונים המשולב ומחזירה משתמשים חדשים יחסית עם זכיות גבוהות.
 
-**Example output:**
+**פלט לדוגמה:**
 
-![Stage B Query On Integrated DB](screenshots/stage_b_top_recent_winners_integrated.png)
+![שאילתת שלב ב' על בסיס הנתונים המשולב](screenshots/stage_b_top_recent_winners_integrated.png)
 
-**What this screenshot proves:** a query from Stage B still runs successfully
-after the integration. The output lists recent users with high winnings, so the
-original BetMaster functionality was not broken by the integration.
+**מה צילום המסך מוכיח:** שאילתה משלב ב' עדיין רצה בהצלחה לאחר האינטגרציה. הפלט מציג משתמשים חדשים יחסית עם זכיות גבוהות, ולכן פונקציונליות BetMaster המקורית לא נשברה בעקבות האינטגרציה.
 
-Full output:
+פלט מלא:
 
 ```text
 stage_b_queries_on_integrated_output.txt
 ```
 
-## 14. Views
+## 14. מבטים
 
-The assignment requires two views:
+המטלה דורשת שני מבטים:
 
-1. one view from the original department point of view,
-2. one view from the received department point of view.
+1. מבט אחד מנקודת המבט של המחלקה המקורית.
+2. מבט אחד מנקודת המבט של המחלקה שהתקבלה.
 
-We created the required two views and also created one additional integrated view.
+יצרנו את שני המבטים הנדרשים וגם מבט משולב נוסף.
 
-### Important Interpretation Notes
+### הערות פרשנות חשובות
 
-These notes explain the main calculated columns that appear in the screenshots:
+ההערות הבאות מסבירות את העמודות המחושבות המרכזיות שמופיעות בצילומי המסך:
 
-- `total_bet_amount` means the total amount of money a user or match received in bets.
-- `balance` means the user's current available account balance.
-- `bet_count` means how many bets were placed on a match.
-- `won_bets` and `lost_bets` count only resolved bets. For scheduled or cancelled matches, a match can have bets but still show `0` won bets and `0` lost bets.
-- Empty stadium fields in BetMaster rows are expected because the original BetMaster system did not store stadium data.
-- Zero betting fields in FootballManagement rows are expected because the received Football Management system did not store betting data.
+- `total_bet_amount` הוא סכום הכסף הכולל שמשתמש או משחק קיבל בהימורים.
+- `balance` היא יתרת החשבון הזמינה הנוכחית של המשתמש.
+- `bet_count` הוא מספר ההימורים שבוצעו על משחק.
+- `won_bets` ו-`lost_bets` סופרים רק הימורים שהוכרעו. עבור משחקים מתוכננים או מבוטלים, ייתכן שלמשחק יש הימורים אך עדיין יופיעו `0` הימורים מנצחים ו-`0` הימורים מפסידים.
+- שדות אצטדיון ריקים בשורות BetMaster הם צפויים, כי מערכת BetMaster המקורית לא שמרה נתוני אצטדיונים.
+- שדות הימורים אפסיים בשורות FootballManagement הם צפויים, כי מערכת Football Management שהתקבלה לא שמרה נתוני הימורים.
 
-### Why Some Values Are Empty Or Zero
+### מדוע חלק מהערכים ריקים או אפסיים
 
-Some screenshots contain empty cells or zero values. These values are expected
-and reflect the difference between the two systems that were integrated.
+חלק מצילומי המסך מכילים תאים ריקים או ערכי אפס. ערכים אלה צפויים ומשקפים את ההבדל בין שתי המערכות ששולבו.
 
-| Case | Why it happens | Why it is not an error |
+| מקרה | מדוע זה קורה | מדוע זו אינה שגיאה |
 | --- | --- | --- |
-| BetMaster rows have empty stadium columns | The original BetMaster system managed betting data, not stadium data | Stadiums came from the received Football Management system |
-| FootballManagement rows have `bet_count = 0` and `total_bet_amount = 0` | The received system managed football matches, not bets | Bets exist only for the original BetMaster matches |
-| Scheduled matches have bets but `won_bets = 0` and `lost_bets = 0` | Users can place bets before a match is finished | The bets are not resolved until the match has a final result |
-| Cancelled matches may have bets but no wins/losses | The match was not completed | There is no final outcome to mark bets as won or lost |
-| `competition_stage` is empty for BetMaster rows | BetMaster did not store tournament stages | This field was added for matches received from Football Management |
-| `attendees` is empty for BetMaster rows | BetMaster did not store audience attendance | Attendance data came from the received stadium/match data |
+| שורות BetMaster כוללות עמודות אצטדיון ריקות | מערכת BetMaster המקורית ניהלה נתוני הימורים, לא נתוני אצטדיונים | נתוני האצטדיונים הגיעו ממערכת Football Management שהתקבלה |
+| שורות FootballManagement כוללות `bet_count = 0` ו-`total_bet_amount = 0` | המערכת שהתקבלה ניהלה משחקי כדורגל, לא הימורים | הימורים קיימים רק עבור משחקי BetMaster המקוריים |
+| למשחקים מתוכננים יש הימורים אך `won_bets = 0` ו-`lost_bets = 0` | משתמשים יכולים לבצע הימורים לפני שהמשחק מסתיים | ההימורים לא מוכרעים עד שיש תוצאה סופית |
+| למשחקים מבוטלים עשויים להיות הימורים אך ללא ניצחונות/הפסדים | המשחק לא הושלם | אין תוצאה סופית שלפיה ניתן לסמן הימורים כמנצחים או מפסידים |
+| `competition_stage` ריק בשורות BetMaster | BetMaster לא שמרה שלבי טורניר | שדה זה נוסף עבור משחקים שהתקבלו מ-Football Management |
+| `attendees` ריק בשורות BetMaster | BetMaster לא שמרה נתוני קהל | נתוני קהל הגיעו מנתוני האצטדיון/משחק שהתקבלו |
 
-The integrated view intentionally keeps both systems in the same result set.
-Therefore, not every row has values in every column. A BetMaster row is rich in
-betting data, while a FootballManagement row is rich in stadium and football
-context data.
+המבט המשולב שומר בכוונה את שתי המערכות באותה תוצאה. לכן לא לכל שורה יש ערכים בכל עמודה. שורת BetMaster עשירה בנתוני הימורים, בעוד ששורת FootballManagement עשירה בהקשר של אצטדיון וכדורגל.
 
-## 15. View 1 - BetMaster Point of View
+## 15. מבט 1 - נקודת המבט של BetMaster
 
-View name:
+שם המבט:
 
 ```text
 vw_betmaster_user_activity
 ```
 
-This view summarizes user activity in the betting system. It combines users, bets, and transactions. It is not a simple select from one table.
+מבט זה מסכם פעילות משתמשים במערכת ההימורים. הוא משלב משתמשים, הימורים ועסקאות. זה אינו SELECT פשוט מטבלה אחת.
 
-It includes:
+הוא כולל:
 
-- user details,
-- total number of bets,
-- total bet amount,
-- won bets,
-- lost bets,
-- deposits,
-- withdrawals,
-- winnings.
+- פרטי משתמש,
+- מספר הימורים כולל,
+- סכום הימורים כולל,
+- הימורים שניצחו,
+- הימורים שהפסידו,
+- הפקדות,
+- משיכות,
+- זכיות.
 
-### Select 10 Records
+### הצגת 10 רשומות
 
 ```sql
 SELECT *
@@ -339,14 +318,13 @@ FROM vw_betmaster_user_activity
 LIMIT 10;
 ```
 
-![BetMaster View Select](screenshots/view_betmaster_select.png)
+![בחירת נתונים ממבט של BetMaster](screenshots/view_betmaster_select.png)
 
-**What this screenshot shows:** 10 example rows from the BetMaster view. Each
-row summarizes one user's betting and financial activity.
+**מה צילום המסך מציג:** 10 שורות לדוגמה מתוך המבט של BetMaster. כל שורה מסכמת פעילות הימורים ופיננסים של משתמש אחד.
 
-### Query 1 on BetMaster View
+### שאילתה 1 על מבט של BetMaster
 
-Purpose: find active users with high betting volume.
+מטרה: למצוא משתמשים פעילים עם נפח הימורים גבוה.
 
 ```sql
 SELECT
@@ -363,14 +341,13 @@ ORDER BY total_bet_amount DESC
 LIMIT 10;
 ```
 
-![BetMaster View Query 1](screenshots/view_betmaster_query1.png)
+![שאילתה 1 על מבט של BetMaster](screenshots/view_betmaster_query1.png)
 
-**What this screenshot shows:** active users with many bets, ordered by total
-betting volume. This helps the betting department identify high-activity users.
+**מה צילום המסך מציג:** משתמשים פעילים עם הימורים רבים, ממוינים לפי נפח הימורים כולל. הדבר מסייע למחלקת ההימורים לזהות משתמשים עם פעילות גבוהה.
 
-### Query 2 on BetMaster View
+### שאילתה 2 על מבט של BetMaster
 
-Purpose: find users whose winnings are greater than their withdrawals.
+מטרה: למצוא משתמשים שהזכיות שלהם גבוהות מהמשיכות שלהם.
 
 ```sql
 SELECT
@@ -385,34 +362,32 @@ ORDER BY winnings_after_withdrawals DESC
 LIMIT 10;
 ```
 
-![BetMaster View Query 2](screenshots/view_betmaster_query2.png)
+![שאילתה 2 על מבט של BetMaster](screenshots/view_betmaster_query2.png)
 
-**What this screenshot shows:** users whose total winnings are greater than
-their withdrawals. The calculated column shows the remaining difference between
-winnings and withdrawals.
+**מה צילום המסך מציג:** משתמשים שסך הזכיות שלהם גבוה מסך המשיכות שלהם. העמודה המחושבת מציגה את ההפרש שנותר בין זכיות למשיכות.
 
-## 16. View 2 - Football Management Point of View
+## 16. מבט 2 - נקודת המבט של Football Management
 
-View name:
+שם המבט:
 
 ```text
 vw_football_player_performance
 ```
 
-This view summarizes football player performance. It joins players, teams, player contracts, and match statistics.
+מבט זה מסכם ביצועי שחקני כדורגל. הוא מחבר שחקנים, קבוצות, חוזי שחקנים וסטטיסטיקות משחק.
 
-It includes:
+הוא כולל:
 
-- player details,
-- team name,
-- salary,
-- number of matches played,
-- goals,
-- assists,
-- yellow cards,
-- red cards.
+- פרטי שחקן,
+- שם קבוצה,
+- שכר,
+- מספר משחקים ששוחקו,
+- שערים,
+- בישולים,
+- כרטיסים צהובים,
+- כרטיסים אדומים.
 
-### Select 10 Records
+### הצגת 10 רשומות
 
 ```sql
 SELECT *
@@ -420,14 +395,13 @@ FROM vw_football_player_performance
 LIMIT 10;
 ```
 
-![Football View Select](screenshots/view_football_select.png)
+![בחירת נתונים ממבט של Football](screenshots/view_football_select.png)
 
-**What this screenshot shows:** 10 example rows from the Football Management
-view. Each row summarizes one player's team, contract, and match performance.
+**מה צילום המסך מציג:** 10 שורות לדוגמה מתוך המבט של Football Management. כל שורה מסכמת את הקבוצה, החוזה וביצועי המשחק של שחקן אחד.
 
-### Query 1 on Football View
+### שאילתה 1 על מבט של Football
 
-Purpose: find the most productive players by goals and assists.
+מטרה: למצוא את השחקנים היעילים ביותר לפי שערים ובישולים.
 
 ```sql
 SELECT
@@ -443,15 +417,13 @@ ORDER BY total_contributions DESC, total_goals DESC
 LIMIT 10;
 ```
 
-![Football View Query 1](screenshots/view_football_query1.png)
+![שאילתה 1 על מבט של Football](screenshots/view_football_query1.png)
 
-**What this screenshot shows:** the most productive players by total goal
-contribution. The `total_contributions` column is calculated as goals plus
-assists.
+**מה צילום המסך מציג:** השחקנים היצרניים ביותר לפי תרומת שערים כוללת. העמודה `total_contributions` מחושבת כשערים ועוד בישולים.
 
-### Query 2 on Football View
+### שאילתה 2 על מבט של Football
 
-Purpose: find high salary players with low goal contribution.
+מטרה: למצוא שחקנים בעלי שכר גבוה ותרומת שערים נמוכה.
 
 ```sql
 SELECT
@@ -468,24 +440,19 @@ ORDER BY salary DESC
 LIMIT 10;
 ```
 
-![Football View Query 2](screenshots/view_football_query2.png)
+![שאילתה 2 על מבט של Football](screenshots/view_football_query2.png)
 
-**What this screenshot shows:** high-salary players with low goal contribution.
-The salary threshold is set to `100000` because this matches the salary scale in
-the actual data.
+**מה צילום המסך מציג:** שחקנים בעלי שכר גבוה ותרומת שערים נמוכה. סף השכר נקבע ל-`100000` כי הוא מתאים לסקאלת השכר בנתונים האמיתיים.
 
-## 17. Additional Integrated View
+## 17. מבט משולב נוסף
 
-In addition to the required two views, we created an extra integrated view:
+בנוסף לשני המבטים הנדרשים, יצרנו מבט משולב נוסף:
 
 ```text
 vw_integrated_match_betting_context
 ```
 
-This view combines match information with betting context, teams, stadiums,
-attendance, and source system information. The screenshot uses a mixed sample:
-BetMaster rows demonstrate betting activity, while FootballManagement rows
-demonstrate stadium and attendance data.
+מבט זה משלב מידע על משחקים עם הקשר הימורים, קבוצות, אצטדיונים, קהל ומידע על מערכת המקור. צילום המסך משתמש בדוגמה מעורבת: שורות BetMaster מדגימות פעילות הימורים, ושורות FootballManagement מדגימות נתוני אצטדיון וקהל.
 
 ```sql
 WITH betmaster_examples AS (
@@ -511,46 +478,40 @@ FROM football_examples
 ORDER BY source_system, total_bet_amount DESC, attendees DESC;
 ```
 
-![Integrated View Select](screenshots/view_integrated_select.png)
+![בחירת נתונים מהמבט המשולב](screenshots/view_integrated_select.png)
 
-**What this screenshot shows:** a mixed sample from the integrated view. The
-BetMaster rows show betting activity, while the FootballManagement rows show
-stadium and attendance data. Empty stadium columns in BetMaster rows are
-expected because the original betting system did not store stadium information.
-Zero betting columns in FootballManagement rows are also expected because the
-received system did not store bets.
+**מה צילום המסך מציג:** דוגמה מעורבת מתוך המבט המשולב. שורות BetMaster מציגות פעילות הימורים, בעוד ששורות FootballManagement מציגות נתוני אצטדיון וקהל. עמודות אצטדיון ריקות בשורות BetMaster הן צפויות, משום שמערכת ההימורים המקורית לא שמרה מידע על אצטדיונים. עמודות הימורים אפסיות בשורות FootballManagement הן גם צפויות, משום שהמערכת שהתקבלה לא שמרה הימורים.
 
-## 18. Final Backup
+## 18. גיבוי סופי
 
-The final integrated backup is:
+הגיבוי המשולב הסופי הוא:
 
 ```text
 backup3.sql
 ```
 
-This backup was created after:
+גיבוי זה נוצר לאחר:
 
-1. restoring both systems,
-2. running the integration script,
-3. creating the views,
-4. validating the data,
-5. running Stage B queries successfully.
+1. שחזור שתי המערכות,
+2. הרצת סקריפט האינטגרציה,
+3. יצירת המבטים,
+4. אימות הנתונים,
+5. הרצת שאילתות שלב ב' בהצלחה.
 
-## 19. Final Execution Order
+## 19. סדר הרצה סופי
 
-The actual execution order was:
+סדר ההרצה בפועל היה:
 
-1. Restore our Stage B backup.
-2. Restore the received backup.
-3. Run `Integrate.sql`.
-4. Run `Views.sql`.
-5. Validate row counts.
-6. Run Stage B queries on the integrated database.
-7. Generate `backup3.sql`.
+1. שחזור גיבוי שלב ב' שלנו.
+2. שחזור הגיבוי שהתקבל.
+3. הרצת `Integrate.sql`.
+4. הרצת `Views.sql`.
+5. אימות כמות שורות.
+6. הרצת שאילתות שלב ב' על בסיס הנתונים המשולב.
+7. יצירת `backup3.sql`.
 
-## 20. Summary
+## 20. סיכום
 
-The final integrated database contains data from both original systems. The integration keeps the original BetMaster betting functionality and adds football-management information such as players, coaches, referees, stadiums, and performance statistics.
+בסיס הנתונים המשולב הסופי מכיל נתונים משתי המערכות המקוריות. האינטגרציה שומרת על פונקציונליות ההימורים המקורית של BetMaster ומוסיפה מידע ניהולי של כדורגל כגון שחקנים, מאמנים, שופטים, אצטדיונים וסטטיסטיקות ביצועים.
 
-The required diagrams, SQL scripts, views, queries, outputs, report, and final backup are all included in this folder.
-
+התרשימים הנדרשים, סקריפטי ה-SQL, המבטים, השאילתות, הפלטים, הדוח והגיבוי הסופי כלולים כולם בתיקייה זו.

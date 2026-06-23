@@ -1,4 +1,4 @@
-# BetMaster – Football Betting Management System (Stage B)
+# BetMaster - מערכת לניהול הימורי כדורגל (שלב ב')
 
 ## שלב ב: שאילתות, אילוצים ואינדקסים
 
@@ -25,25 +25,25 @@
 
 | שאילתה | מימוש | כמות שורות |
 |---|---|---:|
-| Q1 Top Recent Winners | JOIN + GROUP BY | 65 |
-| Q1 Top Recent Winners | CTE | 65 |
-| Q2 High-Value Regional Users | Multi-table JOIN | 85 |
-| Q2 High-Value Regional Users | Correlated Subqueries | 85 |
-| Q3 Suspicious Winning Patterns | GROUP BY + CASE | 3 |
-| Q3 Suspicious Winning Patterns | Nested Subquery | 3 |
-| Q4 Away Team Upsets | Explicit JOIN | 45 |
-| Q4 Away Team Upsets | Correlated Subquery | 45 |
-| Q5 High-Frequency Bettors | JOIN + GROUP BY | 191 |
-| Q6 New Whale Users | JOIN + AVG | 25 |
-| Q7 Monthly Cash Flow | GROUP BY by month | 30 |
-| Q8 Winning Efficiency | JOIN + aggregation | 731 |
+| Q1 זוכים מובילים מהזמן האחרון | JOIN + GROUP BY | 65 |
+| Q1 זוכים מובילים מהזמן האחרון | CTE | 65 |
+| Q2 משתמשים אזוריים בעלי ערך גבוה | JOIN בין כמה טבלאות | 85 |
+| Q2 משתמשים אזוריים בעלי ערך גבוה | תתי-שאילתות מקושרות | 85 |
+| Q3 דפוסי זכייה חשודים | GROUP BY + CASE | 3 |
+| Q3 דפוסי זכייה חשודים | תת-שאילתה מקוננת | 3 |
+| Q4 הפתעות של קבוצות חוץ | JOIN מפורש | 45 |
+| Q4 הפתעות של קבוצות חוץ | תת-שאילתה מקושרת | 45 |
+| Q5 מהמרים בתדירות גבוהה | JOIN + GROUP BY | 191 |
+| Q6 משתמשי לווייתן חדשים | JOIN + AVG | 25 |
+| Q7 תזרים מזומנים חודשי | GROUP BY לפי חודש | 30 |
+| Q8 יעילות זכייה | JOIN + אגרגציה | 731 |
 
 הערה: ב-4 השאילתות הראשונות שתי הגרסאות מחזירות אותה כמות שורות. זה חשוב כי ההשוואה ביניהן היא השוואת יעילות, לא שינוי לוגי בתוצאה.
 
-### 1. שאילתות SELECT עם שתי גרסאות (Double Implementation)
+### 1. שאילתות SELECT עם שתי גרסאות מימוש
 עבור כל שאילתה מוצגות שתי דרכי מימוש והסבר על היעילות.
 
-#### שאילתה 1: זוכים מובילים מהזמן האחרון (Top Recent Winners)
+#### שאילתה 1: זוכים מובילים מהזמן האחרון
 **תיאור:** מזהה משתמשים שנרשמו ב-6 החודשים האחרונים וזכו בסכום העולה על 500.
 
 **כמות שורות בתוצאה:** 65 שורות בכל אחת משתי הגרסאות.
@@ -85,14 +85,14 @@ ORDER BY rw.total_winnings DESC;
 ```
 **הסבר יעילות:** גרסה א' יעילה יותר בדרך כלל מכיוון שהיא מבצעת סינון (Filtering) של המשתמשים לפי תאריך הרישום לפני שהיא מבצעת את ה-JOIN והאגרגציה, מה שמקטין את נפח הנתונים המעובד. גרסה ב' מחשבת אגרגציה על כל טבלת הטרנזקציות לפני הסינון.
 
-![Top Winners](screenshots/top_winner.png)
+![זוכים מובילים](screenshots/top_winner.png)
 
-#### שאילתה 2: משתמשים "אזוריים" בעלי ערך גבוה (High-Value Regional Users)
+#### שאילתה 2: משתמשים "אזוריים" בעלי ערך גבוה
 **תיאור:** משתמשים שנרשמו בשנה האחרונה והימרו בסכום מצטבר של מעל 300 על משחקים שבהם משחקת קבוצה מישראל.
 
 **כמות שורות בתוצאה:** 85 שורות בכל אחת משתי הגרסאות.
 
-**גרסה א' (Multi-table JOIN):**
+**גרסה א' (JOIN בין כמה טבלאות):**
 ```sql
 SELECT 
     u.user_id, u.full_name, u.email, 
@@ -111,14 +111,14 @@ HAVING SUM(b.bet_amount) > 300
 ORDER BY total_invested DESC;
 ```
 
-**גרסה ב' (Correlated Subqueries):**
+**גרסה ב' (תתי-שאילתות מקושרות):**
 *(קוד השאילתה מופיע ב-high_value_regional_users.sql)*
 
 **הסבר יעילות:** גרסה א' המשתמשת ב-JOIN היא משמעותית יותר יעילה. תת-שאילתות מקושרות (Correlated Subqueries) רצות פעם אחת עבור כל שורה בטבלת המשתמשים, מה שגורם לעומס כבד בטבלאות גדולות. JOIN מאפשר לאופטימייזר לבצע חיבור יעיל של כל הנתונים בבת אחת.
 
-![Regional Users](screenshots/regional_users.png)
+![משתמשים אזוריים](screenshots/regional_users.png)
 
-#### שאילתה 3: דפוסי זכייה חשודים (Suspicious Winning Patterns)
+#### שאילתה 3: דפוסי זכייה חשודים
 **תיאור:** איתור משתמשים עם אחוז זכייה גבוה במיוחד (מעל 75%) ומינימום 5 הימורים.
 
 **כמות שורות בתוצאה:** 3 שורות בכל אחת משתי הגרסאות.
@@ -140,19 +140,19 @@ HAVING COUNT(b.bet_id) >= 5
 ORDER BY win_rate_percentage DESC;
 ```
 
-**גרסה ב' (Nested Subqueries):**
+**גרסה ב' (תתי-שאילתות מקוננות):**
 *(קוד השאילתה מופיע ב-suspicious_winning_patterns.sql)*
 
 **הסבר יעילות:** גרסה א' יעילה יותר כיוון שהיא סורקת את טבלת ההימורים פעם אחת בלבד ומחשבת את כל המדדים תוך כדי הקיבוץ (Grouping). גרסה ב' יוצרת טבלה זמנית (Subquery) ואז מחברת אותה, מה שעלול לצרוך יותר זיכרון וזמן עיבוד.
 
-![Suspicious Winning](screenshots/sus_winning.png)
+![זכיות חשודות](screenshots/sus_winning.png)
 
-#### שאילתה 4: הפתעות של קבוצות חוץ (Away Team Upsets)
+#### שאילתה 4: הפתעות של קבוצות חוץ
 **תיאור:** מציאת משחקים בהם קבוצת החוץ ניצחה עם יחס הימורים גבוה (מעל 3.5).
 
 **כמות שורות בתוצאה:** 45 שורות בכל אחת משתי הגרסאות.
 
-**גרסה א' (Explicit JOIN):**
+**גרסה א' (JOIN מפורש):**
 ```sql
 SELECT 
     m.match_id, m.match_date, t_home.team_name as home_team, 
@@ -170,60 +170,60 @@ ORDER BY o.away_win_odd DESC;
 
 **הסבר יעילות:** גרסה א' יעילה בהרבה. בגרסה ב', עבור כל משחק שנמצא, בסיס הנתונים צריך להריץ 4 תת-שאילתות נפרדות (לקבלת שמות הקבוצות והיחס). JOIN מבצע זאת בפעולה אחת אחודה.
 
-![Away Upsets](screenshots/away_team.png)
+![הפתעות קבוצות חוץ](screenshots/away_team.png)
 
 ---
 
 ### 2. שאילתות SELECT נוספות
 שאילתות אלו מנתחות היבטים נוספים של המערכת.
 
-#### שאילתה 5: מהמרים בתדירות גבוהה (High-Frequency Bettors)
+#### שאילתה 5: מהמרים בתדירות גבוהה
 **תיאור:** חישוב ממוצע הימורים יומי עבור כל משתמש עם ותק של מעל חודש. השאילתה שופרה כך שהסף יהיה ריאלי לנתונים: יותר מ-0.10 הימורים ליום, כלומר יותר מהימור אחד כל 10 ימים בממוצע.
 
 **כמות שורות בתוצאה:** 191 שורות.
 
 **למה זה שיפור:** בגרסה הקודמת הסף היה `> 0.5`, כלומר יותר מהימור אחד כל יומיים. ביחס לנתוני הפרויקט זה היה סף גבוה מדי ולכן השאילתה החזירה 0 שורות. הסף החדש עדיין מזהה משתמשים פעילים במיוחד, אבל מחזיר תוצאה שניתן לנתח ולהציג בדוח.
-![High Frequency](screenshots/high_frequency_bettors.png)
+![מהמרים בתדירות גבוהה](screenshots/high_frequency_bettors.png)
 
-#### שאילתה 6: משתמשי "לווייתן" חדשים (New Whale Users)
+#### שאילתה 6: משתמשי "לווייתן" חדשים
 **תיאור:** משתמשים חדשים (90 יום) שהימרו בממוצע מעל 100 להימור.
 
 **כמות שורות בתוצאה:** 25 שורות.
-![New Whales](screenshots/new_whales.png)
+![משתמשי לווייתן חדשים](screenshots/new_whales.png)
 
-#### שאילתה 7: ניתוח תזרים מזומנים חודשי (Monthly Cash Flow)
+#### שאילתה 7: ניתוח תזרים מזומנים חודשי
 **תיאור:** סיכום הפקדות, משיכות ותזרים נקי עבור הפלטפורמה בכל חודש.
 
 **כמות שורות בתוצאה:** 30 שורות.
-![Cash Flow](screenshots/cash_flow.png)
+![תזרים מזומנים](screenshots/cash_flow.png)
 
-#### שאילתה 8: מדד יעילות זכייה (Winning Efficiency)
+#### שאילתה 8: מדד יעילות זכייה
 **תיאור:** חישוב כמה כסף המשתמש הרוויח בממוצע עבור כל יום חברות באתר.
 
 **כמות שורות בתוצאה:** 731 שורות.
-![Winning Efficiency](screenshots/winning_efficiency.png)
+![יעילות זכייה](screenshots/winning_efficiency.png)
 
 ---
 
 ### 3. שאילתות DELETE ו-UPDATE
 עבור כל שאילתה מוצגת מטרתה ותוצאת ההרצה (לפני/אחרי).
 
-#### עדכון 1: בונוס נאמנות לזוכים (Loyalty Bonus)
+#### עדכון 1: בונוס נאמנות לזוכים
 **תיאור:** הוספת 25.00 ליתרה של כל משתמש פעיל שזכה לפחות בהימור אחד.
-![Update Winnings](screenshots/update_winnings.png)
+![עדכון זכיות](screenshots/update_winnings.png)
 
-#### עדכון 2: עדכון סטטוס משחקי עבר (Mass Settle Matches)
+#### עדכון 2: עדכון סטטוס משחקי עבר
 **תיאור:** עדכון משחקים שתאריכם עבר אך עדיין מופיעים כ-'Scheduled' לסטטוס 'Finished'.
-![Update Game Status](screenshots/update_game.png)
+![עדכון סטטוס משחק](screenshots/update_game.png)
 
-#### מחיקה 1: ניקוי חשבונות נטושים (Cleanup Abandoned Accounts)
+#### מחיקה 1: ניקוי חשבונות נטושים
 **תיאור:** מחיקת משתמשים שנרשמו לפני שנתיים ומעולם לא ביצעו הימור או טרנזקציה.
-![Delete Abandoned](screenshots/del_abandon.png)
-![Delete Abandoned Verify](screenshots/remove_abandon_users.png)
+![מחיקת חשבונות נטושים](screenshots/del_abandon.png)
+![אימות מחיקת חשבונות נטושים](screenshots/remove_abandon_users.png)
 
-#### מחיקה 2: הסרת משיכות זעירות (Remove Micro-Withdrawals)
+#### מחיקה 2: הסרת משיכות זעירות
 **תיאור:** ניקוי לוג הטרנזקציות ממשיכות בסכום הנמוך מ-100.
-![Delete Small](screenshots/remove_small.png)
+![מחיקת משיכות קטנות](screenshots/remove_small.png)
 
 ---
 
@@ -235,14 +235,14 @@ ORDER BY o.away_win_odd DESC;
 ALTER TABLE USERS ADD CONSTRAINT chk_registration_date CHECK (registration_date <= CURRENT_DATE);
 ```
 **ניסיון הכנסה שגוי:**
-![Constraint 1 Error](screenshots/cons_1.png)
+![שגיאת אילוץ 1](screenshots/cons_1.png)
 
 #### אילוץ 2: קבוצת בית וחוץ חייבות להיות שונות
 ```sql
 ALTER TABLE MATCHES ADD CONSTRAINT chk_different_teams CHECK (home_team_id <> away_team_id);
 ```
 **ניסיון הכנסה שגוי:**
-![Constraint 2 Error](screenshots/cons_2.png)
+![שגיאת אילוץ 2](screenshots/cons_2.png)
 
 #### אילוץ 3: סכום הפקדה/זכייה חייב להיות חיובי
 ```sql
@@ -252,21 +252,21 @@ ALTER TABLE TRANSACTIONS ADD CONSTRAINT chk_positive_transaction CHECK (
 );
 ```
 **ניסיון הכנסה שגוי:**
-![Constraint 3 Error](screenshots/cons_3.png)
+![שגיאת אילוץ 3](screenshots/cons_3.png)
 
 ---
 
-### 5. טרנזקציות (Commit & Rollback)
+### 5. טרנזקציות (Commit ו-Rollback)
 הדגמת ניהול טרנזקציות על מספר רב של שורות.
 
-#### דוגמת Rollback (ביטול בונוס):
+#### דוגמת Rollback - ביטול בונוס
 הענקת בונוס לכל המשתמשים הלא פעילים וביטולו.
-![Rollback Demo](screenshots/commit.png)
-*(הערה: ה-Screenshot מציג את תהליך ה-BEGIN, UPDATE ו-ROLLBACK/COMMIT)*
+![הדגמת Rollback](screenshots/commit.png)
+*(הערה: צילום המסך מציג את תהליך ה-BEGIN, UPDATE ו-ROLLBACK/COMMIT)*
 
 ---
 
-### 6. אינדקסים (Indexes)
+### 6. אינדקסים
 שיפור ביצועים במערכת על ידי הוספת אינדקסים מכווני-ביצועים ובדיקת תוכניות שאילתה (`EXPLAIN ANALYZE`).
 
 הבדיקה בוצעה על עותק זמני של בסיס הנתונים כדי להשוות לפני ואחרי ללא שינוי הנתונים המקוריים. בכל בדיקה מחקנו את האינדקס, הרצנו `ANALYZE`, מדדנו את השאילתה, יצרנו את האינדקס מחדש ומדדנו שוב.
