@@ -1,6 +1,6 @@
 from db.connection import DatabaseConnection
 from db.repository import Repository
-from ui.app import BetMasterAdmin
+from ui.app import BetMasterApp
 
 
 def main():
@@ -11,8 +11,8 @@ def main():
         return
 
     repo = Repository(db)
-    admin = BetMasterAdmin(repo)
-    admin.run()
+    app = BetMasterApp(repo)
+    app.run()
 
     db.disconnect()
 

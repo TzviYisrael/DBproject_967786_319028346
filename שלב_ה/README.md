@@ -1,111 +1,97 @@
-# שלב ה' - ממשק גרפי לניהול בסיס הנתונים BetMaster
+# BetMaster – Stage E (GUI)
 
-ממשק ניהול גרפי לבסיס הנתונים המשולב של BetMaster. האפליקציה נכתבה ב-Python עם Dear PyGui ומתחברת ל-PostgreSQL בעזרת psycopg2.
+Python desktop GUI for the BetMaster betting-database system. Built with **Dear PyGui** (+ *psycopg2* for PostgreSQL).  
+Supports two roles: **Client** (place bets, manage funds) and **Admin** (full CRUD, analytics, PL/pgSQL).
 
-## הוראות הפעלה
+---
 
-### דרישות מקדימות
-
-- Python 3.10 ומעלה
-- Docker ו-Docker Compose
-- בסיס הנתונים של שלב ד' טעון ב-PostgreSQL
-
-### 1. הפעלת PostgreSQL
-
-מתיקיית השורש של הפרויקט:
+## How to Run
 
 ```powershell
+# 1. Start PostgreSQL (from project root)
 docker compose up -d
-```
 
-אם עובדים על מחשב נקי או volume חדש, יש לטעון את גיבוי שלב ד':
-
-```powershell
-docker exec -i betmaster_db psql -U betmaster_user -d betmaster < .\שלב_ד\backup4.sql
-```
-
-אם ה-volume כבר מכיל את הנתונים, אין להריץ את פקודת הטעינה שוב.
-
-### 2. התקנת תלויות Python
-
-```powershell
+# 2. Install Python dependencies
 cd .\שלב_ה
 python -m pip install -r requirements.txt
-```
 
-### 3. הרצת האפליקציה
-
-```powershell
+# 3. Launch the app
 python main.py
 ```
 
-האפליקציה מתחברת אוטומטית לפי הפרטים הבאים:
+The app auto-connects to `localhost:5432 / betmaster / betmaster_user / betmaster_pass`.
 
-- Host: `localhost`
-- Port: `5432`
-- Database: `betmaster`
-- User: `betmaster_user`
-- Password: `betmaster_pass`
+---
 
-## דרך העבודה והכלים
+## How to Use (walkthrough)
 
-האפליקציה בנויה בשלוש שכבות:
+### Welcome Screen
 
-| רכיב | תפקיד |
-|---|---|
-| `main.py` | נקודת הכניסה, פתיחת חיבור לבסיס הנתונים והרצת הממשק |
-| `db/connection.py` | חיבור PostgreSQL בעזרת `psycopg2` |
-| `db/repository.py` | metadata לכל 40 הטבלאות, CRUD, Stage B Queries והרצת Stage D Programs |
-| `ui/app.py` | מסכי Dear PyGui, ניווט, טבלאות, טפסי Create/Update/Delete ותצוגת Results |
+Two entry points:
 
-הבחירה ב-Dear PyGui מאפשרת לבנות desktop GUI נוח עם טבלאות, forms, תפריט צדדי, pagination בתוצאות ותצוגת Results ללא צורך בדפדפן.
+| ![Welcome](screenshots/welcome_page.png) |
+|:---:|
+| Click **Enter as Client** or **System Admin Dashboard** |
 
-## מסכי האפליקציה
+### Client Mode
 
-1. **Home** - מסך כניסה שממנו עוברים ל-Data Management, Analytics Queries ו-PL/pgSQL Programs.
-2. **Data Management** - מסך CRUD לכל 40 הטבלאות בבסיס הנתונים:
-   - `users`, `teams`, `matches`, `odds`, `bets`, `transactions`
-   - טבלאות הכדורגל המשולבות
-   - טבלאות המקור שהתקבלו באינטגרציה
-   - טבלאות אינטגרציה, audit וסיכון
-3. **Actions** - מסך להרצת Stage B Queries ו-Stage D Programs.
+| ![Login](screenshots/login_page.png) | ![Client Dashboard](screenshots/client_dashboard.png) |
+|:---:|:---:|
+| Pick a user and click *Enter Client Area* | View stats, balance, charts, recent bets |
 
-## פעולות CRUD
+| ![Placing a Bet](screenshots/placing_a_bet.png) |
+|:---:|
+| Browse available matches, pick a prediction (Home/Draw/Away), enter amount, and place the bet |
 
-לכל טבלה ניתן לבצע:
+From the client dashboard you can also **Deposit**, **Withdraw**, view **My Bets**, and see **Transaction History**.
 
-- **Read** - הצגת נתונים בטבלה עם pagination של 500 רשומות בכל טעינה.
-- **Create** - פתיחת form יצירה בעזרת כפתור `+ Create`.
-- **Update** - הכנסת primary key, לחיצה על `Fetch`, טעינת שאר השדות ועדכון.
-- **Delete** - הכנסת primary key ומחיקת הרשומה.
+### Admin Mode
 
-ב-Foreign Keys מוצגים שמות וערכים קריאים במקום מספרי ID. לדוגמה, בהימורים מוצג שם המשתמש ותיאור המשחק במקום `user_id` ו-`match_id`.
+| ![Admin Dashboard](screenshots/admin_dashboard.png) |
+|:---:|
+| System-wide stats, monthly volume chart, user-status distribution. Three action areas below |
 
-## Stage B Queries בממשק
+| ![Data Management](screenshots/data_managment_example.png) | ![Analytics](screenshots/analytics_example.png) |
+|:---:|:---:|
+| Browse, search, create, update, delete any of the 40+ tables | Run analytical queries: top winners, suspicious patterns, cash flow, regional insights |
 
-הממשק מאפשר להריץ 5 Queries:
+| ![Quick Actions](screenshots/quick_action_example.png) |
+|:---:|
+| Execute PL/pgSQL programs: settle a match, recalculate user statuses, view match financial summary, run risk assessment |
 
-1. `Top Recent Winners`
-2. `Suspicious Winning Patterns`
-3. `High-Value Regional Users`
-4. `Away Team Upsets`
-5. `Monthly Cash Flow`
+---
 
-## Stage D Programs and Functions בממשק
+## How the App Is Built
 
-הממשק מאפשר להריץ 4 Stage D Programs:
+```
+שלב_ה/
+├── main.py                 # Entry point — opens DB connection, creates app, runs event loop
+├── requirements.txt        # Python dependencies
+├── db/
+│   ├── __init__.py
+│   ├── connection.py       # PostgreSQL connection via psycopg2
+│   └── repository.py       # Metadata for 40+ tables, CRUD, analytical queries, PL/pgSQL execution
+├── ui/
+│   ├── __init__.py
+│   └── app.py              # All GUI code: screens, navigation, theme, tables, forms, charts
+├── assets/
+│   ├── background_small.png
+│   └── png/                # Icon textures (sports_soccer, wallet, trophy, etc.)
+└── screenshots/            # Documentation images
+```
 
-1. `proc_settle_match`
-2. `proc_recalculate_user_statuses`
-3. `fn_match_financial_summary`
-4. `fn_open_user_risk_report`
+| File | What it does |
+|------|--------------|
+| `main.py` | Starts everything — connects to DB via `DatabaseConnection`, creates a `Repository`, instantiates `BetMasterApp`, and runs the Dear PyGui loop |
+| `db/connection.py` | Thin wrapper around `psycopg2` — connect, disconnect, execute queries, get cursor |
+| `db/repository.py` | The data layer. Holds table metadata (columns, PKs, FKs, display names), implements all CRUD operations, analytical queries (Top Winners, Suspicious Patterns, etc.), and PL/pgSQL program execution (settle match, risk report, etc.) |
+| `ui/app.py` | The entire GUI in one file (~1700 lines). Organized as a `BetMasterApp` class with methods for each screen (`_show_welcome`, `_show_client_dashboard`, `_show_admin_home`, `_show_data_screen`, etc.), plus visual components (`_make_card`, `_render_stat_card`, `_render_pie_chart`, `_render_bar_chart`, `_render_status_badge`) |
 
-הפעלת ה-Procedures משפיעה על טבלאות כמו `matches`, `bets`, `transactions`, `users`, `match_settlement_log`, `risk_review_queue` וטבלאות audit, כך שניתן לראות את השפעת הפעולה במסכי הנתונים.
+### GUI structure
 
-## צילומי מסך
-
-| מסך | תמונה |
-|---|---|
-| מסך הבית | ![מסך הבית](screenshots/home_page.png) |
-| ניהול נתונים ו-CRUD | ![ניהול נתונים](screenshots/data_page.png) |
-| Queries ו-Programs | ![Queries ו-Programs](screenshots/query_page.png) |
+- **Theme**: Football-pitch green background, red buttons (jersey red), white headings, gold stats, yellow-card warnings, red-card danger
+- **Layout**: Single `main_window` with dynamic children — each screen clears and rebuilds the content. Navigation via top bar with back buttons and sidebars
+- **Screens are methods** in `BetMasterApp` — `_show_welcome()`, `_show_client_select()`, `_show_client_dashboard()`, `_show_admin_home()`, `_show_data_screen()`, `_show_analytics_screen()`, `_show_quick_actions_screen()`. Each deletes existing children, rebuilds its UI, and sets `self.current_screen`
+- **Charts**: Pie series (normalized manually) for bet outcomes / user status; bar series for bet amounts / transaction volume
+- **CRUD**: Table metadata drives dynamic forms — FK columns get combo boxes with human-readable values, PK columns are used for update/delete targeting
+- **Password field**: Present on the login screen but performs no validation (placeholder for future auth)

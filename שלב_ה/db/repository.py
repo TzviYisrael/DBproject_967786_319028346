@@ -929,3 +929,390 @@ class Repository:
             cursor.connection.rollback()
             cursor.close()
             raise e
+
+    # ── Client mode methods ──────────────────────────────────────────────
+
+    def get_users_for_selection(self):
+        cursor = self.db.get_cursor()
+        cursor.execute(
+            "SELECT user_id, full_name FROM users "
+            "WHERE account_status = 'Active' "
+            "ORDER BY full_name"
+        )
+        rows = cursor.fetchall()
+        cursor.close()
+        return rows
+
+    def get_user_profile(self, user_id):
+        cursor = self.db.get_cursor()
+        cursor.execute(
+            "SELECT user_id, full_name, email, balance, "
+            "       registration_date, account_status "
+            "FROM users WHERE user_id = %s",
+            (user_id,),
+        )
+        row = cursor.fetchone()
+        cursor.close()
+        if row:
+            return dict(
+                zip(
+                    [
+                        "user_id",
+                        "full_name",
+                        "email",
+                        "balance",
+                        "registration_date",
+                        "account_status",
+                    ],
+                    row,
+                )
+            )
+        return None
+
+    def get_user_bets(self, user_id, limit=50, offset=0):
+        sql = """
+            SELECT b.bet_id, b.predicted_result, b.bet_amount,
+                   b.bet_date, b.bet_status,
+                   m.match_id, m.match_date, m.status AS match_status,
+                   t_home.team_name AS home_team,
+                   t_away.team_name AS away_team
+            FROM bets b
+            JOIN matches m ON b.match_id = m.match_id
+            JOIN teams t_home ON m.home_team_id = t_home.team_id
+            JOIN teams t_away ON m.away_team_id = t_away.team_id
+            WHERE b.user_id = %s
+            ORDER BY b.bet_date DESC, b.bet_id DESC
+            LIMIT %s OFFSET %s
+        """
+        cursor = self.db.get_cursor()
+        cursor.execute(sql, (user_id, limit + 1, offset))
+        rows = cursor.fetchall()
+        cursor.close()
+        columns = [
+            "bet_id", "prediction", "amount", "date",
+            "status", "match_id", "match_date", "match_status",
+            "home", "away",
+        ]
+        has_more = len(rows) > limit
+        if has_more:
+            rows = rows[:limit]
+        return {"columns": columns, "rows": rows, "has_more": has_more}
+
+    def get_user_transactions(self, user_id, limit=50, offset=0):
+        sql = """
+            SELECT transaction_id, amount, transaction_type, transaction_date
+            FROM transactions
+            WHERE user_id = %s
+            ORDER BY transaction_date DESC, transaction_id DESC
+            LIMIT %s OFFSET %s
+        """
+        cursor = self.db.get_cursor()
+        cursor.execute(sql, (user_id, limit + 1, offset))
+        rows = cursor.fetchall()
+        cursor.close()
+        columns = ["id", "amount", "type", "date"]
+        has_more = len(rows) > limit
+        if has_more:
+            rows = rows[:limit]
+        return {"columns": columns, "rows": rows, "has_more": has_more}
+
+    def get_available_matches_with_odds(self):
+        sql = """
+            SELECT m.match_id, m.match_date, m.competition_stage,
+                   t_home.team_name AS home_team,
+                   t_away.team_name AS away_team,
+                   o.home_win_odd, o.draw_odd, o.away_win_odd
+            FROM matches m
+            JOIN teams t_home ON m.home_team_id = t_home.team_id
+            JOIN teams t_away ON m.away_team_id = t_away.team_id
+            LEFT JOIN odds o ON m.match_id = o.match_id
+            WHERE (m.status IS NULL OR m.status = 'Scheduled')
+            ORDER BY m.match_date NULLS LAST, m.match_id
+        """
+        cursor = self.db.get_cursor()
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+        cursor.close()
+        columns = [
+            "match_id", "date", "stage",
+            "home_team", "away_team",
+            "home_odd", "draw_odd", "away_odd",
+        ]
+        return {"columns": columns, "rows": rows}
+
+    def place_bet(self, user_id, match_id, predicted_result, amount):
+        cursor = self.db.get_cursor()
+        try:
+            cursor.execute(
+                "SELECT balance, account_status FROM users "
+                "WHERE user_id = %s FOR UPDATE",
+                (user_id,),
+            )
+            user_row = cursor.fetchone()
+            if not user_row:
+                raise ValueError("User not found")
+            balance, acct_status = user_row
+            if acct_status in ("Deleted", "Blocked"):
+                raise ValueError("Account is not active for betting")
+            if balance < amount:
+                raise ValueError(
+                    f"Insufficient balance. "
+                    f"Current: {balance}, Required: {amount}"
+                )
+
+            cursor.execute(
+                "SELECT status FROM matches WHERE match_id = %s",
+                (match_id,),
+            )
+            match_row = cursor.fetchone()
+            if not match_row:
+                raise ValueError("Match not found")
+            if match_row[0] == "Finished":
+                raise ValueError("Match has already finished")
+
+            if predicted_result not in ("Home", "Draw", "Away"):
+                raise ValueError("Prediction must be Home, Draw, or Away")
+
+            cursor.execute(
+                "SELECT COALESCE(MAX(bet_id), 0) + 1 FROM bets"
+            )
+            next_bet_id = cursor.fetchone()[0]
+
+            cursor.execute(
+                "INSERT INTO bets "
+                "(bet_id, predicted_result, bet_amount, bet_date, "
+                " bet_status, user_id, match_id) "
+                "VALUES (%s, %s, %s, CURRENT_DATE, 'Pending', %s, %s)",
+                (next_bet_id, predicted_result, amount, user_id, match_id),
+            )
+
+            cursor.execute(
+                "UPDATE users SET balance = balance - %s "
+                "WHERE user_id = %s",
+                (amount, user_id),
+            )
+
+            cursor.execute(
+                "SELECT COALESCE(MAX(transaction_id), 0) + 1 "
+                "FROM transactions"
+            )
+            next_txn_id = cursor.fetchone()[0]
+
+            cursor.execute(
+                "INSERT INTO transactions "
+                "(transaction_id, amount, transaction_type, "
+                " transaction_date, user_id) "
+                "VALUES (%s, %s, 'Bet Placement', CURRENT_DATE, %s)",
+                (next_txn_id, amount, user_id),
+            )
+
+            cursor.connection.commit()
+            cursor.close()
+            return {
+                "success": True,
+                "message": f"Bet placed! ID: {next_bet_id}",
+                "bet_id": next_bet_id,
+            }
+
+        except Exception as e:
+            cursor.connection.rollback()
+            cursor.close()
+            raise e
+
+    def create_deposit(self, user_id, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive")
+        cursor = self.db.get_cursor()
+        try:
+            cursor.execute(
+                "SELECT account_status FROM users "
+                "WHERE user_id = %s FOR UPDATE",
+                (user_id,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("User not found")
+            if row[0] == "Deleted":
+                raise ValueError("Account is deleted")
+
+            cursor.execute(
+                "UPDATE users SET balance = balance + %s "
+                "WHERE user_id = %s",
+                (amount, user_id),
+            )
+
+            cursor.execute(
+                "SELECT COALESCE(MAX(transaction_id), 0) + 1 "
+                "FROM transactions"
+            )
+            next_txn_id = cursor.fetchone()[0]
+
+            cursor.execute(
+                "INSERT INTO transactions "
+                "(transaction_id, amount, transaction_type, "
+                " transaction_date, user_id) "
+                "VALUES (%s, %s, 'Deposit', CURRENT_DATE, %s)",
+                (next_txn_id, amount, user_id),
+            )
+
+            cursor.connection.commit()
+            cursor.close()
+            return {"success": True, "message": f"Deposit of {amount} completed!"}
+
+        except Exception as e:
+            cursor.connection.rollback()
+            cursor.close()
+            raise e
+
+    def create_withdrawal(self, user_id, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be positive")
+        cursor = self.db.get_cursor()
+        try:
+            cursor.execute(
+                "SELECT balance, account_status FROM users "
+                "WHERE user_id = %s FOR UPDATE",
+                (user_id,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("User not found")
+            balance, acct_status = row
+            if acct_status in ("Deleted", "Blocked"):
+                raise ValueError("Account is not active for withdrawals")
+            if balance < amount:
+                raise ValueError(
+                    f"Insufficient balance. "
+                    f"Current: {balance}, Required: {amount}"
+                )
+
+            cursor.execute(
+                "UPDATE users SET balance = balance - %s "
+                "WHERE user_id = %s",
+                (amount, user_id),
+            )
+
+            cursor.execute(
+                "SELECT COALESCE(MAX(transaction_id), 0) + 1 "
+                "FROM transactions"
+            )
+            next_txn_id = cursor.fetchone()[0]
+
+            cursor.execute(
+                "INSERT INTO transactions "
+                "(transaction_id, amount, transaction_type, "
+                " transaction_date, user_id) "
+                "VALUES (%s, %s, 'Withdrawal', CURRENT_DATE, %s)",
+                (next_txn_id, amount, user_id),
+            )
+
+            cursor.connection.commit()
+            cursor.close()
+            return {
+                "success": True,
+                "message": f"Withdrawal of {amount} completed!",
+            }
+
+        except Exception as e:
+            cursor.connection.rollback()
+            cursor.close()
+            raise e
+
+    # ── Stats / chart data methods ───────────────────────────────────────
+
+    def get_user_bet_stats(self, user_id):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT
+                COUNT(*)::INT AS total_bets,
+                COUNT(*) FILTER (WHERE bet_status = 'Won')::INT AS won,
+                COUNT(*) FILTER (WHERE bet_status = 'Lost')::INT AS lost,
+                COUNT(*) FILTER (WHERE bet_status = 'Pending')::INT AS pending,
+                COALESCE(SUM(bet_amount) FILTER (WHERE bet_status = 'Won'), 0) AS won_amount,
+                COALESCE(SUM(bet_amount), 0) AS total_wagered
+            FROM bets WHERE user_id = %s
+        """, (user_id,))
+        row = cursor.fetchone()
+        cursor.close()
+        if row:
+            cols = ['total_bets', 'won', 'lost', 'pending', 'won_amount', 'total_wagered']
+            return dict(zip(cols, row))
+        return None
+
+    def get_admin_stats(self):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT
+                (SELECT COUNT(*) FROM users)::INT AS total_users,
+                (SELECT COUNT(*) FROM bets)::INT AS total_bets,
+                (SELECT COUNT(*) FROM matches)::INT AS total_matches,
+                (SELECT COUNT(*) FROM transactions)::INT AS total_txns,
+                (SELECT COALESCE(SUM(amount), 0) FROM transactions
+                 WHERE transaction_type IN ('Deposit','Winnings')) AS total_inflow,
+                (SELECT COALESCE(SUM(amount), 0) FROM transactions
+                 WHERE transaction_type IN ('Withdrawal','Bet Placement')) AS total_outflow
+        """)
+        row = cursor.fetchone()
+        cursor.close()
+        if row:
+            cols = ['total_users', 'total_bets', 'total_matches',
+                    'total_txns', 'total_inflow', 'total_outflow']
+            return dict(zip(cols, row))
+        return None
+
+    def get_user_bet_distribution(self, user_id):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT bet_status, COUNT(*)::INT AS cnt
+            FROM bets WHERE user_id = %s
+            GROUP BY bet_status
+        """, (user_id,))
+        rows = cursor.fetchall()
+        cursor.close()
+        return rows
+
+    def get_user_bet_amounts_chart(self, user_id, limit=15):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT bet_amount::FLOAT8, bet_date
+            FROM bets WHERE user_id = %s
+            ORDER BY bet_date DESC, bet_id DESC
+            LIMIT %s
+        """, (user_id, limit))
+        rows = cursor.fetchall()
+        cursor.close()
+        rows.reverse()
+        return rows
+
+    def get_admin_volume_chart(self):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT
+                EXTRACT(YEAR FROM transaction_date)::INT AS yr,
+                EXTRACT(MONTH FROM transaction_date)::INT AS mo,
+                COALESCE(SUM(CASE WHEN transaction_type = 'Deposit'
+                             THEN amount ELSE 0 END), 0) AS deposits,
+                COALESCE(SUM(CASE WHEN transaction_type = 'Withdrawal'
+                             THEN amount ELSE 0 END), 0) AS withdrawals
+            FROM transactions
+            GROUP BY yr, mo
+            ORDER BY yr DESC, mo DESC
+            LIMIT 12
+        """)
+        rows = cursor.fetchall()
+        cursor.close()
+        rows.reverse()
+        return rows
+
+    def get_user_status_distribution(self):
+        cursor = self.db.get_cursor()
+        cursor.execute("""
+            SELECT account_status, COUNT(*)::INT AS cnt
+            FROM users
+            WHERE account_status != 'Deleted'
+            GROUP BY account_status
+            ORDER BY cnt DESC
+        """)
+        rows = cursor.fetchall()
+        cursor.close()
+        return rows
